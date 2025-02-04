@@ -35,6 +35,7 @@ public class Game_2D {
         
         window.setLocationRelativeTo(null); //set window at the center of the screen
         window.setVisible(true);
+        gamepanel.startGameThread();
     }
         
 }
