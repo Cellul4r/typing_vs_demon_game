@@ -31,7 +31,8 @@ public class GamePanel extends JPanel implements Runnable{
     
     public static final int GAME_ROW = 5;
     public static final int GAME_SCALE = 2;
-    
+    public static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
+    public static final int CHANNEL_SPACING = GAME_ROW * GAME_SCALE;
     
 //    public static final int PLAYER_FPS = 12;
     private static final int FPS = 30;
@@ -53,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     private void setUpGame() {
         channelRow = new int[GAME_ROW];
-        for(int i = 0, j = 3 * TILE_SIZE; i < GAME_ROW; i++, j += GAME_SCALE * TILE_SIZE) {
+        for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
             channelRow[i] = j;
         }
         keyH = new KeyHandler();
