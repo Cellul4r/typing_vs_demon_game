@@ -30,7 +30,7 @@ public class Player extends Entity{
     public void setDefaultValues(){
         //Player's default position
         x = 2 * gp.tileSize;
-        y = gp.getChannelY(2);
+        y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
     }
