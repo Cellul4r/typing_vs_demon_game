@@ -19,33 +19,33 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable{
     
-    private static final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
-    private static final int SCALE = 3; //Scale of Pixel Size
+    private final int originalTileSize = 16; //Pixel Size of Characters
+    private final int scale = 3; //Scale of Pixel Size
     
-    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
+    public final int tileSize = originalTileSize * scale; //Real Size of Characters
     
-    public static final int MAX_SCREEN_COL = 20;
-    public static final int MAX_SCREEN_ROW = 14;
-    private static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
-    private static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
+    private final int maxScreenCol = 20;
+    private final int maxScreenRow = 14;
+    private final int screenWidth = tileSize * maxScreenCol;
+    private final int screenHeight = tileSize * maxScreenRow;
     
-    public static final int GAME_ROW = 5;
-    public static final int GAME_SCALE = 2;
-    public static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
-    public static final int CHANNEL_SPACING = TILE_SIZE * GAME_SCALE;
+    public final int gameRow = 5;
+    private final int gameScale = 2;
+    private final int firstChannelY = 3 * tileSize;
+    public final int channelSpacing = gameScale * tileSize;
     
 //    public static final int PLAYER_FPS = 12;
-    private static final int FPS = 12;
+    private final int FPS = 12;
     
     // channel Row channel 1 at ? y pixels
-    public static int channelRow[];
+    private int channelRow[];
     private KeyHandler keyH;
     private Thread gameThread; //Running game loops
     private Player player;
     
     public GamePanel(){
         setUpGame();
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
@@ -53,12 +53,16 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     private void setUpGame() {
-        channelRow = new int[GAME_ROW];
-        for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
+        channelRow = new int[gameRow];
+        for(int i = 0, j = firstChannelY; i < gameRow; i++, j += channelSpacing) {
             channelRow[i] = j;
         }
         keyH = new KeyHandler();
         player = new Player(this, keyH);
+    }
+    
+    public int getChannelY(int row) {
+        return this.channelRow[row];
     }
     
     public void startGameThread(){

@@ -22,16 +22,16 @@ public class Player extends Entity{
     private final KeyHandler keyH;
 //    private int channel;
     public Player(GamePanel gp, KeyHandler keyH){
+        this.gp = gp;
         this.keyH = keyH;
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
         //Player's default position
-        x = 2 * GamePanel.TILE_SIZE;
-        y = GamePanel.channelRow[2];
-        speed = GamePanel.CHANNEL_SPACING; //player moves by X pixels
-        System.out.println(GamePanel.CHANNEL_SPACING);
+        x = 2 * gp.tileSize;
+        y = gp.getChannelY(2);
+        speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
     }
     
@@ -42,8 +42,8 @@ public class Player extends Entity{
             up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
 //            up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
 //            up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player_res/penguin.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player_res/penguin.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));
         }catch(IOException e){
             e.printStackTrace();
@@ -75,8 +75,8 @@ public class Player extends Entity{
     
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
-        int tileSize = GamePanel.TILE_SIZE;
-        g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, GamePanel.GAME_ROW * GamePanel.CHANNEL_SPACING); //Draw Rectangle at X, Y, width, height
+        int tileSize = gp.tileSize;
+        g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, gp.gameRow * gp.channelSpacing); //Draw Rectangle at X, Y, width, height
 //        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
         
 //        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
@@ -111,6 +111,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, x, y, 1 * GamePanel.TILE_SIZE, 1 * GamePanel.TILE_SIZE, null);
+        g2.drawImage(image, x, y, tileSize, tileSize, null);
     }
 }
