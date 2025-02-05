@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
     private int screenWidth = tileSize * maxScreenCol;
     private int screenHeight = tileSize * maxScreenRow;
     
-    int FPS = 60;
+    final int FPS = 12;
     
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //Running game loops
@@ -41,9 +41,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     //Player's default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 12; //player moves by X pixels
+    int playerX = 70;
+    int playerY = 155;
+    final int playerSpeed = 100; //player moves by X pixels
     
     
     public void startGameThread(){
@@ -92,6 +92,14 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.black);
         g2.fillRect(playerX, playerY, tileSize, tileSize); //Draw Rectangle at X, Y, width, height
+        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
+        
+        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
+        g2.fillRoundRect(150, 230, 3000, 1, 10, 10);
+        g2.fillRoundRect(150, 330, 3000, 1, 10, 10);
+        g2.fillRoundRect(150, 430, 3000, 1, 10, 10);
+        g2.fillRoundRect(150, 530, 3000, 1, 10, 10);
+        g2.fillRoundRect(150, 630, 3000, 1, 10, 10);
         
         g2.dispose();
     }
