@@ -32,16 +32,16 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int GAME_ROW = 5;
     public static final int GAME_SCALE = 2;
     public static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
-    public static final int CHANNEL_SPACING = GAME_ROW * GAME_SCALE;
+    public static final int CHANNEL_SPACING = TILE_SIZE * GAME_SCALE;
     
 //    public static final int PLAYER_FPS = 12;
-    private static final int FPS = 30;
+    private static final int FPS = 12;
     
     // channel Row channel 1 at ? y pixels
     public static int channelRow[];
-    KeyHandler keyH;
-    Thread gameThread; //Running game loops
-    Player player;
+    private KeyHandler keyH;
+    private Thread gameThread; //Running game loops
+    private Player player;
     
     public GamePanel(){
         setUpGame();
@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/ FPS; //60 FPS == draw the screen every 0.016 seconds
+        double drawInterval = 1000000000 / FPS; //60 FPS == draw the screen every 0.016 seconds
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;

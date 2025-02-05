@@ -12,12 +12,41 @@ import java.awt.image.BufferedImage;
  */
 public class Entity {
     
-    public int x, y;
-    public int speed;
+    protected int x, y;
+    protected int speed;
     
-    public BufferedImage up1, up2, down1, down2, right;
-    public String direction;
+    protected BufferedImage up1, up2, down1, down2, right;
+    protected String direction;
     
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    protected int spriteCounter = 0;
+    protected int spriteNum = 1;
+    
+    protected String getDirection() {
+        return this.direction;
+    }
+    
+    protected int getSpeed() {
+        return this.speed;
+    }
+    
+    protected int getX() {
+        return this.x;
+    }
+    
+    protected int getY() {
+        return this.y;
+    }
+    
+    protected void setDirection(String direction) {
+        this.direction = direction;
+    }
+    
+    protected void setX(int x) {
+        this.x = x;
+    }
+    
+    protected void setY(int y) {
+        this.y = y;
+    }
+    
 }

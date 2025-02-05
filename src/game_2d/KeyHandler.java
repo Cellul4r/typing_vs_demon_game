@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
     
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    private boolean upPressed, downPressed;
 
     
     @Override
@@ -24,35 +24,29 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         //System.out.println(KeyEvent.getKeyText(code));
-        if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){ //If you press W
+        if(code == KeyEvent.VK_UP){ //If you press W
             upPressed = true;
-        }
-        if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
+        } else if(code == KeyEvent.VK_DOWN){
             downPressed = true;
-        }
-        if(code == KeyEvent.VK_A){
-            leftPressed = true;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
+        if(code == KeyEvent.VK_UP){ //If you press W
             upPressed = false;
-        }
-        if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
+        } else if(code == KeyEvent.VK_DOWN){
             downPressed = false;
         }
-        if(code == KeyEvent.VK_A){
-            leftPressed = false;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = false;
-        }
+    }
+    
+    public boolean getUpPressed() {
+        return upPressed;
+    }
+    
+    public boolean getDownPressed() {
+        return downPressed;
     }
     
 }
