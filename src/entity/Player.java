@@ -33,15 +33,17 @@ public class Player extends Entity{
         //Player's default position
         x = 70;
         y = 155;
-        speed = 100; //player moves by X pixels
+        speed = 2 * gp.tileSize; //player moves by X pixels
         direction = "down";
     }
     
     public void getPlayerImage(){
         
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
+//            up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
+//            up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/player_res/penguin.png"));
             down2 = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));
