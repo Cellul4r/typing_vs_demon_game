@@ -4,6 +4,7 @@
  */
 package game_2d;
 
+import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     private int originalTileSize = 16; //Pixel Size of Characters
     private int scale = 3; //Scale of Pixel Size
     
-    private int tileSize = originalTileSize * scale; //Real Size of Characters
+    public int tileSize = originalTileSize * scale; //Real Size of Characters
     
     private int maxScreenCol = 20;
     private int maxScreenRow = 15;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //Running game loops
+    Player player = new Player(this, keyH);
     
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -41,10 +43,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true); //so the game can 'focus' on receiving key
     }
     
-    //Player's default position
-    int playerX = 70;
-    int playerY = 155;
-    final int playerSpeed = 100; //player moves by X pixels
     
     
     public void startGameThread(){
@@ -75,32 +73,12 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        if(keyH.upPressed == true){
-            playerY -= playerSpeed;
-        }
-        else if (keyH.downPressed == true){
-            playerY += playerSpeed;
-        }
-        else if (keyH.leftPressed == true){
-            playerX -= playerSpeed;
-        }
-        else if (keyH.rightPressed == true){
-            playerX += playerSpeed;
-        }
+        player.update();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.black);
-        g2.fillRect(playerX, playerY, tileSize, tileSize); //Draw Rectangle at X, Y, width, height
-        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
-        
-        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 230, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 330, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 430, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 530, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 630, 3000, 1, 10, 10);
+        player.draw(g2);
         
         g2.dispose();
     }
