@@ -20,20 +20,19 @@ public class Player extends Entity{
     
     GamePanel gp;
     KeyHandler keyH;
-    
+//    private int channel;
     public Player(GamePanel gp, KeyHandler keyH){
         
         this.gp = gp;
         this.keyH = keyH;
-        
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
         //Player's default position
-        x = 70;
-        y = 155;
-        speed = 2 * gp.tileSize; //player moves by X pixels
+        x = 2 * gp.TILE_SIZE;
+        y = gp.channelRow[0];
+        speed = 2 * gp.TILE_SIZE; //player moves by X pixels
         direction = "down";
     }
     
@@ -85,15 +84,21 @@ public class Player extends Entity{
     }
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
-        //g2.fillRect(x, y, gp.tileSize, gp.tileSize); //Draw Rectangle at X, Y, width, height
-        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
+        int tileSize = gp.TILE_SIZE;
+        g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, gp.TILE_SIZE * gp.GAME_ROW); //Draw Rectangle at X, Y, width, height
+//        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
         
-        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 230, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 330, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 430, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 530, 3000, 1, 10, 10);
-        g2.fillRoundRect(150, 630, 3000, 1, 10, 10);
+//        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 2 * tileSize, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 4 * tileSize, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 6 * tileSize, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 8 * tileSize, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 10 * tileSize, 3000, 1, 10, 10);
+        g2.fillRoundRect(3 * tileSize, 12 * tileSize, 3000, 1, 10, 10);
+//        g2.fillRoundRect(150, 330, 3000, 1, 10, 10);
+//        g2.fillRoundRect(150, 430, 3000, 1, 10, 10);
+//        g2.fillRoundRect(150, 530, 3000, 1, 10, 10);
+//        g2.fillRoundRect(150, 630, 3000, 1, 10, 10);
         
         BufferedImage image = null;
         
@@ -115,6 +120,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, 1 * gp.TILE_SIZE, 1 * gp.TILE_SIZE, null);
     }
 }

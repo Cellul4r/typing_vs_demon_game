@@ -18,32 +18,47 @@ import javax.swing.JPanel;
  * @author HP
  */
 public class GamePanel extends JPanel implements Runnable{
-    private int originalTileSize = 16; //Pixel Size of Characters
-    private int scale = 3; //Scale of Pixel Size
     
-    public int tileSize = originalTileSize * scale; //Real Size of Characters
+    private static final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
+    private static final int SCALE = 3; //Scale of Pixel Size
     
-    private int maxScreenCol = 20;
-    private int maxScreenRow = 16;
-    private int screenWidth = tileSize * maxScreenCol;
-    private int screenHeight = tileSize * maxScreenRow;
+    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
     
-    final int player_FPS = 12;
-    final int FPS = 60;
+    public static final int MAX_SCREEN_COL = 20;
+    public static final int MAX_SCREEN_ROW = 14;
+    private static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
+    private static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
     
-    KeyHandler keyH = new KeyHandler();
+    public static final int GAME_ROW = 5;
+    public static final int GAME_SCALE = 2;
+    
+    
+//    public static final int PLAYER_FPS = 12;
+    private static final int FPS = 30;
+    
+    // channel Row channel 1 at ? y pixels
+    public static int channelRow[];
+    KeyHandler keyH;
     Thread gameThread; //Running game loops
-    Player player = new Player(this, keyH);
+    Player player;
     
     public GamePanel(){
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setUpGame();
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); //so the game can 'focus' on receiving key
     }
     
-    
+    private void setUpGame() {
+        channelRow = new int[GAME_ROW];
+        for(int i = 0, j = 3 * TILE_SIZE; i < GAME_ROW; i++, j += GAME_SCALE * TILE_SIZE) {
+            channelRow[i] = j;
+        }
+        keyH = new KeyHandler();
+        player = new Player(this, keyH);
+    }
     
     public void startGameThread(){
         
@@ -53,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/player_FPS; //60 FPS == draw the screen every 0.016 seconds
+        double drawInterval = 1000000000/ FPS; //60 FPS == draw the screen every 0.016 seconds
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -75,6 +90,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
         player.update();
     }
+    
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -82,4 +99,5 @@ public class GamePanel extends JPanel implements Runnable{
         
         g2.dispose();
     }
+    
 }
