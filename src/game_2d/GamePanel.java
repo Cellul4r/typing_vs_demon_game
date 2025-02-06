@@ -39,7 +39,6 @@ public class GamePanel extends JPanel implements Runnable{
     
     // channel Row channel 1 at ? y pixels
     private int channelRow[];
-    private KeyHandler keyH;
     private Thread gameThread; //Running game loops
     private Player player;
     
@@ -48,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(player.getKeyHandler());
         this.setFocusable(true); //so the game can 'focus' on receiving key
     }
     
@@ -57,8 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0, j = firstChannelY; i < gameRow; i++, j += channelSpacing) {
             channelRow[i] = j;
         }
-        keyH = new KeyHandler();
-        player = new Player(this, keyH);
+        player = new Player(this);
     }
     
     public int getChannelY(int row) {

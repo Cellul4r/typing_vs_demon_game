@@ -20,9 +20,9 @@ public class Player extends Entity{
     
     private final KeyHandler keyH;
 //    private int channel;
-    public Player(GamePanel gp, KeyHandler keyH){
+    public Player(GamePanel gp){
         super(gp);
-        this.keyH = keyH;
+        this.keyH = new KeyHandler();
         setDefaultValues();
         getPlayerImage();
     }
@@ -49,6 +49,9 @@ public class Player extends Entity{
         }
     }
     
+    public KeyHandler getKeyHandler() {
+        return this.keyH;
+    }
     public void update(){
 
         if(keyH.getUpPressed()){
