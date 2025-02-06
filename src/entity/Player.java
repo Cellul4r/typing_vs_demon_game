@@ -18,11 +18,10 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Entity{
     
-    private GamePanel gp;
     private final KeyHandler keyH;
 //    private int channel;
     public Player(GamePanel gp, KeyHandler keyH){
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
         setDefaultValues();
         getPlayerImage();

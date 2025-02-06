@@ -4,6 +4,7 @@
  */
 package entity;
 
+import game_2d.GamePanel;
 import java.awt.image.BufferedImage;
 
 /**
@@ -14,12 +15,16 @@ public class Entity {
     
     protected int x, y;
     protected int speed;
-    
+    protected GamePanel gp;
     protected BufferedImage up1, up2, down1, down2, right;
     protected String direction;
     
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
+    
+    public Entity(GamePanel gp) {
+        this.gp = gp;
+    }
     
     protected String getDirection() {
         return this.direction;
