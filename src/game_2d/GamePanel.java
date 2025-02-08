@@ -43,7 +43,9 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread gameThread; //Running game loops
     private Player player;
     public AssetSetter aSetter = new AssetSetter(this);
-    public SuperObject obj[] = new SuperObject[10];
+    
+    public int enemies_number = 10;
+    public SuperObject obj[] = new SuperObject[enemies_number];
     
     public GamePanel(){
         setUpGame();
@@ -115,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
         player.draw(g2);
+        aSetter.setObject();
         
         g2.dispose();
     }

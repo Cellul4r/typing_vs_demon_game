@@ -4,7 +4,6 @@
  */
 package object;
 
-import game_2d.GamePanel;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -12,16 +11,15 @@ import javax.imageio.ImageIO;
  *
  * @author HP
  */
-public class OBJ_Bomb extends SuperObject{
-    public OBJ_Bomb(){
+public class OBJ_Demon extends SuperObject{
+    public OBJ_Demon(){
         
         name = "the fucking bomb";
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/item_res/penguin.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/item_res/Mario.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
     }
-}    
-
+}
 
