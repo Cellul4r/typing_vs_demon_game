@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import object.SuperObject;
 
 /**
  *
@@ -41,6 +42,8 @@ public class GamePanel extends JPanel implements Runnable{
     private int channelRow[];
     private Thread gameThread; //Running game loops
     private Player player;
+    public AssetSetter aSetter = new AssetSetter(this);
+    public SuperObject obj[] = new SuperObject[1];
     
     public GamePanel(){
         setUpGame();
@@ -57,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         player = new Player(this);
+        aSetter.setObject();
     }
     
     public int getChannelY(int row) {
@@ -98,6 +102,12 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        for(int i=0; i<obj.length;i++){
+            if(obj[i] != null){
+                obj[i].draw(g2, this);
+            }
+        }
         player.draw(g2);
         
         g2.dispose();

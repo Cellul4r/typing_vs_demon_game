@@ -16,7 +16,7 @@ public class Entity {
     protected int x, y;
     protected int speed;
     protected GamePanel gp;
-    protected BufferedImage up1, up2, down1, down2, right;
+    protected BufferedImage up1, up2, down1, down2, right, left1, left2;
     protected String direction;
     
     protected int spriteCounter = 0;
