@@ -4,6 +4,7 @@
  */
 package object;
 
+import game_2d.GamePanel;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -21,5 +22,6 @@ public class OBJ_Bomb extends SuperObject{
             e.printStackTrace();
         }
     }
-}
+}    
+
 

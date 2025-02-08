@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread gameThread; //Running game loops
     private Player player;
     public AssetSetter aSetter = new AssetSetter(this);
-    public SuperObject obj[] = new SuperObject[1];
+    public SuperObject obj[] = new SuperObject[10];
     
     public GamePanel(){
         setUpGame();
@@ -96,6 +96,12 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void update(){
         player.update();
+        for(int i=0; i<obj.length;i++){
+            if(obj[i] != null){
+                obj[i].update();
+            }
+        }
+        
     }
     
     @Override

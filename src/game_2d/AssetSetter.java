@@ -20,8 +20,9 @@ public class AssetSetter {
     }
     
     public void setObject(){
-        
+        //set new object here
         gp.obj[0]= new OBJ_Bomb();
-        //I'm too tired to determine column of the game right now.
+        gp.obj[0].setInitialPosition(gp.tileSize * 18);
+        
     }
 }

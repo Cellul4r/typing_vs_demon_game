@@ -16,9 +16,18 @@ public class SuperObject {
     
     public BufferedImage image;
     public String name;
-    public int x, y;
-    
+    protected int obj_x;
+    private int obj_speed = 3;
+
+    public void update(){
+        obj_x -= obj_speed;
+    }
     public void draw(Graphics2D g2, GamePanel gp){
         //I'm too tired to determine column of the game right now.
+        g2.drawImage(image, obj_x, gp.getChannelY(1) + 3 * gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+    }
+
+    public void setInitialPosition(int x) {
+        this.obj_x = x;
     }
 }
