@@ -31,23 +31,23 @@ public class AssetSetter {
             switch(row){
                 case 0:
                     gp.obj[count] = new OBJ_Demon();
-                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(0));
+                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(0), count);
                     break;
                 case 1:
                     gp.obj[count] = new OBJ_Demon();
-                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(1));
+                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(1), count);
                     break;
                 case 2:
                     gp.obj[count] = new OBJ_Demon();
-                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(2));
+                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(2), count);
                     break;
                 case 3:
                     gp.obj[count] = new OBJ_Demon();
-                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(3));
+                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(3), count);
                     break;
                 case 4:
                     gp.obj[count] = new OBJ_Demon();
-                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(4));
+                    gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(4), count);
                     break;
             }
             count = (count+1)%gp.enemies_number;
