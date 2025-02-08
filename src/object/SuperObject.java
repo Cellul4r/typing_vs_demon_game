@@ -16,7 +16,7 @@ public class SuperObject {
     
     public BufferedImage image;
     public String name;
-    protected int obj_x, obj_y;
+    protected int obj_x, obj_y, count;
     private int obj_speed = 7;
 
     public void update(){
@@ -24,11 +24,17 @@ public class SuperObject {
     }
     public void draw(Graphics2D g2, GamePanel gp){
         //I'm too tired to determine column of the game right now.
-        g2.drawImage(image, obj_x, obj_y, gp.tileSize, gp.tileSize, null);
+        if(obj_x >= 3 * gp.tileSize){
+            g2.drawImage(image, obj_x, obj_y, gp.tileSize, gp.tileSize, null);
+        }else{
+            gp.obj[count] = null;
+        }
     }
 
-    public void setInitialPosition(int x, int y) {
+    public void setInitialPosition(int x, int y, int count) {
         this.obj_x = x;
         this.obj_y = y;
+        this.count = count;
     }
+    
 }
