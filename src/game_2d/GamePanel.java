@@ -4,6 +4,7 @@
  */
 package game_2d;
 
+import entity.Enemy;
 import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,10 +43,11 @@ public class GamePanel extends JPanel implements Runnable{
     private int channelRow[];
     private Thread gameThread; //Running game loops
     private Player player;
+    private Enemy enemy;
     public AssetSetter aSetter = new AssetSetter(this);
     
-    public int enemies_number = 10;
-    public SuperObject obj[] = new SuperObject[enemies_number];
+    public int enemies_number = 10; //How much enemies can appear at once on the screen
+    public Enemy obj[] = new Enemy[enemies_number];
     
     public GamePanel(){
         setUpGame();
@@ -62,7 +64,9 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         player = new Player(this);
-        aSetter.setObject();
+        enemy = new Enemy(this);
+        enemy.setEnemies();
+        //aSetter.setObject();
     }
     
     public int getChannelY(int row) {
@@ -117,7 +121,8 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
         player.draw(g2);
-        aSetter.setObject();
+        enemy.setEnemies();
+        //aSetter.setObject();
         
         g2.dispose();
     }

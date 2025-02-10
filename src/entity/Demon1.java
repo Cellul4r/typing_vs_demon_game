@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package object;
+package entity;
 
+import game_2d.GamePanel;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -11,15 +12,14 @@ import javax.imageio.ImageIO;
  *
  * @author HP
  */
-public class OBJ_Demon extends SuperObject{
-    public OBJ_Demon(){
-        
-        name = "the fucking bomb";
+public class Demon1 extends Enemy{
+    public Demon1(GamePanel gp){
+        super(gp);
+        name = "the fucking Mario";
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/item_res/Mario.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 }
-

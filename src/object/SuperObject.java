@@ -14,6 +14,9 @@ import java.awt.image.BufferedImage;
  */
 public class SuperObject {
     
+    // OBSOLETE RIGHT NOW UNLESS YOU WANT TO ADD OBJECT
+    
+    
     public BufferedImage image;
     public String name;
     protected int obj_x, obj_y, count;
@@ -23,7 +26,7 @@ public class SuperObject {
         obj_x -= obj_speed;
     }
     public void draw(Graphics2D g2, GamePanel gp){
-        //I'm too tired to determine column of the game right now.
+        
         if(obj_x >= 3 * gp.tileSize){
             g2.drawImage(image, obj_x, obj_y, gp.tileSize, gp.tileSize, null);
         }else{
