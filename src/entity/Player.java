@@ -54,10 +54,10 @@ public class Player extends Entity{
     }
     public void update(){
 
-        if(keyH.getUpPressed()){
+        if(keyH.getUpPressed() && canMoveUp()){
             direction = "up";
             y -= speed;
-        } else if (keyH.getDownPressed()){
+        } else if (keyH.getDownPressed() && canMoveDown()){
             direction = "down";
             y += speed;
         }
@@ -114,5 +114,13 @@ public class Player extends Entity{
                 break;
         }
         g2.drawImage(image, x, y, tileSize, tileSize, null);
+    }
+    
+    private boolean canMoveUp(){
+        return !(y == gp.getChannelY(1) + 3 * gp.tileSize / 2 - (2 * gp.channelSpacing));
+    }
+    
+    private boolean canMoveDown(){
+        return !((y == gp.getChannelY(3) + 3 * gp.tileSize / 2));
     }
 }
