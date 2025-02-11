@@ -23,7 +23,7 @@ public class Player extends Entity{
     private Font font;
     private String userInput = "";
     private char keyChar;
-    private int player_row;
+    private int playerRow;
     
 //    private int channel;
     public Player(GamePanel gp){
@@ -37,7 +37,7 @@ public class Player extends Entity{
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
         this.font = new Font("Times New Roman", Font.BOLD, 40);
-        player_row = gp.getChannelY(2);
+        playerRow = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
     }
@@ -66,11 +66,11 @@ public class Player extends Entity{
         if(keyH.getUpPressed()){
             direction = "up";
             y -= speed;
-            player_row -= speed;
+            playerRow -= speed;
         } else if (keyH.getDownPressed()){
             direction = "down";
             y += speed;
-            player_row += speed;
+            playerRow += speed;
         }
         
         keyChar = Character.toUpperCase(keyH.getKeyChar());
@@ -83,7 +83,7 @@ public class Player extends Entity{
             for(int i=0;i<gp.enemies_number;i++){
                 if(gp.obj[i] == null)
                     continue;
-                if(gp.obj[i].getWord().equals(userInput) && gp.obj[i].getYs() == player_row){
+                if(gp.obj[i].getWord().equals(userInput) && gp.obj[i].getYs() == playerRow){
                     gp.obj[i] = null;
                     break;
                 }

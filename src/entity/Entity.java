@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
  *
  * @author HP
  */
+
+// will make this class abstract
 public class Entity {
     
     protected int x, y;
