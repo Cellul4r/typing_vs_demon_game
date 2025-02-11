@@ -64,8 +64,8 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         player = new Player(this);
-        enemy = new Enemy(this);
-        enemy.setEnemies();
+        enemy = new Enemy();
+        enemy.setEnemies(this);
         //aSetter.setObject();
     }
     
@@ -101,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        player.update();
+        player.update(this);
         for(int i=0; i<obj.length;i++){
             if(obj[i] != null){
                 obj[i].update();
@@ -120,8 +120,8 @@ public class GamePanel extends JPanel implements Runnable{
                 obj[i].draw(g2, this);
             }
         }
-        player.draw(g2);
-        enemy.setEnemies();
+        player.draw(g2,this);
+        enemy.setEnemies(this);
         //aSetter.setObject();
         
         g2.dispose();

@@ -27,16 +27,16 @@ public class Player extends Entity{
     
 //    private int channel;
     public Player(GamePanel gp){
-        super(gp);
         this.keyH = new KeyHandler();
-        this.font = new Font("Times New Roman", Font.BOLD, 40);
-        setDefaultValues();
+        setDefaultValues(gp);
         getPlayerImage();
     }
-    public void setDefaultValues(){
+    
+    public void setDefaultValues(GamePanel gp){
         //Player's default position
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
+        this.font = new Font("Times New Roman", Font.BOLD, 40);
         player_row = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
@@ -60,13 +60,14 @@ public class Player extends Entity{
     public KeyHandler getKeyHandler() {
         return this.keyH;
     }
-    public void update(){
+    
+    public void update(GamePanel gp){
 
-        if(keyH.getUpPressed() && canMoveUp()){
+        if(keyH.getUpPressed()){
             direction = "up";
             y -= speed;
             player_row -= speed;
-        } else if (keyH.getDownPressed() && canMoveDown()){
+        } else if (keyH.getDownPressed()){
             direction = "down";
             y += speed;
             player_row += speed;
@@ -107,7 +108,7 @@ public class Player extends Entity{
         }
     }
     
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2, GamePanel gp){
         //g2.setColor(Color.black);
         int tileSize = gp.tileSize;
         g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, gp.gameRow * gp.channelSpacing); //Draw Rectangle at X, Y, width, height
@@ -151,12 +152,12 @@ public class Player extends Entity{
         g2.drawString(userInput, gp.tileSize * 4, gp.getChannelY(4) + 4 * gp.tileSize / 2);
     }
     
-    private boolean canMoveUp(){
-        return !(y == gp.getChannelY(1) + 3 * gp.tileSize / 2 - (2 * gp.channelSpacing));
-    }
-    
-    private boolean canMoveDown(){
-        return !((y == gp.getChannelY(3) + 3 * gp.tileSize / 2));
-    }
+//    private boolean canMoveUp(){
+//        return !(y == gp.getChannelY(1) + 3 * gp.tileSize / 2 - (2 * gp.channelSpacing));
+//    }
+//    
+//    private boolean canMoveDown(){
+//        return !((y == gp.getChannelY(3) + 3 * gp.tileSize / 2));
+//    }
     
 }

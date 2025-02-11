@@ -13,8 +13,7 @@ import javax.imageio.ImageIO;
  * @author HP
  */
 public class Demon1 extends Enemy{
-    public Demon1(GamePanel gp){
-        super(gp);
+    public Demon1(){
         name = "the fucking Mario";
         try{
             image = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));

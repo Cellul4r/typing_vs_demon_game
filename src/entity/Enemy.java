@@ -27,37 +27,36 @@ public class Enemy extends Entity{
     
     private String[] dictionary = {"Let", "There", "Be", "Light"};
     
-    public Enemy(GamePanel gp){
-        super(gp);
+    public Enemy(){
         this.font = new Font("Times New Roman", Font.BOLD, 16);
     }
     
-    public void setEnemies(){
-        if(isAvailable()){
+    public void setEnemies(GamePanel gp){
+        if(isAvailable(gp)){
             int row = rand.nextInt(5); // Generates a number between 0 and 4
             switch(row){
                 case 0:
-                    gp.obj[count] = new Demon1(gp);
+                    gp.obj[count] = new Demon1();
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(0), count);
                     gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 1:
-                    gp.obj[count] = new Demon1(gp);
+                    gp.obj[count] = new Demon1();
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(1), count);
                     gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 2:
-                    gp.obj[count] = new Demon1(gp);
+                    gp.obj[count] = new Demon1();
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(2), count);
                     gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 3:
-                    gp.obj[count] = new Demon1(gp);
+                    gp.obj[count] = new Demon1();
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(3), count);
                     gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 4:
-                    gp.obj[count] = new Demon1(gp);
+                    gp.obj[count] = new Demon1();
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(4), count);
                     gp.obj[count].setWord(rand.nextInt(4));
                     break;
@@ -65,7 +64,7 @@ public class Enemy extends Entity{
             count = (count+1)%gp.enemies_number;
         }
     }
-    private boolean isAvailable(){
+    private boolean isAvailable(GamePanel gp){
         int delay = rand.nextInt(14); //Delay for enemies to pop up, can be used to up difficulty
         for(int i=0;i<gp.enemies_number;i++){
             if(gp.obj[i] == null && delay == 4)
