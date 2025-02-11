@@ -7,6 +7,7 @@ package entity;
 import game_2d.GamePanel;
 import game_2d.KeyHandler;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,10 +20,16 @@ import javax.imageio.ImageIO;
 public class Player extends Entity{
     
     private final KeyHandler keyH;
+    private Font font;
+    private String userInput = "";
+    private char keyChar;
+    private int player_row;
+    
 //    private int channel;
     public Player(GamePanel gp){
         super(gp);
         this.keyH = new KeyHandler();
+        this.font = new Font("Times New Roman", Font.BOLD, 40);
         setDefaultValues();
         getPlayerImage();
     }
@@ -30,6 +37,7 @@ public class Player extends Entity{
         //Player's default position
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
+        player_row = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
     }
@@ -57,10 +65,34 @@ public class Player extends Entity{
         if(keyH.getUpPressed() && canMoveUp()){
             direction = "up";
             y -= speed;
+            player_row -= speed;
         } else if (keyH.getDownPressed() && canMoveDown()){
             direction = "down";
             y += speed;
+            player_row += speed;
         }
+        
+        keyChar = Character.toUpperCase(keyH.getKeyChar());
+        if(Character.isLetter(keyChar)){
+            userInput+=keyChar;
+            keyH.resetKeyChar();
+        }
+        
+        if(keyH.getEnterPressed()){
+            for(int i=0;i<gp.enemies_number;i++){
+                if(gp.obj[i] == null)
+                    continue;
+                if(gp.obj[i].getWord().equals(userInput) && gp.obj[i].getYs() == player_row){
+                    gp.obj[i] = null;
+                    break;
+                }
+            }
+            userInput = "";
+        }
+
+        if(keyH.getDeletePressed()){
+            userInput = userInput.substring(0, userInput.length() - 1);
+        }        
 
         //Change Sprite (Ignore this until we have time to polish it)
         spriteCounter++;
@@ -114,6 +146,9 @@ public class Player extends Entity{
                 break;
         }
         g2.drawImage(image, x, y, tileSize, tileSize, null);
+        
+        g2.setFont(font);
+        g2.drawString(userInput, gp.tileSize * 4, gp.getChannelY(4) + 4 * gp.tileSize / 2);
     }
     
     private boolean canMoveUp(){
@@ -123,4 +158,5 @@ public class Player extends Entity{
     private boolean canMoveDown(){
         return !((y == gp.getChannelY(3) + 3 * gp.tileSize / 2));
     }
+    
 }

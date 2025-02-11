@@ -5,6 +5,7 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -21,9 +22,14 @@ public class Enemy extends Entity{
     public String name;
     protected int obj_x, obj_y;
     private int obj_speed = 7;
+    protected String word;
+    private Font font;
+    
+    private String[] dictionary = {"Let", "There", "Be", "Light"};
     
     public Enemy(GamePanel gp){
         super(gp);
+        this.font = new Font("Times New Roman", Font.BOLD, 16);
     }
     
     public void setEnemies(){
@@ -33,22 +39,27 @@ public class Enemy extends Entity{
                 case 0:
                     gp.obj[count] = new Demon1(gp);
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(0), count);
+                    gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 1:
                     gp.obj[count] = new Demon1(gp);
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(1), count);
+                    gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 2:
                     gp.obj[count] = new Demon1(gp);
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(2), count);
+                    gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 3:
                     gp.obj[count] = new Demon1(gp);
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(3), count);
+                    gp.obj[count].setWord(rand.nextInt(4));
                     break;
                 case 4:
                     gp.obj[count] = new Demon1(gp);
                     gp.obj[count].setInitialPosition(gp.tileSize * 20, gp.getChannelY(4), count);
+                    gp.obj[count].setWord(rand.nextInt(4));
                     break;
             }
             count = (count+1)%gp.enemies_number;
@@ -67,8 +78,10 @@ public class Enemy extends Entity{
         obj_x -= obj_speed;
     }
     public void draw(Graphics2D g2, GamePanel gp){
-        if(obj_x >= 3 * gp.tileSize){ //when obj_x have yet to passes the finish line
+        if(obj_x >= 3 * gp.tileSize){ //when obj_x has yet to passes the finish line
             g2.drawImage(image, obj_x, obj_y, gp.tileSize, gp.tileSize, null);
+            g2.setFont(font);
+            g2.drawString(word, obj_x + word.length() * 2, obj_y - 10);
         }else{
             gp.obj[count] = null;
         }
@@ -79,4 +92,17 @@ public class Enemy extends Entity{
         this.obj_y = y;
         this.count = count;
     }
+    
+    private void setWord(int index){
+        this.word = dictionary[index];
+    }
+    
+    public String getWord(){
+        return word.toUpperCase();
+    }
+    
+    public int getYs(){
+        return obj_y;
+    }
+   
 }
