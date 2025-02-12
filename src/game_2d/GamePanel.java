@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -46,8 +47,8 @@ public class GamePanel extends JPanel implements Runnable{
     private Enemy enemy;
 //    public AssetSetter aSetter = new AssetSetter(this);
     
-    public int enemies_number = 5; //How much enemies can appear at once on the screen
-    public Entity[] enemyList = new Enemy[enemies_number];
+    public int enemyAmount = 5; //How much enemies can appear at once on the screen
+    public Entity[] enemyList = new Entity[enemyAmount];
     
     public GamePanel() {
         setUpGame();
@@ -64,9 +65,12 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         player = new Player(this);
-//        enemy = new Enemy();
-//        enemy.setEnemies(this);
-        //aSetter.setObject();
+        
+        Random rand = new Random();
+        for(int i = 0; i < enemyAmount; i++) {
+            int row = rand.nextInt(5); // Generates a number between 0 and 4
+            enemyList[i] = new Enemy(this, row);
+        }
     }
     
     public int getChannelY(int row) {

@@ -82,7 +82,7 @@ public class Player extends Entity {
         }
         
         if(keyH.getEnterPressed()){ 
-            for(int i=0;i<gp.enemies_number;i++){
+            for(int i=0;i<gp.enemyAmount;i++){
                 if(gp.enemyList[i] == null)
                     continue;
                 Enemy enemy = (Enemy)gp.enemyList[i];

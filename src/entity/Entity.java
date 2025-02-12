@@ -21,12 +21,20 @@ public abstract class Entity {
     protected int speed;
     protected BufferedImage up1, up2, down1, down2, right, left1, left2;
     protected String direction;
+    protected int channel;
     
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     
     public Entity(GamePanel gp) {
         this.gp = gp;
+    }
+    
+    public Entity(GamePanel gp, int channel) {
+        this.gp = gp;
+        this.channel = channel;
+        System.out.println(x);
+        System.out.println(y);
     }
     
     public abstract void update();
