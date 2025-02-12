@@ -5,6 +5,7 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -13,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 
 // will make this class abstract
-public class Entity {
+public abstract class Entity {
     
     protected GamePanel gp;
     protected int x, y;
@@ -23,4 +24,11 @@ public class Entity {
     
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
+    
+    public Entity(GamePanel gp) {
+        this.gp = gp;
+    }
+    
+    public abstract void update();
+    public abstract void draw(Graphics2D g2);
 }

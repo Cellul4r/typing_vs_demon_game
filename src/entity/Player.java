@@ -27,12 +27,13 @@ public class Player extends Entity {
     
 //    private int channel;
     public Player(GamePanel gp){
+        super(gp);
         this.keyH = new KeyHandler();
-        setDefaultValues(gp);
+        setDefaultValues();
         getPlayerImage();
     }
     
-    public void setDefaultValues(GamePanel gp){
+    public void setDefaultValues(){
         //Player's default position
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
@@ -61,7 +62,8 @@ public class Player extends Entity {
         return this.keyH;
     }
     
-    public void update(GamePanel gp){
+    @Override
+    public void update(){
 
         if(keyH.getUpPressed()){
             direction = "up";
@@ -81,10 +83,11 @@ public class Player extends Entity {
         
         if(keyH.getEnterPressed()){ 
             for(int i=0;i<gp.enemies_number;i++){
-                if(gp.obj[i] == null)
+                if(gp.enemyList[i] == null)
                     continue;
-                if(gp.obj[i].getWord().equals(userInput) && gp.obj[i].getYs() == playerRow){
-                    gp.obj[i] = null;
+                Enemy enemy = (Enemy)gp.enemyList[i];
+                if(enemy.getWord().equals(userInput) && enemy.getYs() == playerRow){
+                    gp.enemyList[i] = null;
                     break;
                 }
             }
@@ -108,7 +111,8 @@ public class Player extends Entity {
         }
     }
     
-    public void draw(Graphics2D g2, GamePanel gp){
+    @Override
+    public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
         int tileSize = gp.tileSize;
         g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, gp.gameRow * gp.channelSpacing); //Draw Rectangle at X, Y, width, height

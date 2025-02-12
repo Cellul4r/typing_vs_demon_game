@@ -5,6 +5,7 @@
 package game_2d;
 
 import entity.Enemy;
+import entity.Entity;
 import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +14,6 @@ import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import object.SuperObject;
 
 /**
  *
@@ -44,10 +44,10 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread gameThread; //Running game loops
     private Player player;
     private Enemy enemy;
-    public AssetSetter aSetter = new AssetSetter(this);
+//    public AssetSetter aSetter = new AssetSetter(this);
     
-    public int enemies_number = 10; //How much enemies can appear at once on the screen
-    public Enemy obj[] = new Enemy[enemies_number];
+    public int enemies_number = 5; //How much enemies can appear at once on the screen
+    public Entity[] enemyList = new Enemy[enemies_number];
     
     public GamePanel() {
         setUpGame();
@@ -64,8 +64,8 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         player = new Player(this);
-        enemy = new Enemy();
-        enemy.setEnemies(this);
+//        enemy = new Enemy();
+//        enemy.setEnemies(this);
         //aSetter.setObject();
     }
     
@@ -101,10 +101,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        player.update(this);
-        for(int i=0; i<obj.length;i++){
-            if(obj[i] != null){
-                obj[i].update();
+        player.update();
+        for(int i=0; i<enemyList.length;i++){
+            if(enemyList[i] != null){
+                enemyList[i].update();
             }
         }
         
@@ -115,13 +115,13 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        for(int i=0; i<obj.length;i++){
-            if(obj[i] != null){
-                obj[i].draw(g2, this);
+        for(int i = 0; i< enemyList.length; i++){
+            if(enemyList[i] != null){
+                enemyList[i].draw(g2);
             }
         }
-        player.draw(g2,this);
-        enemy.setEnemies(this);
+        player.draw(g2);
+//        enemy.setEnemies(this);
         //aSetter.setObject();
         
         g2.dispose();
