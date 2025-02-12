@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author HP
  */
-public class Player extends Entity{
+public class Player extends Entity {
     
     private final KeyHandler keyH;
     private Font font;
@@ -79,7 +79,7 @@ public class Player extends Entity{
             keyH.resetKeyChar();
         }
         
-        if(keyH.getEnterPressed()){
+        if(keyH.getEnterPressed()){ 
             for(int i=0;i<gp.enemies_number;i++){
                 if(gp.obj[i] == null)
                     continue;

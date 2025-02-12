@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/game_2d/GamePanel.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/game_2d/KeyHandler.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/entity/Entity.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/entity/Player.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/entity/Enemy.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/entity/Demon1.java</file>
-            <file>file:/C:/Users/HP/Desktop/Com/Game_2D/src/game_2d/Game_2D.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/GamePanel.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/object/SuperObject.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/KeyHandler.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Enemy.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/AssetSetter.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Player.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/Game_2D.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Demon1.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Entity.java</file>
         </group>
     </open-files>
 </project-private>

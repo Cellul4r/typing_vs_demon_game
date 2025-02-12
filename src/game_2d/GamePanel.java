@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
     public int enemies_number = 10; //How much enemies can appear at once on the screen
     public Enemy obj[] = new Enemy[enemies_number];
     
-    public GamePanel(){
+    public GamePanel() {
         setUpGame();
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
         return this.channelRow[row];
     }
     
-    public void startGameThread(){
+    public void startGameThread() {
         
         gameThread = new Thread(this);
         gameThread.start();

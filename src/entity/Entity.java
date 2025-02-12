@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 // will make this class abstract
 public class Entity {
     
+    protected GamePanel gp;
     protected int x, y;
     protected int speed;
     protected BufferedImage up1, up2, down1, down2, right, left1, left2;
