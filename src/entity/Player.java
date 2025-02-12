@@ -37,7 +37,7 @@ public class Player extends Entity {
         //Player's default position
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
-        this.font = new Font("Times New Roman", Font.BOLD, 40);
+        font = new Font("Times New Roman", Font.BOLD, 40);
         playerRow = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
@@ -115,20 +115,6 @@ public class Player extends Entity {
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
         int tileSize = gp.tileSize;
-        g2.fillRect(3 * tileSize, 2 * tileSize, tileSize, gp.gameRow * gp.channelSpacing); //Draw Rectangle at X, Y, width, height
-//        g2.fillRoundRect(150, 100, 30, 560, 20, 20); //End Line (int x, int y, int width, int height, int arcWidth, int arcHeight)
-        
-//        g2.fillRoundRect(150, 130, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 2 * tileSize, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 4 * tileSize, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 6 * tileSize, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 8 * tileSize, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 10 * tileSize, 3000, 1, 10, 10);
-        g2.fillRoundRect(3 * tileSize, 12 * tileSize, 3000, 1, 10, 10);
-//        g2.fillRoundRect(150, 330, 3000, 1, 10, 10);
-//        g2.fillRoundRect(150, 430, 3000, 1, 10, 10);
-//        g2.fillRoundRect(150, 530, 3000, 1, 10, 10);
-//        g2.fillRoundRect(150, 630, 3000, 1, 10, 10);
         
         BufferedImage image = null;
         

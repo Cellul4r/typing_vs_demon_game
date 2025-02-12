@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import tile.TileManager;
 
 /**
  *
@@ -27,8 +28,8 @@ public class GamePanel extends JPanel implements Runnable{
     
     public final int tileSize = originalTileSize * scale; //Real Size of Characters
     
-    private final int maxScreenCol = 20;
-    private final int maxScreenRow = 14;
+    public final int maxScreenCol = 20;
+    public final int maxScreenRow = 14;
     private final int screenWidth = tileSize * maxScreenCol;
     private final int screenHeight = tileSize * maxScreenRow;
     
@@ -37,14 +38,14 @@ public class GamePanel extends JPanel implements Runnable{
     private final int firstChannelY = 3 * tileSize;
     public final int channelSpacing = gameScale * tileSize;
     
-//    public static final int PLAYER_FPS = 12;
     private final int FPS = 12;
     
     // channel Row channel 1 at ? y pixels
     private int channelRow[];
     private Thread gameThread; //Running game loops
     private Player player;
-    private Enemy enemy;
+    private final TileManager tileM = new TileManager(this);
+//    private Enemy enemy;
 //    public AssetSetter aSetter = new AssetSetter(this);
     
     public int enemyAmount = 5; //How much enemies can appear at once on the screen
@@ -124,6 +125,7 @@ public class GamePanel extends JPanel implements Runnable{
                 enemyList[i].draw(g2);
             }
         }
+        tileM.draw(g2);
         player.draw(g2);
 //        enemy.setEnemies(this);
         //aSetter.setObject();
