@@ -8,8 +8,12 @@ import game_2d.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,14 +21,14 @@ import java.io.InputStreamReader;
  */
 public class TileManager {
     
-    private GamePanel gp;
+    private final GamePanel gp;
     Tile[] tile;
     int mapTileNum[][];
     
     public TileManager(GamePanel gp) {
         
         this.gp = gp;
-        tile = new Tile[3];
+        tile = new Tile[4];
         mapTileNum = new int [gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
         loadMap("/map_res/map01.txt");
@@ -32,9 +36,18 @@ public class TileManager {
     
     private void getTileImage() {
         
-        tile[0] = new Tile(Color.darkGray, false);
-        tile[1] = new Tile(Color.black, true);
-        tile[2] = new Tile(Color.lightGray, true);
+        try {
+            tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil1.png")), true);
+            tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil2.png")), true);
+            tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/forest.png")), true);
+            tile[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/wall1.png")), true);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        tile[0] = new Tile(Color.darkGray, false);
+//        tile[1] = new Tile(Color.black, true);
+//        tile[2] = new Tile(Color.lightGray, true);
     }
     
     private void loadMap(String filePath) {
@@ -66,10 +79,7 @@ public class TileManager {
             for(int j = 0, y = 0; j < gp.maxScreenRow; j++) {
                 
                 int tileNum = mapTileNum[i][j];
-                Color color = tile[tileNum].getColor();
-                
-                g2.setColor(color);
-                g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+                g2.drawImage(tile[tileNum].getImage(), x, y, gp.tileSize, gp.tileSize, null);
                 
                 y += gp.tileSize;
             }

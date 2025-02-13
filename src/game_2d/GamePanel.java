@@ -120,13 +120,14 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
+        
+        tileM.draw(g2);
+        player.draw(g2);
         for(int i = 0; i< enemyList.length; i++){
             if(enemyList[i] != null){
                 enemyList[i].draw(g2);
             }
         }
-        tileM.draw(g2);
-        player.draw(g2);
 //        enemy.setEnemies(this);
         //aSetter.setObject();
         

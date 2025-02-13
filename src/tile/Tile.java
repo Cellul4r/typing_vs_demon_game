@@ -5,6 +5,7 @@
 package tile;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -13,10 +14,16 @@ import java.awt.Color;
 public class Tile {
     
     private Color color;
+    private BufferedImage image;
     private boolean collision = false;
     
     public Tile(Color color, boolean collision) {
         this.color = color;
+        this.collision = collision;
+    }
+    
+    public Tile(BufferedImage image, boolean collision){
+        this.image = image;
         this.collision = collision;
     }
     
@@ -26,5 +33,9 @@ public class Tile {
     
     public boolean getCollision() {
         return this.collision;
+    }
+    
+    public BufferedImage getImage() {
+        return this.image;
     }
 }
