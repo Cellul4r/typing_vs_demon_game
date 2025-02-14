@@ -36,7 +36,7 @@ public class Player extends Entity {
     public void setDefaultValues(){
         //Player's default position
         x = 2 * gp.tileSize;
-        y = gp.getChannelY(1) + 3 * gp.tileSize / 2;
+        y = gp.getChannelY(1) + 4 * gp.tileSize;
         font = new Font("Times New Roman", Font.BOLD, 40);
         playerRow = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
