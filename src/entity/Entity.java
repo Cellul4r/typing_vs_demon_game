@@ -20,7 +20,7 @@ public abstract class Entity {
     protected GamePanel gp;
     protected int x, y;
     protected int speed;
-    protected BufferedImage up1, up2, down1, down2, right, left1, left2;
+    protected BufferedImage up1, up2, down1, down2, right, left1, left2, full_heart, empty_heart;
     protected String direction;
     protected int channel;
     

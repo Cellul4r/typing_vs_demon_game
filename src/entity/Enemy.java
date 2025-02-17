@@ -23,6 +23,9 @@ public class Enemy extends Entity{
     public BufferedImage image;
     protected String word;
     private Font font;
+    private boolean invincibleFrame = false;
+    private long invincibleTime;
+    private static final long INVINCIBLE_DURATION = 500;
     
     private String[] dictionary = {"Let", "There", "Be", "Light"};
     
@@ -50,6 +53,15 @@ public class Enemy extends Entity{
         if(!collisionOn) {
             x -= speed;
         }
+        else{
+            if(!invincibleFrame){
+                gp.getPlayer().setHealth();
+                setInvincibility();
+            }
+        }
+        if (invincibleFrame && System.currentTimeMillis() - invincibleTime > INVINCIBLE_DURATION) {
+            invincibleFrame = false;
+        }
     }
     
     @Override
@@ -69,6 +81,11 @@ public class Enemy extends Entity{
     
     public int getYs(){
         return y;
+    }
+    
+    private void setInvincibility() {
+        invincibleFrame = true;
+        invincibleTime = System.currentTimeMillis();
     }
    
 }

@@ -7,8 +7,10 @@ package game_2d;
 import entity.Enemy;
 import entity.Entity;
 import entity.Player;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
@@ -50,6 +52,12 @@ public class GamePanel extends JPanel implements Runnable{
     public int enemyAmount = 5; //How much enemies can appear at once on the screen
     public Entity[] enemyList = new Entity[enemyAmount];
     
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    
+    private Font font;
+    
     public GamePanel() {
         setUpGame();
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -61,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     private void setUpGame() {
         channelRow = new int[gameRow];
+        gameState = playState;
         for(int i = 0, j = firstChannelY; i < gameRow; i++, j += channelSpacing) {
             channelRow[i] = j;
         }
@@ -105,10 +114,13 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        player.update();
-        for(int i=0; i<enemyList.length;i++){
-            if(enemyList[i] != null){
-                enemyList[i].update();
+        
+        if(gameState == playState){
+            player.update();
+            for(int i=0; i<enemyList.length;i++){
+                if(enemyList[i] != null){
+                    enemyList[i].update();
+                }
             }
         }
         
@@ -120,15 +132,20 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
         
         
+        
+        
         tileM.draw(g2);
         player.draw(g2);
+    
         for(int i = 0; i< enemyList.length; i++){
             if(enemyList[i] != null){
                 enemyList[i].draw(g2);
             }
         }
-//        enemy.setEnemies(this);
-        //aSetter.setObject();
+        
+        if(gameState == pauseState){
+            drawPauseScreen(g2);
+        }
         
         g2.dispose();
     }
@@ -139,5 +156,32 @@ public class GamePanel extends JPanel implements Runnable{
     
     public CollisionChecker getCChecker() {
         return this.cChecker;
+    }
+    
+    public Player getPlayer(){
+        return player;
+    }
+    
+    public void drawPauseScreen(Graphics2D g2){
+        
+        String text = "PAUSED";
+        int x;
+        
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); //dim screen by 50%
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, screenWidth, screenHeight);
+        
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        font = new Font("Times New Roman", Font.BOLD, 80);
+        g2.setFont(font);
+        g2.setColor(Color.WHITE);
+        
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
+        
+        x = screenWidth/2 - length/2;
+        int y = screenHeight/2;
+        
+        g2.drawString(text, x, y);
+        g2.dispose();
     }
 }
