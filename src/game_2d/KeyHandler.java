@@ -15,6 +15,11 @@ public class KeyHandler implements KeyListener {
     
     private boolean upPressed, downPressed, enterPressed, deletePressed;
     private char keyChar;
+    GamePanel gp;
+    
+    public KeyHandler(GamePanel gp){
+        this.gp=gp;
+    }
 
     
     @Override
@@ -36,6 +41,15 @@ public class KeyHandler implements KeyListener {
         }
         if(keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE){
             deletePressed = true;
+        }
+        
+        if(code == KeyEvent.VK_ESCAPE){
+            if(gp.gameState == gp.playState){
+                gp.gameState = gp.pauseState;
+            }
+            else if(gp.gameState == gp.pauseState){
+                gp.gameState = gp.playState;
+            }
         }
     }
 

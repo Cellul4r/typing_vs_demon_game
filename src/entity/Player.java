@@ -31,7 +31,7 @@ public class Player extends Entity {
 //    private int channel;
     public Player(GamePanel gp){
         super(gp);
-        this.keyH = new KeyHandler();
+        this.keyH = new KeyHandler(gp);
         setDefaultValues();
         getPlayerImage();
     }
