@@ -45,8 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread gameThread; //Running game loops
     private Player player;
     private final TileManager tileM = new TileManager(this);
-//    private Enemy enemy;
-//    public AssetSetter aSetter = new AssetSetter(this);
+    private final CollisionChecker cChecker = new CollisionChecker(this);
     
     public int enemyAmount = 5; //How much enemies can appear at once on the screen
     public Entity[] enemyList = new Entity[enemyAmount];
@@ -134,4 +133,11 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
     }
     
+    public TileManager getTileM() {
+        return this.tileM;
+    }
+    
+    public CollisionChecker getCChecker() {
+        return this.cChecker;
+    }
 }

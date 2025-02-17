@@ -37,17 +37,14 @@ public class TileManager {
     private void getTileImage() {
         
         try {
-            tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil1.png")), true);
-            tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil2.png")), true);
+            tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil1.png")), false);
+            tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil2.png")), false);
             tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/forest.png")), true);
             tile[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/wall1.png")), true);
             
         } catch (IOException ex) {
             Logger.getLogger(TileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        tile[0] = new Tile(Color.darkGray, false);
-//        tile[1] = new Tile(Color.black, true);
-//        tile[2] = new Tile(Color.lightGray, true);
     }
     
     private void loadMap(String filePath) {
@@ -86,5 +83,13 @@ public class TileManager {
             
             x += gp.tileSize;
         }
+    }
+    
+    public Tile getTile(int i) {
+        return this.tile[i];
+    }
+    
+    public int getMapTileNum(int x, int y) {
+        return this.mapTileNum[x][y];
     }
 }

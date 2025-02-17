@@ -37,6 +37,7 @@ public class Enemy extends Entity{
         this.channel = channel;
         this.x = gp.tileSize * 20;
         this.y = gp.getChannelY(channel);
+        this.direction = "left";
         this.word = dictionary[rand.nextInt(4)];
         this.speed = 7;
         this.font = new Font("Times New Roman", Font.BOLD, 16);
@@ -44,19 +45,18 @@ public class Enemy extends Entity{
     
     @Override
     public void update(){
-        x -= speed;
+        
+        collisionOn = gp.getCChecker().checkCollision(this);
+        if(!collisionOn) {
+            x -= speed;
+        }
     }
     
     @Override
     public void draw(Graphics2D g2){
-        if(x >= 3 * gp.tileSize){ //when obj_x has yet to passes the finish line
-            g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-            g2.setFont(font);
-            g2.drawString(word, x + word.length() * 2, y - 10);
-        }
-//        else{
-//            gp.enemyList[count] = null;
-//        }
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.setFont(font);
+        g2.drawString(word, x + word.length() * 2, y - 10);
     }
     
     public void setWord(int index){

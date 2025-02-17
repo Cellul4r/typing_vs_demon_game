@@ -37,6 +37,7 @@ public class Player extends Entity {
         //Player's default position
         x = 2 * gp.tileSize;
         y = gp.getChannelY(1) + 4 * gp.tileSize;
+        
         font = new Font("Times New Roman", Font.BOLD, 40);
         playerRow = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
@@ -64,15 +65,28 @@ public class Player extends Entity {
     
     @Override
     public void update(){
-
-        if(keyH.getUpPressed()){
-            direction = "up";
-            y -= speed;
-            playerRow -= speed;
-        } else if (keyH.getDownPressed()){
-            direction = "down";
-            y += speed;
-            playerRow += speed;
+        if(keyH.getUpPressed() || keyH.getDownPressed()) {
+            if(keyH.getUpPressed()){
+                direction = "up";
+            } else if (keyH.getDownPressed()){
+                direction = "down";
+            }
+            
+            collisionOn = gp.getCChecker().checkCollision(this);
+            if(!collisionOn) {
+                switch(direction) {
+                    case "up" -> {
+                        y -= speed;
+                        playerRow -= speed;
+                    }
+                    case "down" -> {
+                        y += speed;
+                        playerRow += speed;
+                    }
+                }
+            } else {
+                System.out.print("Collision!");
+            }
         }
         
         keyChar = Character.toUpperCase(keyH.getKeyChar());
@@ -97,7 +111,8 @@ public class Player extends Entity {
         if(keyH.getDeletePressed()){
             userInput = userInput.substring(0, userInput.length() - 1);
         }        
-
+        
+        
         //Change Sprite (Ignore this until we have time to polish it)
         spriteCounter++;
         if(spriteCounter > 1){
