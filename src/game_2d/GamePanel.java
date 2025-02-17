@@ -122,6 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         tileM.draw(g2);
         player.draw(g2);
+    
         for(int i = 0; i< enemyList.length; i++){
             if(enemyList[i] != null){
                 enemyList[i].draw(g2);
@@ -139,5 +140,9 @@ public class GamePanel extends JPanel implements Runnable{
     
     public CollisionChecker getCChecker() {
         return this.cChecker;
+    }
+    
+    public Player getPlayer(){
+        return player;
     }
 }

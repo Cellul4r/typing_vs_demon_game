@@ -25,6 +25,9 @@ public class Player extends Entity {
     private char keyChar;
     private int playerRow;
     
+    private int maxHealth;
+    private int health;
+    
 //    private int channel;
     public Player(GamePanel gp){
         super(gp);
@@ -42,6 +45,9 @@ public class Player extends Entity {
         playerRow = gp.getChannelY(2);
         speed = gp.channelSpacing; //player moves by X pixels
         direction = "down";
+        
+        maxHealth = 12;
+        health = maxHealth;
     }
     
     public void getPlayerImage(){
@@ -49,11 +55,11 @@ public class Player extends Entity {
         try{
             up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
-//            up1 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
-//            up2 = ImageIO.read(getClass().getResourceAsStream("/player_res/grp9WT.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
             down2 = ImageIO.read(getClass().getResourceAsStream("/player_res/test2.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/player_res/Mario.png"));
+            full_heart = ImageIO.read(getClass().getResourceAsStream("/player_res/FireMage.png"));
+            empty_heart = ImageIO.read(getClass().getResourceAsStream("/player_res/penguin.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -155,14 +161,31 @@ public class Player extends Entity {
         
         g2.setFont(font);
         g2.drawString(userInput, gp.tileSize * 4, gp.getChannelY(4) + 4 * gp.tileSize / 2);
+        
+        int u = 0;
+        int heart_x = gp.tileSize / 2;
+        int heart_y = gp.tileSize / 2;
+        while(u < maxHealth){
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+            u++;
+            heart_x += gp.tileSize;
+        }
+        
+        u = 0;
+        heart_x = gp.tileSize / 2;
+        heart_y = gp.tileSize / 2;
+        while(u < health){
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+            if(u < health){
+                g2.drawImage(full_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+            }
+            u++;
+            heart_x += gp.tileSize;
+        }
     }
     
-//    private boolean canMoveUp(){
-//        return !(y == gp.getChannelY(1) + 3 * gp.tileSize / 2 - (2 * gp.channelSpacing));
-//    }
-//    
-//    private boolean canMoveDown(){
-//        return !((y == gp.getChannelY(3) + 3 * gp.tileSize / 2));
-//    }
+    public void setHealth(){
+        health -= 1;
+    }
     
 }
