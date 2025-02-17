@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final int firstChannelY = 3 * tileSize;
     public final int channelSpacing = gameScale * tileSize;
     
-    private final int FPS = 12;
+    private final int FPS = 30;
     
     // channel Row channel 1 at ? y pixels
     private int channelRow[];

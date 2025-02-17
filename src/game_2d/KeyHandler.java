@@ -76,6 +76,14 @@ public class KeyHandler implements KeyListener {
         return keyChar;
     }
     
+    public void resetKeyUpPressed() {
+        upPressed = false;
+    }
+    
+    public void resetKeyDownPressed() {
+        upPressed = false;
+    }
+    
     public void resetKeyChar(){
         keyChar = '\0';
     }

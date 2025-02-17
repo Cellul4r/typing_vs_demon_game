@@ -39,7 +39,7 @@ public class Enemy extends Entity{
         this.y = gp.getChannelY(channel);
         this.direction = "left";
         this.word = dictionary[rand.nextInt(4)];
-        this.speed = 7;
+        this.speed = 2;
         this.font = new Font("Times New Roman", Font.BOLD, 16);
     }
     

@@ -61,7 +61,6 @@ public class CollisionChecker {
             }
         }
         
-        System.out.println(tileNum1);
         return (gp.getTileM().getTile(tileNum1).getCollision() || 
                 gp.getTileM().getTile(tileNum2).getCollision());
     }

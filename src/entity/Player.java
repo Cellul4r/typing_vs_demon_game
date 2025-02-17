@@ -68,8 +68,10 @@ public class Player extends Entity {
         if(keyH.getUpPressed() || keyH.getDownPressed()) {
             if(keyH.getUpPressed()){
                 direction = "up";
+                keyH.resetKeyUpPressed();
             } else if (keyH.getDownPressed()){
                 direction = "down";
+                keyH.resetKeyDownPressed();
             }
             
             collisionOn = gp.getCChecker().checkCollision(this);
@@ -84,8 +86,6 @@ public class Player extends Entity {
                         playerRow += speed;
                     }
                 }
-            } else {
-                System.out.print("Collision!");
             }
         }
         
