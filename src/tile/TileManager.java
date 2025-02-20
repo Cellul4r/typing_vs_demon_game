@@ -31,16 +31,16 @@ public class TileManager {
         tile = new Tile[4];
         mapTileNum = new int [gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
-        loadMap("/resource/map_res/map01.txt");
+        loadMap("/map_res/map01.txt");
     }
     
     private void getTileImage() {
         
         try {
-            tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil1.png")), false);
-            tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/soil2.png")), false);
-            tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/forest.png")), true);
-            tile[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/item_res/wall1.png")), true);
+            tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tile_res/soil1.png")), false);
+            tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tile_res/soil2.png")), false);
+            tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tile_res/forest.png")), true);
+            tile[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tile_res/wall1.png")), true);
             
         } catch (IOException ex) {
             Logger.getLogger(TileManager.class.getName()).log(Level.SEVERE, null, ex);
