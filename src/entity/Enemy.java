@@ -39,7 +39,7 @@ public class Enemy extends Entity{
         }
         Random rand = new Random();
         this.channel = channel;
-        this.x = gp.tileSize * 20;
+        this.x = gp.TILESIZE * 20;
         this.y = gp.getChannelY(channel);
         this.direction = "left";
         this.word = dictionary[rand.nextInt(4)];
@@ -53,21 +53,22 @@ public class Enemy extends Entity{
         collisionOn = gp.getCChecker().checkCollision(this);
         if(!collisionOn) {
             x -= speed;
-        }
-        else{
-            if(!invincibleFrame){
-                gp.getPlayer().decreaseHealth(damage);
-                setInvincibility();
-            }
+        } else if(!invincibleFrame){
+            gp.getPlayer().decreaseHealth(damage);
+            setInvincibility();
         }
         if (invincibleFrame && System.currentTimeMillis() - invincibleTime > INVINCIBLE_DURATION) {
             invincibleFrame = false;
         }
+        updateAnimation();
     }
     
     @Override
+    protected void updateAnimation() {};
+    
+    @Override
     public void draw(Graphics2D g2){
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.TILESIZE, gp.TILESIZE, null);
         g2.setFont(font);
         g2.drawString(word, x + word.length() * 2, y - 10);
     }

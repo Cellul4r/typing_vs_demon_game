@@ -32,7 +32,7 @@ public abstract class Entity {
     
     public Entity(GamePanel gp) {
         this.gp = gp;
-        this.solidArea = new Rectangle(0, 0, gp.tileSize / 2, gp.tileSize / 2);
+        this.solidArea = new Rectangle(0, 0, gp.TILESIZE / 2, gp.TILESIZE / 2);
     }
     
     public Entity(GamePanel gp, int channel) {
@@ -40,6 +40,7 @@ public abstract class Entity {
         this.channel = channel;
     }
     
+    protected abstract void updateAnimation();
     public abstract void update();
     public abstract void draw(Graphics2D g2);
     

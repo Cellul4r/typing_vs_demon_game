@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import game_2d.GamePanel;
 import game_2d.KeyHandler;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -23,8 +18,7 @@ public class Player extends Entity {
     private Font font;
     private String userInput = "";
     private char keyChar;
-    private int playerRow;
-    
+
     private int maxHealth;
     private int health;
     
@@ -38,13 +32,12 @@ public class Player extends Entity {
     
     public void setDefaultValues(){
         //Player's default position
-        x = 2 * gp.tileSize;
+        x = 2 * gp.TILESIZE;
         y = gp.getChannelY(2);
-        this.channel = 2;
+        channel = 2;
         
         font = new Font("Times New Roman", Font.BOLD, 40);
-        playerRow = gp.getChannelY(2);
-        speed = gp.channelSpacing; //player moves by X pixels
+        speed = gp.CHANNEL_SPACING; //player moves by X pixels
         direction = "down";
         
         maxHealth = 12;
@@ -65,13 +58,14 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-    
-    public KeyHandler getKeyHandler() {
-        return this.keyH;
-    }
-    
+     
     @Override
     public void update(){
+        checkKey();
+        updateAnimation();
+    }
+    
+    private void checkKey() {
         if(keyH.getUpPressed() || keyH.getDownPressed()) {
             if(keyH.getUpPressed()){
                 direction = "up";
@@ -81,21 +75,8 @@ public class Player extends Entity {
                 keyH.resetKeyDownPressed();
             }
             
-            collisionOn = gp.getCChecker().checkCollision(this);
-            if(!collisionOn) {
-                switch(direction) {
-                    case "up" -> {
-                        y -= speed;
-                        playerRow -= speed;
-                        channel--;
-                    }
-                    case "down" -> {
-                        y += speed;
-                        playerRow += speed;
-                        channel++;
-                    }
-                }
-            }
+            movePlayer();
+            
         }
         
         keyChar = Character.toUpperCase(keyH.getKeyChar());
@@ -111,9 +92,27 @@ public class Player extends Entity {
 
         if(keyH.getDeletePressed()){
             userInput = userInput.substring(0, userInput.length() - 1);
-        }        
-        
-        
+        }
+    }
+    
+    private void movePlayer() {
+        collisionOn = gp.getCChecker().checkCollision(this);
+        if(!collisionOn) {
+            switch(direction) {
+                case "up" -> {
+                    y -= speed;
+                    channel--;
+                }
+                case "down" -> {
+                    y += speed;
+                    channel++;
+                }
+            }
+        }
+    }
+    
+    @Override
+    protected void updateAnimation() {
         //Change Sprite (Ignore this until we have time to polish it)
         spriteCounter++;
         if(spriteCounter > 1){
@@ -130,7 +129,7 @@ public class Player extends Entity {
     @Override
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
-        int tileSize = gp.tileSize;
+        int tileSize = gp.TILESIZE;
         
         BufferedImage image = null;
         
@@ -155,27 +154,27 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, tileSize, tileSize, null);
         
         g2.setFont(font);
-        g2.drawString(userInput, gp.tileSize * 4, gp.getChannelY(4) + 4 * gp.tileSize / 2);
+        g2.drawString(userInput, gp.TILESIZE * 4, gp.getChannelY(4) + 4 * gp.TILESIZE / 2);
         
         int u = 0;
-        int heart_x = gp.tileSize / 2;
-        int heart_y = gp.tileSize / 2;
+        int heart_x = gp.TILESIZE / 2;
+        int heart_y = gp.TILESIZE / 2;
         while(u < maxHealth){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
             u++;
-            heart_x += gp.tileSize;
+            heart_x += gp.TILESIZE;
         }
         
         u = 0;
-        heart_x = gp.tileSize / 2;
-        heart_y = gp.tileSize / 2;
+        heart_x = gp.TILESIZE / 2;
+        heart_y = gp.TILESIZE / 2;
         while(u < health){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
             if(u < health){
-                g2.drawImage(full_heart, heart_x, heart_y, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(full_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
             }
             u++;
-            heart_x += gp.tileSize;
+            heart_x += gp.TILESIZE;
         }
     }
     

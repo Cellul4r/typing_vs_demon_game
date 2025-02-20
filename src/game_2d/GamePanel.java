@@ -23,20 +23,20 @@ import tile.TileManager;
  */
 public class GamePanel extends JPanel implements Runnable{
     
-    private final int originalTileSize = 16; //Pixel Size of Characters
-    private final int scale = 3; //Scale of Pixel Size
+    private final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
+    private final int SCALE = 3; //Scale of Pixel Size
     
-    public final int tileSize = originalTileSize * scale; //Real Size of Characters
+    public final int TILESIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
     
-    public final int maxScreenCol = 20;
-    public final int maxScreenRow = 14;
-    private final int screenWidth = tileSize * maxScreenCol;
-    private final int screenHeight = tileSize * maxScreenRow;
+    public final int MAX_SCREEN_COL = 20;
+    public final int MAX_SCREEN_ROW = 14;
+    private final int SCREEN_WIDTH = TILESIZE * MAX_SCREEN_COL;
+    private final int SCREEN_HEIGHT = TILESIZE * MAX_SCREEN_ROW;
     
-    public final int gameRow = 5;
-    private final int gameScale = 2;
-    private final int firstChannelY = 3 * tileSize;
-    public final int channelSpacing = gameScale * tileSize;
+    public final int GAME_ROW = 5;
+    private final int GAME_SCALE = 2;
+    private final int FIRST_CHANNEL_Y = 3 * TILESIZE;
+    public final int CHANNEL_SPACING = GAME_SCALE * TILESIZE;
     
     private final int FPS = 30;
     
@@ -57,19 +57,20 @@ public class GamePanel extends JPanel implements Runnable{
     
     public GamePanel() {
         setUpGame();
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
-        this.addKeyListener(player.getKeyHandler());
+        this.addKeyListener(keyH);
         this.setFocusable(true); //so the game can 'focus' on receiving key
     }
     
     private void setUpGame() {
-        channelRow = new int[gameRow];
+        channelRow = new int[GAME_ROW];
         gameState = playState;
-        for(int i = 0, j = firstChannelY; i < gameRow; i++, j += channelSpacing) {
+        for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
             channelRow[i] = j;
         }
+        
         player = new Player(this, keyH);
         
     }
@@ -153,7 +154,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); //dim screen by 50%
         g2.setColor(Color.BLACK);
-        g2.fillRect(0, 0, screenWidth, screenHeight);
+        g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         font = new Font("Times New Roman", Font.BOLD, 80);
@@ -162,8 +163,8 @@ public class GamePanel extends JPanel implements Runnable{
         
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
         
-        x = screenWidth/2 - length/2;
-        int y = screenHeight/2;
+        x = SCREEN_WIDTH/2 - length/2;
+        int y = SCREEN_HEIGHT/2;
         
         g2.drawString(text, x, y);
         g2.dispose();
