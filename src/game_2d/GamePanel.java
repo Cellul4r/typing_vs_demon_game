@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final int screenWidth = tileSize * maxScreenCol;
     private final int screenHeight = tileSize * maxScreenRow;
     
-    public final int gameRow = 5;
+    private final int gameRow = 5;
     private final int gameScale = 2;
     private final int firstChannelY = 3 * tileSize;
     public final int channelSpacing = gameScale * tileSize;
@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
     private int channelRow[];
     private Thread gameThread; //Running game loops
     private Player player;
+    private final KeyHandler keyH = new KeyHandler(this);
     private final TileManager tileM = new TileManager(this);
     private final CollisionChecker cChecker = new CollisionChecker(this);
     
@@ -73,17 +74,13 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0, j = firstChannelY; i < gameRow; i++, j += channelSpacing) {
             channelRow[i] = j;
         }
-        player = new Player(this);
+        player = new Player(this, keyH);
         
         Random rand = new Random();
         for(int i = 0; i < enemyAmount; i++) {
             int row = rand.nextInt(5); // Generates a number between 0 and 4
             enemyList[i] = new Enemy(this, row);
         }
-    }
-    
-    public int getChannelY(int row) {
-        return this.channelRow[row];
     }
     
     public void startGameThread() {
@@ -112,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
-    
+        
     public void update(){
         
         if(gameState == playState){
@@ -131,9 +128,6 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        
-        
-        
         tileM.draw(g2);
         player.draw(g2);
     
@@ -150,6 +144,10 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
     }
     
+    public int getChannelY(int row) {
+        return this.channelRow[row];
+    }
+    
     public TileManager getTileM() {
         return this.tileM;
     }
@@ -162,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable{
         return player;
     }
     
-    public void drawPauseScreen(Graphics2D g2){
+    private void drawPauseScreen(Graphics2D g2){
         
         String text = "PAUSED";
         int x;

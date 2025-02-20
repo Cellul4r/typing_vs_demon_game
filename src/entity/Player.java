@@ -29,9 +29,9 @@ public class Player extends Entity {
     private int health;
     
 //    private int channel;
-    public Player(GamePanel gp){
+    public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
-        this.keyH = new KeyHandler(gp);
+        this.keyH = keyH;
         setDefaultValues();
         getPlayerImage();
     }
