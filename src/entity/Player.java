@@ -39,7 +39,8 @@ public class Player extends Entity {
     public void setDefaultValues(){
         //Player's default position
         x = 2 * gp.tileSize;
-        y = gp.getChannelY(1) + 4 * gp.tileSize;
+        y = gp.getChannelY(2);
+        this.channel = 2;
         
         font = new Font("Times New Roman", Font.BOLD, 40);
         playerRow = gp.getChannelY(2);
@@ -86,10 +87,12 @@ public class Player extends Entity {
                     case "up" -> {
                         y -= speed;
                         playerRow -= speed;
+                        channel--;
                     }
                     case "down" -> {
                         y += speed;
                         playerRow += speed;
+                        channel++;
                     }
                 }
             }
@@ -102,15 +105,7 @@ public class Player extends Entity {
         }
         
         if(keyH.getEnterPressed()){ 
-            for(int i=0;i<gp.enemyAmount;i++){
-                if(gp.enemyList[i] == null)
-                    continue;
-                Enemy enemy = (Enemy)gp.enemyList[i];
-                if(enemy.getWord().equals(userInput) && enemy.getYs() == playerRow){
-                    gp.enemyList[i] = null;
-                    break;
-                }
-            }
+            gp.getWave().checkPlayerWord(channel, userInput);
             userInput = "";
         }
 

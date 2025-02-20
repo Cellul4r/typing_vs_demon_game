@@ -5,8 +5,8 @@
 package game_2d;
 
 import entity.Enemy;
-import entity.Entity;
 import entity.Player;
+import event.Wave;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,8 +14,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import tile.TileManager;
 
@@ -35,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final int screenWidth = tileSize * maxScreenCol;
     private final int screenHeight = tileSize * maxScreenRow;
     
-    private final int gameRow = 5;
+    public final int gameRow = 5;
     private final int gameScale = 2;
     private final int firstChannelY = 3 * tileSize;
     public final int channelSpacing = gameScale * tileSize;
@@ -49,9 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final KeyHandler keyH = new KeyHandler(this);
     private final TileManager tileM = new TileManager(this);
     private final CollisionChecker cChecker = new CollisionChecker(this);
-    
-    public int enemyAmount = 5; //How much enemies can appear at once on the screen
-    public Entity[] enemyList = new Entity[enemyAmount];
+    private final Wave wave = new Wave(this);
     
     public int gameState;
     public final int playState = 1;
@@ -76,11 +72,6 @@ public class GamePanel extends JPanel implements Runnable{
         }
         player = new Player(this, keyH);
         
-        Random rand = new Random();
-        for(int i = 0; i < enemyAmount; i++) {
-            int row = rand.nextInt(5); // Generates a number between 0 and 4
-            enemyList[i] = new Enemy(this, row);
-        }
     }
     
     public void startGameThread() {
@@ -114,11 +105,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         if(gameState == playState){
             player.update();
-            for(int i=0; i<enemyList.length;i++){
-                if(enemyList[i] != null){
-                    enemyList[i].update();
-                }
-            }
+            wave.update();
         }
         
     }
@@ -130,12 +117,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         tileM.draw(g2);
         player.draw(g2);
-    
-        for(int i = 0; i< enemyList.length; i++){
-            if(enemyList[i] != null){
-                enemyList[i].draw(g2);
-            }
-        }
+        wave.draw(g2);
         
         if(gameState == pauseState){
             drawPauseScreen(g2);
@@ -158,6 +140,10 @@ public class GamePanel extends JPanel implements Runnable{
     
     public Player getPlayer(){
         return player;
+    }
+    
+    public Wave getWave() {
+        return this.wave;
     }
     
     private void drawPauseScreen(Graphics2D g2){
