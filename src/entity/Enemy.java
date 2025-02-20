@@ -33,7 +33,7 @@ public class Enemy extends Entity{
     public Enemy(GamePanel gp, int channel){
         super(gp);
         try {
-            this.image = ImageIO.read(getClass().getResourceAsStream("/resource/item_res/Mario.png"));
+            this.image = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/Mario.png"));
         } catch (IOException ex) {
             Logger.getLogger(Enemy.class.getName()).log(Level.SEVERE, null, ex);
         }
