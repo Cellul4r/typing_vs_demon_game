@@ -27,31 +27,31 @@ public class CollisionChecker {
         int entityTopY = entity.getY() - solidArea.y;
         int entityBottomY = entity.getY() + solidArea.y;
         
-        int entityLeftCol = entityLeftX / gp.TILESIZE;
-        int entityRightCol = entityRightX / gp.TILESIZE;
-        int entityTopRow = entityTopY / gp.TILESIZE;
-        int entityBottomRow = entityBottomY / gp.TILESIZE;
+        int entityLeftCol = entityLeftX / gp.TILE_SIZE;
+        int entityRightCol = entityRightX / gp.TILE_SIZE;
+        int entityTopRow = entityTopY / gp.TILE_SIZE;
+        int entityBottomRow = entityBottomY / gp.TILE_SIZE;
 
         int tileNum1, tileNum2;
         
         switch(entity.getDirection()) {
             case "left" -> {
-                entityLeftCol = (int)(entityLeftX - entity.getSpeed()) / gp.TILESIZE;
+                entityLeftCol = (int)(entityLeftX - entity.getSpeed()) / gp.TILE_SIZE;
                 tileNum1 = gp.getTileM().getMapTileNum(entityLeftCol, entityTopRow);
                 tileNum2 = gp.getTileM().getMapTileNum(entityLeftCol, entityBottomRow);
             }
             case "right" -> {
-                entityRightCol = (int)(entityRightX + entity.getSpeed()) / gp.TILESIZE;
+                entityRightCol = (int)(entityRightX + entity.getSpeed()) / gp.TILE_SIZE;
                 tileNum1 = gp.getTileM().getMapTileNum(entityRightCol, entityTopRow);
                 tileNum2 = gp.getTileM().getMapTileNum(entityRightCol, entityBottomRow);
             }
             case "up" -> {
-                entityTopRow = (int)(entityTopY - entity.getSpeed()) / gp.TILESIZE;
+                entityTopRow = (int)(entityTopY - entity.getSpeed()) / gp.TILE_SIZE;
                 tileNum1 = gp.getTileM().getMapTileNum(entityLeftCol, entityTopRow);
                 tileNum2 = gp.getTileM().getMapTileNum(entityRightCol, entityTopRow);
             }
             case "down" -> {
-                entityBottomRow = (int)(entityBottomY + entity.getSpeed()) / gp.TILESIZE;
+                entityBottomRow = (int)(entityBottomY + entity.getSpeed()) / gp.TILE_SIZE;
                 tileNum1 = gp.getTileM().getMapTileNum(entityLeftCol, entityBottomRow);
                 tileNum2 = gp.getTileM().getMapTileNum(entityRightCol, entityBottomRow);
             }

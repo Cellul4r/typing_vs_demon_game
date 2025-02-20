@@ -32,7 +32,7 @@ public class Player extends Entity {
     
     public void setDefaultValues(){
         //Player's default position
-        x = 2 * gp.TILESIZE;
+        x = 2 * gp.TILE_SIZE;
         y = gp.getChannelY(2);
         channel = 2;
         
@@ -129,7 +129,7 @@ public class Player extends Entity {
     @Override
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
-        int tileSize = gp.TILESIZE;
+        int tileSize = gp.TILE_SIZE;
         
         BufferedImage image = null;
         
@@ -154,27 +154,27 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, tileSize, tileSize, null);
         
         g2.setFont(font);
-        g2.drawString(userInput, gp.TILESIZE * 4, gp.getChannelY(4) + 4 * gp.TILESIZE / 2);
+        g2.drawString(userInput, gp.TILE_SIZE * 4, gp.getChannelY(4) + 4 * gp.TILE_SIZE / 2);
         
         int u = 0;
-        int heart_x = gp.TILESIZE / 2;
-        int heart_y = gp.TILESIZE / 2;
+        int heart_x = gp.TILE_SIZE / 2;
+        int heart_y = gp.TILE_SIZE / 2;
         while(u < maxHealth){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
             u++;
-            heart_x += gp.TILESIZE;
+            heart_x += gp.TILE_SIZE;
         }
         
         u = 0;
-        heart_x = gp.TILESIZE / 2;
-        heart_y = gp.TILESIZE / 2;
+        heart_x = gp.TILE_SIZE / 2;
+        heart_y = gp.TILE_SIZE / 2;
         while(u < health){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
+            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
             if(u < health){
-                g2.drawImage(full_heart, heart_x, heart_y, gp.TILESIZE, gp.TILESIZE, null);
+                g2.drawImage(full_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
             }
             u++;
-            heart_x += gp.TILESIZE;
+            heart_x += gp.TILE_SIZE;
         }
     }
     

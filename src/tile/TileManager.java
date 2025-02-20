@@ -84,12 +84,12 @@ public class TileManager {
             for(int j = 0, y = 0; j < gp.MAX_SCREEN_ROW; j++) {
                 
                 int tileNum = mapTileNum[i][j];
-                g2.drawImage(tile[tileNum].getImage(), x, y, gp.TILESIZE, gp.TILESIZE, null);
+                g2.drawImage(tile[tileNum].getImage(), x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
                 
-                y += gp.TILESIZE;
+                y += gp.TILE_SIZE;
             }
             
-            x += gp.TILESIZE;
+            x += gp.TILE_SIZE;
         }
     }
     

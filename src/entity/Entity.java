@@ -32,7 +32,7 @@ public abstract class Entity {
     
     public Entity(GamePanel gp) {
         this.gp = gp;
-        this.solidArea = new Rectangle(0, 0, gp.TILESIZE / 2, gp.TILESIZE / 2);
+        this.solidArea = new Rectangle(0, 0, gp.TILE_SIZE / 2, gp.TILE_SIZE / 2);
     }
     
     public Entity(GamePanel gp, int channel) {
