@@ -25,6 +25,7 @@ public class Enemy extends Entity{
     private Font font;
     private boolean invincibleFrame = false;
     private long invincibleTime;
+    private int damage = 1;
     private static final long INVINCIBLE_DURATION = 500;
     
     private String[] dictionary = {"Let", "There", "Be", "Light"};
@@ -55,7 +56,7 @@ public class Enemy extends Entity{
         }
         else{
             if(!invincibleFrame){
-                gp.getPlayer().setHealth();
+                gp.getPlayer().decreaseHealth(damage);
                 setInvincibility();
             }
         }

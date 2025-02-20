@@ -184,8 +184,8 @@ public class Player extends Entity {
         }
     }
     
-    public void setHealth(){
-        health -= 1;
+    public void decreaseHealth(int amount){
+        health -= amount;
     }
     
 }
