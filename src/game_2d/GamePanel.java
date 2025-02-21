@@ -53,6 +53,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
+    public int commandNum = 0;
+    public int titleScreenState = 0;
     
     private Font font;
     
@@ -67,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     private void setUpGame() {
         channelRow = new int[GAME_ROW];
-        gameState = playState;
+        gameState = titleState;
         for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
             channelRow[i] = j;
         }
@@ -117,12 +119,17 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        tileM.draw(g2);
-        player.draw(g2);
-        wave.draw(g2);
+        if(gameState == titleState){
+            drawTitleScreen(g2);
+        }
+        else{
+            tileM.draw(g2);
+            player.draw(g2);
+            wave.draw(g2);
         
-        if(gameState == pauseState){
-            drawPauseScreen(g2);
+            if(gameState == pauseState){
+                drawPauseScreen(g2);
+            }
         }
         
         g2.dispose();
@@ -169,5 +176,101 @@ public class GamePanel extends JPanel implements Runnable{
         
         g2.drawString(text, x, y);
         g2.dispose();
+    }
+    
+    private void drawTitleScreen(Graphics2D g2){
+        
+        if(titleScreenState == 0){
+            String text = "Pneumonoultramicroscopicsilicovolcanoconiosis";
+            int x;
+        
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            font = new Font("Times New Roman", Font.BOLD, 80);
+            g2.setFont(font);
+            g2.setColor(Color.WHITE);
+        
+            int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
+        
+            x = getXforCenteredText(text, g2);
+            int y = TILE_SIZE * 3;
+        
+            g2.drawString(text, x, y);
+        
+            font = new Font("Times New Roman", Font.BOLD, 30);
+            g2.setFont(font);
+        
+            text = "NEW GAME";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 8;
+            g2.drawString(text, x, y);
+            if(commandNum == 0){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+        
+            text = "QUIT";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 9;
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+        }
+        
+        else if(titleScreenState == 1){
+            String text = "Choose Difficulty";
+            int x;
+        
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            font = new Font("Times New Roman", Font.BOLD, 80);
+            g2.setFont(font);
+            g2.setColor(Color.WHITE);
+        
+            int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
+        
+            x = getXforCenteredText(text, g2);
+            int y = TILE_SIZE * 3;
+        
+            g2.drawString(text, x, y);
+        
+            font = new Font("Times New Roman", Font.BOLD, 30);
+            g2.setFont(font);
+        
+            text = "EASY";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 8;
+            g2.drawString(text, x, y);
+            if(commandNum == 0){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+        
+            text = "MEDIUM";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 9;
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+            
+            text = "HARD";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 10;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+        }
+        
+        
+        g2.dispose();
+    }
+    
+    private int getXforCenteredText(String text, Graphics2D g2){
+        return SCREEN_WIDTH/2 - ((int)g2.getFontMetrics().getStringBounds(text, g2).getWidth())/2;
     }
 }
