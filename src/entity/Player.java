@@ -1,7 +1,7 @@
 package entity;
 
 import game_2d.GamePanel;
-import game_2d.KeyHandler;
+import event.KeyHandler;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

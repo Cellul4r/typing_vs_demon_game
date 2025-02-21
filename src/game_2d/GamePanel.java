@@ -4,6 +4,8 @@
  */
 package game_2d;
 
+import event.CollisionChecker;
+import event.KeyHandler;
 import entity.Enemy;
 import entity.Player;
 import event.Wave;
