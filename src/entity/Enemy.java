@@ -71,17 +71,15 @@ public class Enemy extends Entity{
     public void draw(Graphics2D g2){
         g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         g2.setFont(font);
-//<<<<<<< HEAD
+        
         g2.setColor(Color.black);
         g2.drawString(word, x + word.length() * 2, y - 10);
-//=======
         g2.setColor(Color.WHITE);
         g2.fillRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
         
         g2.setColor(Color.BLACK);
         g2.drawRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
         g2.drawString(word, x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
-//>>>>>>> 47439e53be699855a3f0e4e10f0671b8a4bb6b57
     }
     
     public void setWord(int index){
