@@ -70,7 +70,7 @@ public class Enemy extends Entity{
     public void draw(Graphics2D g2){
         g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         g2.setFont(font);
-        g2.drawString(word, x + word.length() * 2, y - 10);
+        g2.drawString(word, x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
     }
     
     public void setWord(int index){
