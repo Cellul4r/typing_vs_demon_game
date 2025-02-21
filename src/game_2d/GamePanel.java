@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final Wave wave = new Wave(this);
     
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     

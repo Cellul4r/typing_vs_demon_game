@@ -29,7 +29,7 @@ public class Enemy extends Entity{
     private int damage = 1;
     private static final long INVINCIBLE_DURATION = 500;
     
-    private String[] dictionary = {"Let", "There", "Be", "Light"};
+    private String[] dictionary = {"Let", "There", "Be", "Pneumonoultramicroscopicsilicovolcanoconiosis"};
     
     public Enemy(GamePanel gp, int channel){
         super(gp);
