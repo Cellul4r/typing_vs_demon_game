@@ -4,7 +4,8 @@
  */
 package game_2d;
 
-import entity.Enemy;
+import event.KeyHandler;
+import event.CollisionChecker;
 import entity.Player;
 import event.Wave;
 import java.awt.AlphaComposite;

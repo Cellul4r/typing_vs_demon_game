@@ -33,7 +33,6 @@ public class Wave {
         for(Entity entity : enemyList[playerRow]) {
             if(((Enemy)entity).getWord().equals(word)) {
                 enemyList[playerRow].remove(entity);
-                enemyAmount--;
                 return true;
             }
         }
@@ -45,19 +44,34 @@ public class Wave {
         level++;
         enemyAmount = 5;
         enemySpawn = 0;
+        
+    }
+    
+    private void randomEntity() {
         Random rm = new Random();
-        for(int i = 0; i < enemyAmount; i++) {
-            int row = rm.nextInt(gp.GAME_ROW);
-            Enemy enemy = new Enemy(gp, row);
-            enemyList[row].add(enemy);
-        }
+        int row = rm.nextInt(gp.GAME_ROW);
+        Enemy enemy = new Enemy(gp, row);
+        enemyList[row].add(enemy);
+        enemySpawn++;
     }
     
     public void update() {
+        // check if the player clear that wave
         if(isWaveEmpty()) {
             createWave();
         }
         
+        // spawn enemy
+        if(enemySpawn < enemyAmount) {
+            if(enemyTick == enemyLimit) {
+                randomEntity();
+                enemyTick = 0;
+            } else {
+                enemyTick++;
+            }
+        }
+        
+        // update enemy movements
         for(int i = 0; i < gp.GAME_ROW; i++) {
             for(Entity entity : enemyList[i]) {
                 entity.update();
@@ -66,6 +80,7 @@ public class Wave {
     }
     
     public void draw(Graphics2D g2) {
+        
         for(int i = 0; i < gp.GAME_ROW; i++) {
             for(Entity entity : enemyList[i]) {
                 entity.draw(g2);
@@ -81,6 +96,6 @@ public class Wave {
                 break;
             }
         }
-        return empty && enemySpawn == enemyAmount;
+        return (empty && enemySpawn == enemyAmount);
     }
 }
