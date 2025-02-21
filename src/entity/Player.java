@@ -90,7 +90,7 @@ public class Player extends Entity {
             userInput = "";
         }
 
-        if(keyH.getDeletePressed()){
+        if(keyH.getDeletePressed() && userInput.length()!=0){
             userInput = userInput.substring(0, userInput.length() - 1);
         }
     }

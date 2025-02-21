@@ -30,27 +30,93 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         //System.out.println(KeyEvent.getKeyText(code));
-        if(code == KeyEvent.VK_UP){
-            upPressed = true;
-        } else if(code == KeyEvent.VK_DOWN){
-            downPressed = true;
+        if(gp.gameState == gp.titleState && gp.titleScreenState == 0){
+            if(code == KeyEvent.VK_UP){
+                gp.commandNum--;
+                if(gp.commandNum < 0)
+                    gp.commandNum = 1;
+            }
+            if(code == KeyEvent.VK_DOWN){
+                gp.commandNum++;
+                if(gp.commandNum > 1)
+                    gp.commandNum = 0;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.commandNum == 0){
+                    gp.titleScreenState = 1;
+                }
+                if(gp.commandNum == 1){
+                    System.exit(0);
+                }
+            }
         }
-        this.keyChar = e.getKeyChar();
-        if(keyChar == KeyEvent.VK_ENTER || keyChar == KeyEvent.VK_SPACE){
-            enterPressed = true;
+        else if(gp.gameState == gp.titleState && gp.titleScreenState == 1){
+            if(code == KeyEvent.VK_UP){
+                gp.commandNum--;
+                if(gp.commandNum < 0)
+                    gp.commandNum = 1;
+            }
+            if(code == KeyEvent.VK_DOWN){
+                gp.commandNum++;
+                if(gp.commandNum > 1)
+                    gp.commandNum = 0;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.commandNum == 0){
+                    gp.titleScreenState = 2;
+                }
+                if(gp.commandNum == 1){
+                    gp.titleScreenState = 0;
+                }
+            }
         }
-        if(keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE){
-            deletePressed = true;
+        else if(gp.gameState == gp.titleState && gp.titleScreenState == 2){
+            if(code == KeyEvent.VK_UP){
+                gp.commandNum--;
+                if(gp.commandNum < 0)
+                    gp.commandNum = 2;
+            }
+            if(code == KeyEvent.VK_DOWN){
+                gp.commandNum++;
+                if(gp.commandNum > 2)
+                    gp.commandNum = 0;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.commandNum == 0){
+                    gp.gameState = gp.playState; //Easy
+                }
+                if(gp.commandNum == 1){
+                    gp.gameState = gp.playState; //Medium
+                }
+                if(gp.commandNum == 2){
+                    gp.gameState = gp.playState; //Hard
+                }
+            }
+        }
+        else{
+            if(code == KeyEvent.VK_UP){
+                upPressed = true;
+            } else if(code == KeyEvent.VK_DOWN){
+                downPressed = true;
+            }
+            this.keyChar = e.getKeyChar();
+            if(keyChar == KeyEvent.VK_ENTER || keyChar == KeyEvent.VK_SPACE){
+                enterPressed = true;
+            }
+            if(keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE){
+                deletePressed = true;
+            }
+        
+            if(code == KeyEvent.VK_ESCAPE){
+                if(gp.gameState == gp.playState){
+                    gp.gameState = gp.pauseState;
+                }
+                else if(gp.gameState == gp.pauseState){
+                    gp.gameState = gp.playState;
+                }
+            }
         }
         
-        if(code == KeyEvent.VK_ESCAPE){
-            if(gp.gameState == gp.playState){
-                gp.gameState = gp.pauseState;
-            }
-            else if(gp.gameState == gp.pauseState){
-                gp.gameState = gp.playState;
-            }
-        }
     }
 
     @Override
