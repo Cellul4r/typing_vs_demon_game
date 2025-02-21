@@ -34,7 +34,7 @@ public class Sound {
             clip.open(ais);
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             
-            volumeControl.setValue(-10.0f);
+            volumeControl.setValue(-5.0f);
             
         }catch(Exception e){
             

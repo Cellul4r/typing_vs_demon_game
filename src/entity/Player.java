@@ -2,6 +2,7 @@ package entity;
 
 import game_2d.GamePanel;
 import event.KeyHandler;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,8 @@ public class Player extends Entity {
 
     private int maxHealth;
     private int health;
+    
+    private int score = 0;
     
 //    private int channel;
     public Player(GamePanel gp, KeyHandler keyH){
@@ -86,8 +89,10 @@ public class Player extends Entity {
         }
         
         if(keyH.getEnterPressed()){ 
-            gp.getWave().checkPlayerWord(channel, userInput);
-            userInput = "";
+            if(gp.getWave().checkPlayerWord(channel, userInput)){
+                score++;
+                userInput = "";
+            }
         }
 
         if(keyH.getDeletePressed() && userInput.length()!=0){
@@ -154,7 +159,10 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, tileSize, tileSize, null);
         
         g2.setFont(font);
+        g2.setColor(Color.WHITE);
         g2.drawString(userInput, gp.TILE_SIZE * 4, gp.getChannelY(4) + 4 * gp.TILE_SIZE / 2);
+        
+        g2.drawString(String.valueOf(score), gp.TILE_SIZE * 19, gp.TILE_SIZE + 15);
         
         int u = 0;
         int heart_x = gp.TILE_SIZE / 2;
@@ -180,6 +188,10 @@ public class Player extends Entity {
     
     public void decreaseHealth(int amount){
         health -= amount;
+    }
+    
+    public int getHealth(){
+        return health;
     }
     
 }

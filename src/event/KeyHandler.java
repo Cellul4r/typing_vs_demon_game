@@ -96,6 +96,30 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+        else if(gp.gameState == gp.gameOverState){
+            if(code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT){
+                gp.commandNum--;
+                if(gp.commandNum < 0)
+                    gp.commandNum = 1;
+            }
+            if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_RIGHT){
+                gp.commandNum++;
+                if(gp.commandNum > 1)
+                    gp.commandNum = 0;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                gp.stopMusic();
+                gp.playSoundEffect(1);
+              
+                if(gp.commandNum == 0){
+                    gp.gameState = gp.titleState;
+                    gp.gameState = gp.playState;//Easy
+                }
+                if(gp.commandNum == 1){
+                    gp.gameState = gp.titleState; //Medium
+                }
+            }
+        }
         else{
             if(code == KeyEvent.VK_UP){
                 upPressed = true;

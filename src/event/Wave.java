@@ -17,6 +17,7 @@ public class Wave {
     private int level;
     private int enemyAmount;
     private int enemySpawn;
+    private int enemyDefault = 5;
     private final ArrayList<Entity>[] enemyList;
     private int enemyTick = 0;
     private int enemyLimit = 60;
@@ -33,6 +34,7 @@ public class Wave {
         for(Entity entity : enemyList[playerRow]) {
             if(((Enemy)entity).getWord().equals(word)) {
                 enemyList[playerRow].remove(entity);
+                gp.playSoundEffect(1);
                 return true;
             }
         }
@@ -55,9 +57,9 @@ public class Wave {
     
     private void createWave() {
         level++;
-        enemyAmount = 5;
+        enemyAmount = enemyDefault + enemyDefault*level*3/4;
         enemySpawn = 0;
-        
+        System.out.println(level + " "+ enemyAmount);
     }
     
     private void randomEntity() {

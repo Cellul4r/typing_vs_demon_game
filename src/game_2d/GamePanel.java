@@ -58,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int gameOverState = 3;
     public int commandNum = 0;
     public int titleScreenState = 0;
     private boolean musicPlayed = false;
@@ -142,6 +143,10 @@ public class GamePanel extends JPanel implements Runnable{
             if(gameState == pauseState){
                 drawPauseScreen(g2);
                 stopMusic();
+            }
+            if(player.getHealth() == 0){
+                drawGameOver(g2);
+                gameState = gameOverState;
             }
         }
         
@@ -271,7 +276,7 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString(text, x, y);
             
             
-            text = "Type words to shoot enemies according to your row";
+            text = "Type words to shoot enemies according to your row.";
             x = getXforCenteredText(text, g2);
             y = TILE_SIZE * 8;
             g2.drawString(text, x, y);
@@ -366,5 +371,52 @@ public class GamePanel extends JPanel implements Runnable{
         
         sound.setFile(i);
         sound.play();
+    }
+    
+    private void drawGameOver(Graphics2D g2){
+        String text = "GAME OVER";
+        int x;
+        
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); //dim screen by 50%
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        font = new Font("Times New Roman", Font.BOLD, 80);
+        g2.setFont(font);
+        g2.setColor(Color.WHITE);
+        
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
+        
+        x = SCREEN_WIDTH/2 - length/2;
+        int y = SCREEN_HEIGHT/2;
+        
+        g2.drawString(text, x, y);
+        
+        font = new Font("Times New Roman", Font.BOLD, 30);
+        g2.setFont(font);
+        
+        text = "RESTART";
+        x = TILE_SIZE * 5;
+        y = TILE_SIZE * 10;
+        g2.drawString(text, x, y);
+        if(commandNum == 0){
+            g2.drawString(">", x - TILE_SIZE, y);
+        }
+        
+        text = "MAIN MENU";
+        x = TILE_SIZE * 10;
+        y = TILE_SIZE * 10;
+        g2.drawString(text, x, y);
+        if(commandNum == 1){
+            g2.drawString(">", x - TILE_SIZE, y);
+        }
+        
+        g2.dispose();
+        
+    }
+    
+    public void restart(){
+        //Later
     }
 }
