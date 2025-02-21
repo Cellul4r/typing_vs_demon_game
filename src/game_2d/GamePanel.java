@@ -220,6 +220,81 @@ public class GamePanel extends JPanel implements Runnable{
         }
         
         else if(titleScreenState == 1){
+            String text = "Controls";
+            int x;
+        
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            font = new Font("Times New Roman", Font.BOLD, 80);
+            g2.setFont(font);
+            g2.setColor(Color.WHITE);
+        
+            int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); //Centered Text
+        
+            x = getXforCenteredText(text, g2);
+            int y = TILE_SIZE * 2;
+        
+            g2.drawString(text, x, y);
+        
+            font = new Font("Times New Roman", Font.BOLD, 30);
+            g2.setFont(font);
+        
+            text = "SHOOT : ENTER / SPACE";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 5;
+            g2.drawString(text, x, y);
+        
+            text = "MOVE UP : ^";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 6;
+            g2.drawString(text, x, y);
+            
+            
+            text = "MOVE DOWN : ?????";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 7;
+            g2.drawString(text, x, y);
+            
+            
+            text = "MOVE LEFT : <";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 8;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+            
+            text = "MOVE RIGHT : >";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 9;
+            g2.drawString(text, x, y);
+            
+            
+            text = "Type words to shoot enemies according to your row";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 10;
+            g2.drawString(text, x, y);
+            
+            text = "CONTINUE";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 12;
+            g2.drawString(text, x, y);
+            if(commandNum == 0){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+            
+            text = "EXIT";
+            x = getXforCenteredText(text, g2);
+            y = TILE_SIZE * 13;
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x - TILE_SIZE, y);
+            }
+        }
+        
+        else if(titleScreenState == 2){
             String text = "Choose Difficulty";
             int x;
         

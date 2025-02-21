@@ -53,6 +53,26 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_UP){
                 gp.commandNum--;
                 if(gp.commandNum < 0)
+                    gp.commandNum = 1;
+            }
+            if(code == KeyEvent.VK_DOWN){
+                gp.commandNum++;
+                if(gp.commandNum > 1)
+                    gp.commandNum = 0;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.commandNum == 0){
+                    gp.titleScreenState = 2;
+                }
+                if(gp.commandNum == 1){
+                    gp.titleScreenState = 0;
+                }
+            }
+        }
+        else if(gp.gameState == gp.titleState && gp.titleScreenState == 2){
+            if(code == KeyEvent.VK_UP){
+                gp.commandNum--;
+                if(gp.commandNum < 0)
                     gp.commandNum = 2;
             }
             if(code == KeyEvent.VK_DOWN){
