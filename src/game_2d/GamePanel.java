@@ -7,6 +7,8 @@ package game_2d;
 import event.CollisionChecker;
 import event.KeyHandler;
 import entity.Enemy;
+import event.KeyHandler;
+import event.CollisionChecker;
 import entity.Player;
 import event.Wave;
 import java.awt.AlphaComposite;
