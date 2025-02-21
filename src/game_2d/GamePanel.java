@@ -42,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     // channel Row channel 1 at ? y pixels
     private int channelRow[];
+    private Sound sound = new Sound();
     private Thread gameThread; //Running game loops
     private Player player;
     private final KeyHandler keyH = new KeyHandler(this);
@@ -55,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState = 2;
     public int commandNum = 0;
     public int titleScreenState = 0;
+    private boolean musicPlayed = false;
     
     private Font font;
     
@@ -121,6 +123,12 @@ public class GamePanel extends JPanel implements Runnable{
         
         if(gameState == titleState){
             drawTitleScreen(g2);
+            if(titleScreenState == 1 && !musicPlayed){
+                playMusic(0);
+            }
+            if(titleScreenState == 0 && musicPlayed){
+                stopMusic();                
+            }
         }
         else{
             tileM.draw(g2);
@@ -129,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable{
         
             if(gameState == pauseState){
                 drawPauseScreen(g2);
+                stopMusic();
             }
         }
         
@@ -181,7 +190,7 @@ public class GamePanel extends JPanel implements Runnable{
     private void drawTitleScreen(Graphics2D g2){
         
         if(titleScreenState == 0){
-            String text = "Pneumonoultramicroscopicsilicovolcanoconiosis";
+            String text = "Typing VS Demon";
             int x;
         
             g2.setColor(Color.BLACK);
@@ -252,34 +261,20 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString(text, x, y);
             
             
-            text = "MOVE DOWN : ?????";
+            text = "MOVE DOWN : v";
             x = getXforCenteredText(text, g2);
             y = TILE_SIZE * 7;
             g2.drawString(text, x, y);
             
             
-            text = "MOVE LEFT : <";
-            x = getXforCenteredText(text, g2);
-            y = TILE_SIZE * 8;
-            g2.drawString(text, x, y);
-            if(commandNum == 2){
-                g2.drawString(">", x - TILE_SIZE, y);
-            }
-            
-            text = "MOVE RIGHT : >";
-            x = getXforCenteredText(text, g2);
-            y = TILE_SIZE * 9;
-            g2.drawString(text, x, y);
-            
-            
             text = "Type words to shoot enemies according to your row";
             x = getXforCenteredText(text, g2);
-            y = TILE_SIZE * 10;
+            y = TILE_SIZE * 8;
             g2.drawString(text, x, y);
             
             text = "CONTINUE";
             x = getXforCenteredText(text, g2);
-            y = TILE_SIZE * 12;
+            y = TILE_SIZE * 10;
             g2.drawString(text, x, y);
             if(commandNum == 0){
                 g2.drawString(">", x - TILE_SIZE, y);
@@ -287,7 +282,7 @@ public class GamePanel extends JPanel implements Runnable{
             
             text = "EXIT";
             x = getXforCenteredText(text, g2);
-            y = TILE_SIZE * 13;
+            y = TILE_SIZE * 11;
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x - TILE_SIZE, y);
@@ -347,5 +342,25 @@ public class GamePanel extends JPanel implements Runnable{
     
     private int getXforCenteredText(String text, Graphics2D g2){
         return SCREEN_WIDTH/2 - ((int)g2.getFontMetrics().getStringBounds(text, g2).getWidth())/2;
+    }
+    
+    public void playMusic(int i){
+        
+        sound.setFile(i);
+        sound.play();
+        musicPlayed = true;
+        sound.loop();
+    }
+    
+    public void stopMusic(){
+        
+        sound.stop();
+        musicPlayed = false;
+    }
+    
+    public void playSoundEffect(int i){
+        
+        sound.setFile(i);
+        sound.play();
     }
 }
