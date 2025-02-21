@@ -5,6 +5,7 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -70,6 +71,9 @@ public class Enemy extends Entity{
     public void draw(Graphics2D g2){
         g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         g2.setFont(font);
+        g2.setColor(Color.WHITE);
+        g2.fillRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
+        g2.setColor(Color.BLACK);
         g2.drawString(word, x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
     }
     

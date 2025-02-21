@@ -41,6 +41,19 @@ public class Wave {
         return false;
     }
     
+//    public boolean checkPlayerWord(int playerRow, String word) {
+//        Iterator<Entity> iterator = enemyList[playerRow].iterator();
+//        while (iterator.hasNext()) {
+//            Entity entity = iterator.next();
+//            if (((Enemy) entity).getWord().equals(word)) {
+//                iterator.remove();  // Safe removal
+//                enemyAmount--;
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+    
     private void createWave() {
         level++;
         enemyAmount = 5;
