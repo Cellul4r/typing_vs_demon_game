@@ -72,8 +72,6 @@ public class Enemy extends Entity{
         g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
         g2.setFont(font);
         
-        g2.setColor(Color.black);
-        g2.drawString(word, x + word.length() * 2, y - 10);
         g2.setColor(Color.WHITE);
         g2.fillRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
         
