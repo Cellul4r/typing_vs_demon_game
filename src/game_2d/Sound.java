@@ -22,8 +22,8 @@ public class Sound {
     public Sound(){
         
         //Wav file only
-        soundURL[0] = getClass().getResource("/sound_res/Start Menu.wav");
-        soundURL[1] = getClass().getResource("/sound_res/Wilhelm Scream.wav");
+        soundURL[0] = getClass().getResource("/resource/sound_res/Start Menu.wav");
+        soundURL[1] = getClass().getResource("/resource/sound_res/Wilhelm Scream.wav");
     }
     
     public void setFile(int i){
@@ -37,9 +37,10 @@ public class Sound {
             volumeControl.setValue(-5.0f);
             
         }catch(Exception e){
-            
+            System.out.println("Set File Error");
         }
     }
+    
     public void play(){
         clip.start();
     }

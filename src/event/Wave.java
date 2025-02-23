@@ -20,7 +20,7 @@ public class Wave {
     private int enemyDefault = 5;
     private final ArrayList<Entity>[] enemyList;
     private int enemyTick = 0;
-    private int enemyLimit = 60;
+    private int enemyLimit = 30;
     
     public Wave(GamePanel gp) {
         this.gp = gp;
@@ -41,20 +41,7 @@ public class Wave {
         
         return false;
     }
-    
-//    public boolean checkPlayerWord(int playerRow, String word) {
-//        Iterator<Entity> iterator = enemyList[playerRow].iterator();
-//        while (iterator.hasNext()) {
-//            Entity entity = iterator.next();
-//            if (((Enemy) entity).getWord().equals(word)) {
-//                iterator.remove();  // Safe removal
-//                enemyAmount--;
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-    
+        
     private void createWave() {
         level++;
         enemyAmount = enemyDefault + enemyDefault*level*3/4;

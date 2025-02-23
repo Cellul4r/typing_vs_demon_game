@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tile;
 
 import game_2d.GamePanel;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +23,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         
         this.gp = gp;
-        tile = new Tile[12];
+        tile = new Tile[18];
         mapTileNum = new int [gp.MAX_SCREEN_COL][gp.MAX_SCREEN_ROW];
         getTileImage();
         loadMap("/resource/map_res/map01.txt");
@@ -49,6 +44,12 @@ public class TileManager {
             tile[9] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/wall4.png")), true);
             tile[10] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/wall5.png")), true);
             tile[11] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/wall6.png")), true);
+            tile[12] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush1.png")), true);
+            tile[13] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush2.png")), true);
+            tile[14] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush3.png")), true);
+            tile[15] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush4.png")), true);
+            tile[16] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush5.png")), true);
+            tile[17] = new Tile(ImageIO.read(getClass().getResourceAsStream("/resource/tile_res/bush6.png")), true);
             
         } catch (IOException ex) {
             Logger.getLogger(TileManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +86,7 @@ public class TileManager {
                 
                 int tileNum = mapTileNum[i][j];
                 g2.drawImage(tile[tileNum].getImage(), x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-                
+              
                 y += gp.TILE_SIZE;
             }
             

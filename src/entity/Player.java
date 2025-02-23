@@ -2,8 +2,6 @@ package entity;
 
 import game_2d.GamePanel;
 import event.KeyHandler;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -16,7 +14,6 @@ import javax.imageio.ImageIO;
 public class Player extends Entity {
     
     private final KeyHandler keyH;
-    private Font font;
     private String userInput = "";
     private char keyChar;
 
@@ -36,24 +33,23 @@ public class Player extends Entity {
     public void setDefaultValues(){
         //Player's default position
         x = 2 * gp.TILE_SIZE;
-        y = gp.getChannelY(2);
+        y = gp.getChannelY(2) - gp.TILE_SIZE / 2;
         channel = 2;
         
-        font = new Font("Times New Roman", Font.BOLD, 40);
         speed = gp.CHANNEL_SPACING; //player moves by X pixels
         direction = "down";
         
-        maxHealth = 12;
+        maxHealth = 50;
         health = maxHealth;
     }
     
     public void getPlayerImage(){
         
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player2.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player1.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
             full_heart = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/FireMage.png"));
             empty_heart = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/penguin.png"));
@@ -156,42 +152,30 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, x, y, tileSize, tileSize, null);
-        
-        g2.setFont(font);
-        g2.setColor(Color.WHITE);
-        g2.drawString(userInput, gp.TILE_SIZE * 4, gp.getChannelY(4) + 4 * gp.TILE_SIZE / 2);
-        
-        g2.drawString(String.valueOf(score), gp.TILE_SIZE * 19, gp.TILE_SIZE + 15);
-        
-        int u = 0;
-        int heart_x = gp.TILE_SIZE / 2;
-        int heart_y = gp.TILE_SIZE / 2;
-        while(u < maxHealth){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-            u++;
-            heart_x += gp.TILE_SIZE;
-        }
-        
-        u = 0;
-        heart_x = gp.TILE_SIZE / 2;
-        heart_y = gp.TILE_SIZE / 2;
-        while(u < health){
-            g2.drawImage(empty_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-            if(u < health){
-                g2.drawImage(full_heart, heart_x, heart_y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-            }
-            u++;
-            heart_x += gp.TILE_SIZE;
-        }
+        // draw Player
+        g2.drawImage(image, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
     }
     
     public void decreaseHealth(int amount){
-        health -= amount;
+        this.health -= Math.min(health, amount);
+        if(health == 0) {
+            gp.gameState = GamePanel.GAME_OVER_STATE;
+        }
     }
     
     public int getHealth(){
-        return health;
+        return this.health;
     }
     
+    public String getUserInput() {
+        return this.userInput;
+    }
+    
+    public int getScore() {
+        return this.score;
+    }
+    
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
 }

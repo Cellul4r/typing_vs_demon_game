@@ -28,10 +28,16 @@ public class Enemy extends Entity{
     private long invincibleTime;
     private int damage = 1;
     private static final long INVINCIBLE_DURATION = 500;
+    private int enemyTick = 0;
+    private int enemyLimit = 1;
     
     private String[] dictionary = {"d", "b", "c", "a"};
     
     public Enemy(GamePanel gp, int channel){
+        this(gp, channel, 1);
+    }
+    
+    public Enemy(GamePanel gp, int channel, int level) {
         super(gp);
         try {
             this.image = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/Mario.png"));
@@ -51,6 +57,11 @@ public class Enemy extends Entity{
     @Override
     public void update(){
         
+        if(enemyTick < enemyLimit) {
+            enemyTick++;
+            return;
+        }
+        enemyTick = 0;
         collisionOn = gp.getCChecker().checkCollision(this);
         if(!collisionOn) {
             x -= speed;

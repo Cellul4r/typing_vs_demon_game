@@ -30,7 +30,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         //System.out.println(KeyEvent.getKeyText(code));
-        if(gp.gameState == gp.titleState && gp.titleScreenState == 0){
+        if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 0){
             if(code == KeyEvent.VK_UP){
                 gp.commandNum--;
                 if(gp.commandNum < 0)
@@ -43,6 +43,7 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 if(gp.commandNum == 0){
+                    gp.playMusic(0);
                     gp.titleScreenState = 1;
                 }
                 if(gp.commandNum == 1){
@@ -50,7 +51,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
-        else if(gp.gameState == gp.titleState && gp.titleScreenState == 1){
+        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 1){
             if(code == KeyEvent.VK_UP){
                 gp.commandNum--;
                 if(gp.commandNum < 0)
@@ -70,7 +71,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
-        else if(gp.gameState == gp.titleState && gp.titleScreenState == 2){
+        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 2){
             if(code == KeyEvent.VK_UP){
                 gp.commandNum--;
                 if(gp.commandNum < 0)
@@ -86,17 +87,17 @@ public class KeyHandler implements KeyListener {
                 gp.playSoundEffect(1);
               
                 if(gp.commandNum == 0){
-                    gp.gameState = gp.playState; //Easy
+                    gp.gameState = GamePanel.PLAY_STATE; //Easy
                 }
                 if(gp.commandNum == 1){
-                    gp.gameState = gp.playState; //Medium
+                    gp.gameState = GamePanel.PLAY_STATE; //Medium
                 }
                 if(gp.commandNum == 2){
-                    gp.gameState = gp.playState; //Hard
+                    gp.gameState = GamePanel.PLAY_STATE; //Hard
                 }
             }
         }
-        else if(gp.gameState == gp.gameOverState){
+        else if(gp.gameState == GamePanel.GAME_OVER_STATE){
             if(code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT){
                 gp.commandNum--;
                 if(gp.commandNum < 0)
@@ -112,11 +113,11 @@ public class KeyHandler implements KeyListener {
                 gp.playSoundEffect(1);
               
                 if(gp.commandNum == 0){
-                    gp.gameState = gp.titleState;
-                    gp.gameState = gp.playState;//Easy
+                    gp.gameState = GamePanel.TITLE_STATE;
+                    gp.gameState = GamePanel.PLAY_STATE;//Easy
                 }
                 if(gp.commandNum == 1){
-                    gp.gameState = gp.titleState; //Medium
+                    gp.gameState = GamePanel.TITLE_STATE; //Medium
                 }
             }
         }
@@ -135,11 +136,11 @@ public class KeyHandler implements KeyListener {
             }
         
             if(code == KeyEvent.VK_ESCAPE){
-                if(gp.gameState == gp.playState){
-                    gp.gameState = gp.pauseState;
+                if(gp.gameState == GamePanel.PLAY_STATE){
+                    gp.gameState = GamePanel.PAUSE_STATE;
                 }
-                else if(gp.gameState == gp.pauseState){
-                    gp.gameState = gp.playState;
+                else if(gp.gameState == GamePanel.PAUSE_STATE){
+                    gp.gameState = GamePanel.PLAY_STATE;
                 }
             }
         }
