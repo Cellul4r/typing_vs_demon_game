@@ -18,6 +18,7 @@ public class Wave {
     private int enemyAmount;
     private int enemySpawn;
     private int enemyDefault = 5;
+    private double enemyFactor;
     private final ArrayList<Entity>[] enemyList;
     private int enemyTick = 0;
     private int enemyLimit = 30;
@@ -28,6 +29,13 @@ public class Wave {
         for(int i = 0; i < gp.GAME_ROW; i++) {
             enemyList[i] = new ArrayList();
         }
+        
+        enemyFactor = switch (gp.difficulty) {
+            case 0 -> 0.25;
+            case 1 -> 0.50;
+            case 2 -> 0.65;
+            default -> 0.00;
+        };
     }
     
     public boolean checkPlayerWord(int playerRow, String word) {
@@ -43,16 +51,16 @@ public class Wave {
     }
         
     private void createWave() {
-        level++;
-        enemyAmount = enemyDefault + enemyDefault*level*3/4;
+        enemyAmount = enemyDefault + (int)(enemyDefault*level*enemyFactor);
         enemySpawn = 0;
         System.out.println(level + " "+ enemyAmount);
+        level++;
     }
     
     private void randomEntity() {
         Random rm = new Random();
         int row = rm.nextInt(gp.GAME_ROW);
-        Enemy enemy = new Enemy(gp, row);
+        Enemy enemy = new Enemy(gp, row, level);
         enemyList[row].add(enemy);
         enemySpawn++;
     }

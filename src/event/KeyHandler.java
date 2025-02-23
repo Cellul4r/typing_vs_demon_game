@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package event;
 
 import game_2d.GamePanel;
@@ -43,7 +39,6 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 if(gp.commandNum == 0){
-                    gp.playMusic(0);
                     gp.titleScreenState = 1;
                 }
                 if(gp.commandNum == 1){
@@ -84,16 +79,18 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 gp.stopMusic();
-                gp.playSoundEffect(1);
-              
+                gp.playMusic(3);
                 if(gp.commandNum == 0){
                     gp.gameState = GamePanel.PLAY_STATE; //Easy
+                    gp.difficulty = 0;
                 }
                 if(gp.commandNum == 1){
                     gp.gameState = GamePanel.PLAY_STATE; //Medium
+                    gp.difficulty = 1;
                 }
                 if(gp.commandNum == 2){
                     gp.gameState = GamePanel.PLAY_STATE; //Hard
+                    gp.difficulty = 2;
                 }
             }
         }
@@ -109,15 +106,12 @@ public class KeyHandler implements KeyListener {
                     gp.commandNum = 0;
             }
             if(code == KeyEvent.VK_ENTER){
-                gp.stopMusic();
-                gp.playSoundEffect(1);
-              
                 if(gp.commandNum == 0){
-                    gp.gameState = GamePanel.TITLE_STATE;
-                    gp.gameState = GamePanel.PLAY_STATE;//Easy
+                    gp.gameState = GamePanel.PLAY_STATE;
                 }
                 if(gp.commandNum == 1){
-                    gp.gameState = GamePanel.TITLE_STATE; //Medium
+                    gp.gameState = GamePanel.TITLE_STATE;
+                    gp.playMusic(2);
                 }
             }
         }

@@ -89,7 +89,7 @@ public class UI {
         int heartWidth = (int)((double)gp.player.getHealth() / gp.player.getMaxHealth() * defaultWidth);
         int heartHeight = gp.TILE_SIZE / 3;
         
-        g2.setColor(Color.green);
+        g2.setColor(Color.red);
         g2.fillRoundRect(gp.TILE_SIZE, gp.TILE_SIZE / 2, heartWidth, heartHeight, 15, 15);
     }
     

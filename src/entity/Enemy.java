@@ -28,8 +28,9 @@ public class Enemy extends Entity{
     private long invincibleTime;
     private int damage = 1;
     private static final long INVINCIBLE_DURATION = 500;
-    private int enemyTick = 0;
-    private int enemyLimit = 1;
+    private int baseSpeed = 1;
+    private int maxSpeed = 4;
+    private double speedFactor;
     
     private String[] dictionary = {"d", "b", "c", "a"};
     
@@ -50,18 +51,22 @@ public class Enemy extends Entity{
         this.y = gp.getChannelY(channel);
         this.direction = "left";
         this.word = dictionary[rand.nextInt(4)];
-        this.speed = 2;
+        
+        speedFactor = switch(gp.difficulty)  {
+            case 0 -> 0.10;
+            case 1 -> 0.15;
+            case 2 -> 0.20;
+            default -> 0.00;
+        };
+        this.speed = baseSpeed + (int)(baseSpeed * level * speedFactor);
+        this.speed = Math.min(speed, maxSpeed);
+        System.out.println(speed + " " + level);
         this.font = new Font("Times New Roman", Font.BOLD, 16);
     }
     
     @Override
     public void update(){
         
-        if(enemyTick < enemyLimit) {
-            enemyTick++;
-            return;
-        }
-        enemyTick = 0;
         collisionOn = gp.getCChecker().checkCollision(this);
         if(!collisionOn) {
             x -= speed;

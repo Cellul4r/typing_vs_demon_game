@@ -4,20 +4,17 @@
  */
 package game_2d;
 
+import sound.Sound;
 import event.CollisionChecker;
 import event.KeyHandler;
-import entity.Enemy;
 import event.KeyHandler;
 import event.CollisionChecker;
 import entity.Player;
 import event.Wave;
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Random;
 import javax.swing.JPanel;
 import tile.TileManager;
 import ui.UI;
@@ -68,6 +65,8 @@ public class GamePanel extends JPanel implements Runnable{
     public int commandNum = 0;
     public int titleScreenState = 0;
     public boolean musicPlayed = false;
+    // Easy 0, Medium 1, Hard 2
+    public int difficulty = 0;
     
     public GamePanel() {
         setUpGame();
@@ -86,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
         gameState = TITLE_STATE;
         player = new Player(this, keyH);
+        playMusic(2);
     }
     
     public void startGameThread() {
