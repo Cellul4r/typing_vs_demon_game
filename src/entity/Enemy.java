@@ -21,16 +21,16 @@ import javax.imageio.ImageIO;
  */
 public class Enemy extends Entity{
     
-    public BufferedImage image;
-    protected String word;
-    private Font font;
+    private static final int DAMAGE = 1;
+    private static final long INVINCIBLE_DURATION = 500;
+    private static final int BASE_SPEED = 2;
+    private static final int MAX_SPEED = 4;
+    private static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
+    private BufferedImage image;
+    private String word;
+    private final double speedFactor;
     private boolean invincibleFrame = false;
     private long invincibleTime;
-    private int damage = 1;
-    private static final long INVINCIBLE_DURATION = 500;
-    private int baseSpeed = 1;
-    private int maxSpeed = 4;
-    private double speedFactor;
     
     private String[] dictionary = {"d", "b", "c", "a"};
     
@@ -39,15 +39,16 @@ public class Enemy extends Entity{
     }
     
     public Enemy(GamePanel gp, int channel, int level) {
-        super(gp);
+        super(gp, channel);
         try {
             this.image = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/Mario.png"));
         } catch (IOException ex) {
             Logger.getLogger(Enemy.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Random rand = new Random();
         this.channel = channel;
-        this.x = gp.TILE_SIZE * 20;
+        this.x = GamePanel.TILE_SIZE * 20;
         this.y = gp.getChannelY(channel);
         this.direction = "left";
         this.word = dictionary[rand.nextInt(4)];
@@ -58,10 +59,9 @@ public class Enemy extends Entity{
             case 2 -> 0.20;
             default -> 0.00;
         };
-        this.speed = baseSpeed + (int)(baseSpeed * level * speedFactor);
-        this.speed = Math.min(speed, maxSpeed);
+        this.speed = BASE_SPEED + (int)(BASE_SPEED * level * speedFactor);
+        this.speed = Math.min(speed, MAX_SPEED);
         System.out.println(speed + " " + level);
-        this.font = new Font("Times New Roman", Font.BOLD, 16);
     }
     
     @Override
@@ -71,7 +71,7 @@ public class Enemy extends Entity{
         if(!collisionOn) {
             x -= speed;
         } else if(!invincibleFrame){
-            gp.getPlayer().decreaseHealth(damage);
+            gp.getPlayer().decreaseHealth(DAMAGE);
             setInvincibility();
         }
         if (invincibleFrame && System.currentTimeMillis() - invincibleTime > INVINCIBLE_DURATION) {
@@ -81,32 +81,28 @@ public class Enemy extends Entity{
     }
     
     @Override
-    protected void updateAnimation() {};
+    protected void updateAnimation() {/* will do later */ };
     
     @Override
     public void draw(Graphics2D g2){
-        g2.drawImage(image, x, y, gp.TILE_SIZE, gp.TILE_SIZE, null);
-        g2.setFont(font);
+        // draw Enemy
+        g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
         
+        // draw Enemy's Word
         g2.setColor(Color.WHITE);
-        g2.fillRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
+        g2.fillRect(x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
         
+        g2.setFont(FONT);
         g2.setColor(Color.BLACK);
-        g2.drawRect(x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
-        g2.drawString(word, x + (gp.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
+        g2.drawRect(x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
+        g2.drawString(word, x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
     }
     
-    public void setWord(int index){
-        this.word = dictionary[index];
-    }
+    public void setWord(int index){ this.word = dictionary[index];}
     
-    public String getWord(){
-        return word.toUpperCase();
-    }
+    public String getWord(){ return word.toUpperCase();}
     
-    public int getYs(){
-        return y;
-    }
+    public int getYs(){ return y;}
     
     private void setInvincibility() {
         invincibleFrame = true;

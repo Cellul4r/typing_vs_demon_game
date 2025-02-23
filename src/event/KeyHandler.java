@@ -3,6 +3,7 @@ package event;
 import game_2d.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import sound.SoundManager;
 
 /**
  *
@@ -27,70 +28,71 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         //System.out.println(KeyEvent.getKeyText(code));
         if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 0){
-            if(code == KeyEvent.VK_UP){
-                gp.commandNum--;
-                if(gp.commandNum < 0)
-                    gp.commandNum = 1;
-            }
-            if(code == KeyEvent.VK_DOWN){
-                gp.commandNum++;
-                if(gp.commandNum > 1)
-                    gp.commandNum = 0;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                if(gp.commandNum == 0){
-                    gp.titleScreenState = 1;
+            switch (code) {
+                case KeyEvent.VK_UP -> {
+                    gp.commandNum--;
+                    if(gp.commandNum < 0)
+                        gp.commandNum = 1;
                 }
-                if(gp.commandNum == 1){
-                    System.exit(0);
+                case KeyEvent.VK_DOWN -> {
+                    gp.commandNum++;
+                    if(gp.commandNum > 1)
+                        gp.commandNum = 0;
+                }
+                case KeyEvent.VK_ENTER -> {
+                    if(gp.commandNum == 0){
+                        gp.titleScreenState = 1;
+                    } else if(gp.commandNum == 1){
+                        System.exit(0);
+                    }
                 }
             }
-        }
-        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 1){
-            if(code == KeyEvent.VK_UP){
-                gp.commandNum--;
-                if(gp.commandNum < 0)
-                    gp.commandNum = 1;
-            }
-            if(code == KeyEvent.VK_DOWN){
-                gp.commandNum++;
-                if(gp.commandNum > 1)
-                    gp.commandNum = 0;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                if(gp.commandNum == 0){
-                    gp.titleScreenState = 2;
+        } else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 1){
+            switch (code) {
+                case KeyEvent.VK_UP -> {
+                    gp.commandNum--;
+                    if(gp.commandNum < 0)
+                        gp.commandNum = 1;
                 }
-                if(gp.commandNum == 1){
-                    gp.titleScreenState = 0;
+                case KeyEvent.VK_DOWN -> {
+                    gp.commandNum++;
+                    if(gp.commandNum > 1)
+                        gp.commandNum = 0;
+                }
+                case KeyEvent.VK_ENTER -> {
+                    if(gp.commandNum == 0){
+                        gp.titleScreenState = 2;
+                    }   if(gp.commandNum == 1){
+                        gp.titleScreenState = 0;
+                    }
                 }
             }
         }
         else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 2){
-            if(code == KeyEvent.VK_UP){
-                gp.commandNum--;
-                if(gp.commandNum < 0)
-                    gp.commandNum = 2;
-            }
-            if(code == KeyEvent.VK_DOWN){
-                gp.commandNum++;
-                if(gp.commandNum > 2)
-                    gp.commandNum = 0;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                gp.stopMusic();
-                gp.playMusic(3);
-                if(gp.commandNum == 0){
-                    gp.gameState = GamePanel.PLAY_STATE; //Easy
-                    gp.difficulty = 0;
+            switch (code) {
+                case KeyEvent.VK_UP -> {
+                    gp.commandNum--;
+                    if(gp.commandNum < 0)
+                        gp.commandNum = 2;
                 }
-                if(gp.commandNum == 1){
-                    gp.gameState = GamePanel.PLAY_STATE; //Medium
-                    gp.difficulty = 1;
+                case KeyEvent.VK_DOWN -> {
+                    gp.commandNum++;
+                    if(gp.commandNum > 2)
+                        gp.commandNum = 0;
                 }
-                if(gp.commandNum == 2){
-                    gp.gameState = GamePanel.PLAY_STATE; //Hard
-                    gp.difficulty = 2;
+                case KeyEvent.VK_ENTER -> {
+                    gp.getSoundM().stopMusic(SoundManager.TITLE_MUSIC);
+                    gp.getSoundM().playMusic(SoundManager.PLAY_MUSIC);
+                    if(gp.commandNum == 0){
+                        gp.gameState = GamePanel.PLAY_STATE; //Easy
+                        gp.difficulty = 0;
+                    }   if(gp.commandNum == 1){
+                        gp.gameState = GamePanel.PLAY_STATE; //Medium
+                        gp.difficulty = 1;
+                    }   if(gp.commandNum == 2){
+                        gp.gameState = GamePanel.PLAY_STATE; //Hard
+                        gp.difficulty = 2;
+                    }
                 }
             }
         }
@@ -106,16 +108,15 @@ public class KeyHandler implements KeyListener {
                     gp.commandNum = 0;
             }
             if(code == KeyEvent.VK_ENTER){
+                gp.getSoundM().stopMusic(SoundManager.PLAY_MUSIC);
                 if(gp.commandNum == 0){
-                    gp.gameState = GamePanel.PLAY_STATE;
-                }
-                if(gp.commandNum == 1){
                     gp.gameState = GamePanel.TITLE_STATE;
-                    gp.playMusic(2);
+                    gp.titleScreenState = 0;
+                    gp.getSoundM().playMusic(SoundManager.TITLE_MUSIC);
+                    gp.restartGame();
                 }
             }
-        }
-        else{
+        } else {
             if(code == KeyEvent.VK_UP){
                 upPressed = true;
             } else if(code == KeyEvent.VK_DOWN){
@@ -132,13 +133,11 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ESCAPE){
                 if(gp.gameState == GamePanel.PLAY_STATE){
                     gp.gameState = GamePanel.PAUSE_STATE;
-                }
-                else if(gp.gameState == GamePanel.PAUSE_STATE){
+                } else if(gp.gameState == GamePanel.PAUSE_STATE){
                     gp.gameState = GamePanel.PLAY_STATE;
                 }
             }
         }
-        
     }
 
     @Override
@@ -149,45 +148,28 @@ public class KeyHandler implements KeyListener {
         } else if(code == KeyEvent.VK_DOWN){
             downPressed = false;
         }
-        if(keyChar == KeyEvent.VK_ENTER || keyChar == KeyEvent.VK_SPACE){
-            enterPressed = false;
-        }
-        if(keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE){
-            deletePressed = false;
-        }
         
+        if(keyChar == KeyEvent.VK_ENTER){
+            enterPressed = false;
+        } else if(keyChar == KeyEvent.VK_BACK_SPACE){
+            deletePressed = false;
+        }    
     }
     
-    public boolean getUpPressed() {
-        return upPressed;
-    }
+    public boolean getUpPressed() {return upPressed;}
     
-    public boolean getDownPressed() {
-        return downPressed;
-    }
+    public boolean getDownPressed() {return downPressed;}
     
-    public boolean getEnterPressed() {
-        return enterPressed;
-    }
+    public boolean getEnterPressed() {return enterPressed;}
     
-    public boolean getDeletePressed() {
-        return deletePressed;
-    }
+    public boolean getDeletePressed() {return deletePressed;}
     
-    public char getKeyChar(){
-        return keyChar;
-    }
+    public char getKeyChar(){ return keyChar;}
     
-    public void resetKeyUpPressed() {
-        upPressed = false;
-    }
+    public void resetKeyUpPressed() { upPressed = false;}
     
-    public void resetKeyDownPressed() {
-        upPressed = false;
-    }
+    public void resetKeyDownPressed() { upPressed = false;}
     
-    public void resetKeyChar(){
-        keyChar = '\0';
-    }
+    public void resetKeyChar(){ keyChar = '\0';}
     
 }

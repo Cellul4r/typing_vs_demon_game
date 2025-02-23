@@ -16,10 +16,8 @@ public class Player extends Entity {
     private final KeyHandler keyH;
     private String userInput = "";
     private char keyChar;
-
     private int maxHealth;
     private int health;
-    
     private int score = 0;
     
 //    private int channel;
@@ -32,11 +30,11 @@ public class Player extends Entity {
     
     public void setDefaultValues(){
         //Player's default position
-        x = 2 * gp.TILE_SIZE;
-        y = gp.getChannelY(2) - gp.TILE_SIZE / 2;
+        x = 2 * GamePanel.TILE_SIZE;
+        y = gp.getChannelY(2) - GamePanel.TILE_SIZE / 2;
         channel = 2;
         
-        speed = gp.CHANNEL_SPACING; //player moves by X pixels
+        speed = GamePanel.CHANNEL_SPACING; //player moves by X pixels
         direction = "down";
         
         maxHealth = 50;
@@ -60,6 +58,10 @@ public class Player extends Entity {
      
     @Override
     public void update(){
+        if(health == 0) {
+            gp.gameState = GamePanel.GAME_OVER_STATE;
+            health = maxHealth;
+        }
         checkKey();
         updateAnimation();
     }
@@ -73,9 +75,7 @@ public class Player extends Entity {
                 direction = "down";
                 keyH.resetKeyDownPressed();
             }
-            
             movePlayer();
-            
         }
         
         keyChar = Character.toUpperCase(keyH.getKeyChar());
@@ -89,9 +89,7 @@ public class Player extends Entity {
                 score++;
                 userInput = "";
             }
-        }
-
-        if(keyH.getDeletePressed() && userInput.length()!=0){
+        } else if(keyH.getDeletePressed() && userInput.length()!=0){
             userInput = userInput.substring(0, userInput.length() - 1);
         }
     }
@@ -130,7 +128,7 @@ public class Player extends Entity {
     @Override
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);
-        int tileSize = gp.TILE_SIZE;
+        int tileSize = GamePanel.TILE_SIZE;
         
         BufferedImage image = null;
         
@@ -156,26 +154,13 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
     }
     
-    public void decreaseHealth(int amount){
-        this.health -= Math.min(health, amount);
-        if(health == 0) {
-            gp.gameState = GamePanel.GAME_OVER_STATE;
-        }
-    }
+    public void decreaseHealth(int amount){ this.health -= Math.min(health, amount);}
     
-    public int getHealth(){
-        return this.health;
-    }
+    public int getHealth(){ return this.health;}
     
-    public String getUserInput() {
-        return this.userInput;
-    }
+    public String getUserInput() { return this.userInput;}
     
-    public int getScore() {
-        return this.score;
-    }
+    public int getScore() { return this.score;}
     
-    public int getMaxHealth() {
-        return this.maxHealth;
-    }
+    public int getMaxHealth() { return this.maxHealth;}
 }

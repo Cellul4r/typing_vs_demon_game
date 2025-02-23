@@ -13,27 +13,27 @@ import java.util.Random;
  */
 public class Wave {
     
-    GamePanel gp;
+    private static final int ENEMY_DEFAULT = 5;
     private int level;
     private int enemyAmount;
     private int enemySpawn;
-    private int enemyDefault = 5;
-    private double enemyFactor;
+    private final GamePanel gp;
+    private final double enemyFactor;
     private final ArrayList<Entity>[] enemyList;
     private int enemyTick = 0;
-    private int enemyLimit = 30;
+    private int enemyLimit = 40;
     
     public Wave(GamePanel gp) {
         this.gp = gp;
-        this.enemyList = new ArrayList[gp.GAME_ROW];
-        for(int i = 0; i < gp.GAME_ROW; i++) {
+        this.enemyList = new ArrayList[GamePanel.GAME_ROW];
+        for(int i = 0; i < GamePanel.GAME_ROW; i++) {
             enemyList[i] = new ArrayList();
         }
         
         enemyFactor = switch (gp.difficulty) {
-            case 0 -> 0.25;
-            case 1 -> 0.50;
-            case 2 -> 0.65;
+            case GamePanel.EASY -> 0.25;
+            case GamePanel.MEDIUM -> 0.50;
+            case GamePanel.HARD -> 0.65;
             default -> 0.00;
         };
     }
@@ -42,16 +42,15 @@ public class Wave {
         for(Entity entity : enemyList[playerRow]) {
             if(((Enemy)entity).getWord().equals(word)) {
                 enemyList[playerRow].remove(entity);
-                gp.playSoundEffect(1);
+                gp.getSoundM().playSoundEffect(1); // change Number later
                 return true;
             }
         }
-        
         return false;
     }
         
     private void createWave() {
-        enemyAmount = enemyDefault + (int)(enemyDefault*level*enemyFactor);
+        enemyAmount = ENEMY_DEFAULT + (int)(ENEMY_DEFAULT*level*enemyFactor);
         enemySpawn = 0;
         System.out.println(level + " "+ enemyAmount);
         level++;
@@ -59,7 +58,7 @@ public class Wave {
     
     private void randomEntity() {
         Random rm = new Random();
-        int row = rm.nextInt(gp.GAME_ROW);
+        int row = rm.nextInt(GamePanel.GAME_ROW);
         Enemy enemy = new Enemy(gp, row, level);
         enemyList[row].add(enemy);
         enemySpawn++;
@@ -70,7 +69,6 @@ public class Wave {
         if(isWaveEmpty()) {
             createWave();
         }
-        
         // spawn enemy
         if(enemySpawn < enemyAmount) {
             if(enemyTick == enemyLimit) {
@@ -80,9 +78,8 @@ public class Wave {
                 enemyTick++;
             }
         }
-        
         // update enemy movements
-        for(int i = 0; i < gp.GAME_ROW; i++) {
+        for(int i = 0; i < GamePanel.GAME_ROW; i++) {
             for(Entity entity : enemyList[i]) {
                 entity.update();
             }
@@ -90,8 +87,7 @@ public class Wave {
     }
     
     public void draw(Graphics2D g2) {
-        
-        for(int i = 0; i < gp.GAME_ROW; i++) {
+        for(int i = 0; i < GamePanel.GAME_ROW; i++) {
             for(Entity entity : enemyList[i]) {
                 entity.draw(g2);
             }
@@ -100,7 +96,7 @@ public class Wave {
     
     private boolean isWaveEmpty() {
         boolean empty = true;
-        for(int i = 0; i < gp.GAME_ROW; i++) {
+        for(int i = 0; i < GamePanel.GAME_ROW; i++) {
             if(!enemyList[i].isEmpty()) {
                 empty = false;
                 break;
@@ -108,4 +104,6 @@ public class Wave {
         }
         return (empty && enemySpawn == enemyAmount);
     }
+    
+    public int getLevel() { return this.level;}
 }

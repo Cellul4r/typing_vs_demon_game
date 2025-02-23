@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
  * @author HP
  */
 
-// will make this class abstract
 public abstract class Entity {
     
     protected GamePanel gp;
@@ -31,13 +30,13 @@ public abstract class Entity {
     protected int spriteNum = 1;
     
     public Entity(GamePanel gp) {
-        this.gp = gp;
-        this.solidArea = new Rectangle(0, 0, gp.TILE_SIZE / 2, gp.TILE_SIZE / 2);
+        this(gp, 0);
     }
     
     public Entity(GamePanel gp, int channel) {
         this.gp = gp;
         this.channel = channel;
+        this.solidArea = new Rectangle(0, 0, GamePanel.TILE_SIZE / 2, GamePanel.TILE_SIZE / 2);
     }
     
     protected abstract void updateAnimation();

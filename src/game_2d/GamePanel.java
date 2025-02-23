@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package game_2d;
 
 import sound.Sound;
-import event.CollisionChecker;
-import event.KeyHandler;
 import event.KeyHandler;
 import event.CollisionChecker;
 import entity.Player;
@@ -16,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import sound.SoundManager;
 import tile.TileManager;
 import ui.UI;
 
@@ -26,47 +21,52 @@ import ui.UI;
 public class GamePanel extends JPanel implements Runnable{
     
     // default Settings for SCREEN
-    private final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
-    private final int SCALE = 4; //Scale of Pixel Size
+    private static final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
+    private static final int SCALE = 4; //Scale of Pixel Size
     
-    public final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
+    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
     
-    public final int MAX_SCREEN_COL = 20;
-    public final int MAX_SCREEN_ROW = 14;
-    public final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
-    public final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
+    public static final int MAX_SCREEN_COL = 20;
+    public static final int MAX_SCREEN_ROW = 14;
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
+    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
     
-    public final int GAME_ROW = 5;
-    private final int GAME_SCALE = 2;
-    private final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
-    public final int CHANNEL_SPACING = GAME_SCALE * TILE_SIZE;
-    
-    public final int FPS = 30;
-    
-    // channel Row channel 1 at ? y pixels
-    // Association Object
-    private int channelRow[];
-    public Sound sound = new Sound();
-    private Thread gameThread; //Running game loops
-    public Player player;
-    private final KeyHandler keyH = new KeyHandler(this);
-    private final TileManager tileM = new TileManager(this);
-    private final CollisionChecker cChecker = new CollisionChecker(this);
-    private final Wave wave = new Wave(this);
-    private final UI ui = new UI(this);
-    
+    // default Settings for gameplay
+    public static final int GAME_ROW = 5;
+    private static final int GAME_SCALE = 2;
+    private static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
+    public static final int CHANNEL_SPACING = GAME_SCALE * TILE_SIZE;
+    public static final int FPS = 30;
     
     // Game State Settings
-    public int gameState;
     public static final int TITLE_STATE = 0;
     public static final int PLAY_STATE = 1;
     public static final int PAUSE_STATE = 2;
     public static final int GAME_OVER_STATE = 3;
+    public static final int TITLE_MAIN = 0;
+    public static final int TITLE_TUTORIAL = 1;
+    public static final int TITLE_DIFFICULTY = 2;
+    public int gameState;
     public int commandNum = 0;
     public int titleScreenState = 0;
-    public boolean musicPlayed = false;
-    // Easy 0, Medium 1, Hard 2
+    
+    public static final int EASY = 0;
+    public static final int MEDIUM = 1;
+    public static final int HARD = 2;
     public int difficulty = 0;
+    
+    // Component
+    private int channelRow[];
+    private Thread gameThread; //Running game loops
+    private final KeyHandler keyH = new KeyHandler(this);
+    private final TileManager tileM = new TileManager();
+    private final SoundManager soundM = new SoundManager();
+    private final CollisionChecker cChecker = new CollisionChecker(this);
+    private final UI uiManager = new UI(this);
+    
+    private Player player;
+    private Wave wave;
+    
     
     public GamePanel() {
         setUpGame();
@@ -79,17 +79,18 @@ public class GamePanel extends JPanel implements Runnable{
     
     private void setUpGame() {
         channelRow = new int[GAME_ROW];
-        gameState = TITLE_STATE;
         for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
             channelRow[i] = j;
         }
+        
         gameState = TITLE_STATE;
+        soundM.playMusic(SoundManager.TITLE_MUSIC);
+        
         player = new Player(this, keyH);
-        playMusic(2);
+        wave = new Wave(this);
     }
     
     public void startGameThread() {
-        
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -108,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable{
             delta += (currentTime - lastTime) / drawInterval; //How much time pass divided by drawInterval
             lastTime = currentTime;
             
-            if(delta >= 1){ //update character's position every delta
+            if(delta >= 1) { //update character's position every delta
                 update();
                 repaint();
                 delta--;
@@ -117,12 +118,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
         
     public void update(){
-        
         if(gameState == PLAY_STATE){
             player.update();
             wave.update();
         }
-        
     }
     
     @Override
@@ -135,47 +134,24 @@ public class GamePanel extends JPanel implements Runnable{
             player.draw(g2);
             wave.draw(g2);
         }
-        ui.draw(g2);
+        uiManager.draw(g2);
         g2.dispose();
     }
     
-    public int getChannelY(int row) {
-        return this.channelRow[row];
+    public void restartGame() {
+        wave = new Wave(this);
+        player = new Player(this, keyH);
     }
     
-    public TileManager getTileM() {
-        return this.tileM;
-    }
+    public int getChannelY(int row) { return this.channelRow[row];}
     
-    public CollisionChecker getCChecker() {
-        return this.cChecker;
-    }
+    public TileManager getTileM() { return this.tileM;}
     
-    public Player getPlayer(){
-        return player;
-    }
+    public CollisionChecker getCChecker() { return this.cChecker;}
     
-    public Wave getWave() {
-        return this.wave;
-    }
+    public SoundManager getSoundM() {return this.soundM;}
     
-    public void playMusic(int i){
-        
-        sound.setFile(i);
-        sound.play();
-        musicPlayed = true;
-        sound.loop();
-    }
+    public Player getPlayer(){ return player;}
     
-    public void stopMusic(){
-        
-        sound.stop();
-        musicPlayed = false;
-    }
-    
-    public void playSoundEffect(int i){
-        
-        sound.setFile(i);
-        sound.play();
-    }
+    public Wave getWave() { return this.wave;}  
 }

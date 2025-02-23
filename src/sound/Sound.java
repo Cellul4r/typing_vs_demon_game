@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sound;
 
 import java.net.URL;
@@ -16,40 +12,38 @@ import javax.sound.sampled.FloatControl;
  */
 public class Sound {
     
-    Clip clip;
-    URL soundURL[] = new URL[5];
+    private Clip clip;
+    private final URL soundURL;
+    private float volume;
     
-    public Sound(){
-        
-        //Wav file only
-        soundURL[0] = getClass().getResource("/resource/sound_res/Start Menu.wav");
-        soundURL[1] = getClass().getResource("/resource/sound_res/Wilhelm Scream.wav");
-        soundURL[2] = getClass().getResource("/resource/sound_res/main_menu.wav");
-        soundURL[3] = getClass().getResource("/resource/sound_res/play_game.wav");
+    public Sound(String url, float volume) {
+        soundURL = getClass().getResource(url);
+        this.volume = volume;
     }
     
-    public void setFile(int i){
+    public void setFile(){
         try{
-            
-            AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL);
             clip = AudioSystem.getClip();
             clip.open(ais);
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            
-            volumeControl.setValue(-5.0f);
-            
+            volumeControl.setValue(volume);
         }catch(Exception e){
             System.out.println("Set File Error");
         }
     }
     
     public void play(){
+        setFile();
         clip.start();
     }
+    
     public void loop(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
+    
     public void stop(){
         clip.stop();
+        clip.close();
     }
 }
