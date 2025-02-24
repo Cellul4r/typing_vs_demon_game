@@ -6,6 +6,7 @@ import game_2d.GamePanel;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import sound.SoundManager;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.util.Random;
 public class Wave {
     
     private static final int ENEMY_DEFAULT = 5;
+    private static final int ENEMY_TIME_LIMIT = 32;
+    private static final int WAVE_TIME_LIMIT = 180;
     private int level;
     private int enemyAmount;
     private int enemySpawn;
@@ -21,7 +24,7 @@ public class Wave {
     private final double enemyFactor;
     private final ArrayList<Entity>[] enemyList;
     private int enemyTick = 0;
-    private int enemyLimit = 40;
+    private int waveTick = 0;
     
     public Wave(GamePanel gp) {
         this.gp = gp;
@@ -54,6 +57,7 @@ public class Wave {
         enemySpawn = 0;
         System.out.println(level + " "+ enemyAmount);
         level++;
+        gp.getSoundM().playMusic(SoundManager.ENEMY_SOUND);
     }
     
     private void randomEntity() {
@@ -67,11 +71,20 @@ public class Wave {
     public void update() {
         // check if the player clear that wave
         if(isWaveEmpty()) {
-            createWave();
+            gp.getSoundM().stopMusic(SoundManager.ENEMY_SOUND);
+            if(level != 0) {
+                // draw Summary how many Time has player played and show the score.
+            }
+            if(waveTick == WAVE_TIME_LIMIT) {
+                createWave();
+                waveTick = 0;
+            } else {
+                waveTick++;
+            }
         }
         // spawn enemy
         if(enemySpawn < enemyAmount) {
-            if(enemyTick == enemyLimit) {
+            if(enemyTick == ENEMY_TIME_LIMIT) {
                 randomEntity();
                 enemyTick = 0;
             } else {

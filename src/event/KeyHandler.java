@@ -83,6 +83,7 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_ENTER -> {
                     gp.getSoundM().stopMusic(SoundManager.TITLE_MUSIC);
                     gp.getSoundM().playMusic(SoundManager.PLAY_MUSIC);
+                    gp.restartGame();
                     if(gp.commandNum == 0){
                         gp.gameState = GamePanel.PLAY_STATE; //Easy
                         gp.difficulty = 0;

@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package game_2d;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import entity.Enemy;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import word_generator.WordGenerator;
 
 //To push, you first commit Coffee in Project, then push
-
-
 /**
  *
  * @author HP
@@ -36,8 +29,13 @@ public class Game_2D {
         window.setLocationRelativeTo(null); //set window at the center of the screen
         window.setVisible(true);
         
+        loadGame();
         gamepanel.startGameThread();
     }
         
+    public static void loadGame() {
+        Enemy.loadImage();
+        WordGenerator.loadWordList();
+    }
 }
 

@@ -43,6 +43,7 @@ public class Sound {
     }
     
     public void stop(){
+        if(clip == null) return;
         clip.stop();
         clip.close();
     }

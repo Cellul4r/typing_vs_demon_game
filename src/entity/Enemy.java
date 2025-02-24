@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import game_2d.GamePanel;
@@ -14,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import word_generator.WordGenerator;
 
 /**
  *
@@ -26,13 +23,15 @@ public class Enemy extends Entity{
     private static final int BASE_SPEED = 2;
     private static final int MAX_SPEED = 4;
     private static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
+    
+    private static BufferedImage enemyImage1;
+    private static BufferedImage enemyImage2;
     private BufferedImage image;
+    
     private String word;
-    private final double speedFactor;
+    private double speedFactor;
     private boolean invincibleFrame = false;
     private long invincibleTime;
-    
-    private String[] dictionary = {"d", "b", "c", "a"};
     
     public Enemy(GamePanel gp, int channel){
         this(gp, channel, 1);
@@ -40,28 +39,47 @@ public class Enemy extends Entity{
     
     public Enemy(GamePanel gp, int channel, int level) {
         super(gp, channel);
-        try {
-            this.image = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/Mario.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Enemy.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        Random rand = new Random();
+        getImage();
         this.channel = channel;
         this.x = GamePanel.TILE_SIZE * 20;
         this.y = gp.getChannelY(channel);
         this.direction = "left";
-        this.word = dictionary[rand.nextInt(4)];
+        this.word = randomWord();
         
-        speedFactor = switch(gp.difficulty)  {
+        setSpeedFactor(gp.difficulty);
+        this.speed = BASE_SPEED + (int)(BASE_SPEED * level * speedFactor);
+        this.speed = Math.min(speed, MAX_SPEED);
+        System.out.println(speed + " " + level);
+    }
+    
+    public static void loadImage() {
+        try {
+            enemyImage1 = ImageIO.read(Enemy.class.getResourceAsStream("/resource/enemy_res/enemy1.png"));
+            enemyImage2 = ImageIO.read(Enemy.class.getResourceAsStream("/resource/enemy_res/enemy2.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Enemy.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    @Override
+    protected void getImage() {
+        Random rm = new Random();
+        int enemyType = rm.nextInt(2);
+        image = switch(enemyType) {
+            case 0 -> enemyImage1;
+            case 1 -> enemyImage2;
+            default -> null;
+        };
+    }
+    
+    private void setSpeedFactor(int difficulty) {
+        speedFactor = switch(difficulty)  {
             case 0 -> 0.10;
             case 1 -> 0.15;
             case 2 -> 0.20;
             default -> 0.00;
         };
-        this.speed = BASE_SPEED + (int)(BASE_SPEED * level * speedFactor);
-        this.speed = Math.min(speed, MAX_SPEED);
-        System.out.println(speed + " " + level);
     }
     
     @Override
@@ -81,7 +99,8 @@ public class Enemy extends Entity{
     }
     
     @Override
-    protected void updateAnimation() {/* will do later */ };
+    protected void updateAnimation() {
+    }
     
     @Override
     public void draw(Graphics2D g2){
@@ -98,7 +117,11 @@ public class Enemy extends Entity{
         g2.drawString(word, x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
     }
     
-    public void setWord(int index){ this.word = dictionary[index];}
+    public String randomWord() {
+        Random rm = new Random();
+        int type = rm.nextInt(3);
+        return WordGenerator.randomWord(type);
+    }
     
     public String getWord(){ return word.toUpperCase();}
     

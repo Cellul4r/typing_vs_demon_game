@@ -10,7 +10,14 @@
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Enemy.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/KeyHandler.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/Wave.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/CollisionChecker.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/tile/Tile.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/sound/Sound.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/sound/SoundManager.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/Game_2D.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Item.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/tile/TileManager.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/word_generator/WordGenerator.java</file>
         </group>
     </open-files>
 </project-private>

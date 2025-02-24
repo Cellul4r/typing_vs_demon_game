@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import sound.SoundManager;
 
 /**
  *
@@ -19,13 +20,15 @@ public class Player extends Entity {
     private int maxHealth;
     private int health;
     private int score = 0;
+    private BufferedImage playerImage;
+//    private int spriteCounter = 0;
+//    private int spriteNum = 1;
     
-//    private int channel;
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
         this.keyH = keyH;
         setDefaultValues();
-        getPlayerImage();
+        getImage();
     }
     
     public void setDefaultValues(){
@@ -41,16 +44,10 @@ public class Player extends Entity {
         health = maxHealth;
     }
     
-    public void getPlayerImage(){
-        
+    @Override
+    protected void getImage(){
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player2.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player1.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/test2.png"));
-            full_heart = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/FireMage.png"));
-            empty_heart = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/penguin.png"));
+            playerImage = ImageIO.read(getClass().getResourceAsStream("/resource/player_res/player1.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -60,7 +57,7 @@ public class Player extends Entity {
     public void update(){
         if(health == 0) {
             gp.gameState = GamePanel.GAME_OVER_STATE;
-            health = maxHealth;
+            gp.getSoundM().stopMusic(SoundManager.ENEMY_SOUND);
         }
         checkKey();
         updateAnimation();
@@ -113,16 +110,16 @@ public class Player extends Entity {
     @Override
     protected void updateAnimation() {
         //Change Sprite (Ignore this until we have time to polish it)
-        spriteCounter++;
-        if(spriteCounter > 1){
-            if(spriteNum == 1){
-                spriteNum = 2;
-            }
-            else if(spriteNum == 2){
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
-        }
+//        spriteCounter++;
+//        if(spriteCounter > 1){
+//            if(spriteNum == 1){
+//                spriteNum = 2;
+//            }
+//            else if(spriteNum == 2){
+//                spriteNum = 1;
+//            }
+//            spriteCounter = 0;
+//        }
     }
     
     @Override
@@ -130,28 +127,8 @@ public class Player extends Entity {
         //g2.setColor(Color.black);
         int tileSize = GamePanel.TILE_SIZE;
         
-        BufferedImage image = null;
-        
-        switch(direction){
-            case "up":
-                if(spriteNum == 1){
-                    image = up1;
-                }
-                if(spriteNum == 2){
-                    image = up2;
-                }
-                break;
-            case "down":
-                if(spriteNum == 1){
-                    image = down1;
-                }
-                if(spriteNum == 2){
-                    image = down2;
-                }
-                break;
-        }
         // draw Player
-        g2.drawImage(image, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
+        g2.drawImage(playerImage, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
     }
     
     public void decreaseHealth(int amount){ this.health -= Math.min(health, amount);}

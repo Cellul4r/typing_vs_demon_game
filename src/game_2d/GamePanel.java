@@ -1,5 +1,6 @@
 package game_2d;
 
+import entity.Enemy;
 import sound.Sound;
 import event.KeyHandler;
 import event.CollisionChecker;
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
     public int difficulty = 0;
     
     // Component
-    private int channelRow[];
+    private static int channelRow[];
     private Thread gameThread; //Running game loops
     private final KeyHandler keyH = new KeyHandler(this);
     private final TileManager tileM = new TileManager();
@@ -66,7 +67,6 @@ public class GamePanel extends JPanel implements Runnable{
     
     private Player player;
     private Wave wave;
-    
     
     public GamePanel() {
         setUpGame();
@@ -85,9 +85,6 @@ public class GamePanel extends JPanel implements Runnable{
         
         gameState = TITLE_STATE;
         soundM.playMusic(SoundManager.TITLE_MUSIC);
-        
-        player = new Player(this, keyH);
-        wave = new Wave(this);
     }
     
     public void startGameThread() {
