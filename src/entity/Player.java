@@ -34,7 +34,7 @@ public class Player extends Entity {
     public void setDefaultValues(){
         //Player's default position
         x = 2 * GamePanel.TILE_SIZE;
-        y = gp.getChannelY(2) - GamePanel.TILE_SIZE / 2;
+        y = gp.getChannelY(2);
         channel = 2;
         
         speed = GamePanel.CHANNEL_SPACING; //player moves by X pixels

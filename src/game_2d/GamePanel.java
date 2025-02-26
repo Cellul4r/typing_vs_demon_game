@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     // default Settings for gameplay
     public static final int GAME_ROW = 5;
     private static final int GAME_SCALE = 2;
-    private static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE;
+    private static final int FIRST_CHANNEL_Y = 3 * TILE_SIZE - TILE_SIZE / 2;
     public static final int CHANNEL_SPACING = GAME_SCALE * TILE_SIZE;
     public static final int FPS = 30;
     
@@ -71,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         setUpGame();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.setBackground(Color.white);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); //so the game can 'focus' on receiving key
@@ -125,8 +124,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
-        if(gameState == PLAY_STATE){
+        if(gameState == PLAY_STATE || gameState == PAUSE_STATE){
             tileM.draw(g2);
             player.draw(g2);
             wave.draw(g2);

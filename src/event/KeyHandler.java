@@ -27,7 +27,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         //System.out.println(KeyEvent.getKeyText(code));
-        if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 0){
+        if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_MAIN){
             switch (code) {
                 case KeyEvent.VK_UP -> {
                     gp.commandNum--;
@@ -41,13 +41,13 @@ public class KeyHandler implements KeyListener {
                 }
                 case KeyEvent.VK_ENTER -> {
                     if(gp.commandNum == 0){
-                        gp.titleScreenState = 1;
+                        gp.titleScreenState = GamePanel.TITLE_TUTORIAL;
                     } else if(gp.commandNum == 1){
                         System.exit(0);
                     }
                 }
             }
-        } else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 1){
+        } else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_TUTORIAL){
             switch (code) {
                 case KeyEvent.VK_UP -> {
                     gp.commandNum--;
@@ -61,14 +61,14 @@ public class KeyHandler implements KeyListener {
                 }
                 case KeyEvent.VK_ENTER -> {
                     if(gp.commandNum == 0){
-                        gp.titleScreenState = 2;
+                        gp.titleScreenState = GamePanel.TITLE_DIFFICULTY;
                     }   if(gp.commandNum == 1){
-                        gp.titleScreenState = 0;
+                        gp.titleScreenState = GamePanel.TITLE_MAIN;
                     }
                 }
             }
         }
-        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == 2){
+        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_DIFFICULTY){
             switch (code) {
                 case KeyEvent.VK_UP -> {
                     gp.commandNum--;

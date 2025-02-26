@@ -105,7 +105,7 @@ public class Enemy extends Entity{
     @Override
     public void draw(Graphics2D g2){
         // draw Enemy
-        g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        g2.drawImage(image, x, y, 3 * GamePanel.TILE_SIZE / 2, 3 * GamePanel.TILE_SIZE / 2, null);
         
         // draw Enemy's Word
         g2.setColor(Color.WHITE);

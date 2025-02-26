@@ -33,7 +33,6 @@ public class UI {
             case GamePanel.PAUSE_STATE -> drawPauseScreen();
             case GamePanel.GAME_OVER_STATE -> drawGameOver();
         }
-        g2.dispose();
     }
     
     private void drawTitleScreen(){
@@ -158,7 +157,8 @@ public class UI {
     private void setDimBackGround(Color color) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); //dim screen by 50%
         setBackground(color);
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+//        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.0f)); //dim screen by 50%
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
     }
     
     private int getXforCenteredText(String text){

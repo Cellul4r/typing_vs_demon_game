@@ -23,9 +23,9 @@ public class Game_2D {
         
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
-        
+
         window.pack(); //Size the window to be equal to this.setPreferredSize
-        
+            
         window.setLocationRelativeTo(null); //set window at the center of the screen
         window.setVisible(true);
         
