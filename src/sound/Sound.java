@@ -29,11 +29,13 @@ public class Sound {
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             volumeControl.setValue(volume);
         }catch(Exception e){
-            System.out.println("Set File Error");
+            System.out.println("Set File Error: " + soundURL);
+            e.printStackTrace();
         }
     }
     
     public void play(){
+        if(clip != null && clip.isRunning()) return;
         setFile();
         clip.start();
     }
@@ -42,7 +44,12 @@ public class Sound {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     
-    public void stop(){
+    public void stopSoundEffect(){
+        if(clip == null) return;
+        clip.stop();
+    }
+    
+    public void stopMusic() {
         if(clip == null) return;
         clip.stop();
         clip.close();

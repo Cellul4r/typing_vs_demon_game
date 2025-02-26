@@ -14,18 +14,22 @@ public class SoundManager {
     public SoundManager(){
         //Wav file only
         sound[0] = new Sound("/resource/sound_res/Start Menu.wav", 0.0f);
-        sound[1] = new Sound("/resource/sound_res/Wilhelm Scream.wav", -20.0f);
-        sound[2] = new Sound("/resource/sound_res/main_menu.wav", -20.0f);
-        sound[3] = new Sound("/resource/sound_res/play_game.wav", -25.0f);
-        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -20.0f);
+        sound[1] = new Sound("/resource/sound_res/Wilhelm Scream.wav", -10.0f);
+        sound[2] = new Sound("/resource/sound_res/main_menu.wav", -10.0f);
+        sound[3] = new Sound("/resource/sound_res/play_game.wav", -15.0f);
+        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -10.0f);
     }
     
     public void playSoundEffect(int i) {
         sound[i].play();
     }
-
+    
+    public void stopSoundEffect(int i) {
+        sound[i].stopSoundEffect();
+    }
+    
     public void stopMusic(int i) {
-        sound[i].stop();
+        sound[i].stopMusic();
     }
 
     public void playMusic(int i) {

@@ -88,6 +88,7 @@ public class Player extends Entity {
             }
         } else if(keyH.getDeletePressed() && userInput.length()!=0){
             userInput = userInput.substring(0, userInput.length() - 1);
+            keyH.resetKeyDeletePressed();
         }
     }
     

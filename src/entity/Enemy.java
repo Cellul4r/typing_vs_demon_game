@@ -19,8 +19,8 @@ import word_generator.WordGenerator;
 public class Enemy extends Entity{
     
     private static final int DAMAGE = 1;
-    private static final long INVINCIBLE_DURATION = 500;
-    private static final int BASE_SPEED = 2;
+    private static final long INVINCIBLE_DURATION = 800;
+    private static final int BASE_SPEED = 1;
     private static final int MAX_SPEED = 4;
     private static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
     
@@ -118,9 +118,7 @@ public class Enemy extends Entity{
     }
     
     public String randomWord() {
-        Random rm = new Random();
-        int type = rm.nextInt(3);
-        return WordGenerator.randomWord(type);
+        return WordGenerator.randomWord(gp.difficulty);
     }
     
     public String getWord(){ return word.toUpperCase();}

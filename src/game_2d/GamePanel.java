@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     // default Settings for SCREEN
     private static final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
-    private static final int SCALE = 4; //Scale of Pixel Size
+    private static final int SCALE = 3; //Scale of Pixel Size
     
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
     
@@ -101,7 +101,6 @@ public class GamePanel extends JPanel implements Runnable{
         long currentTime;
         
         while(gameThread!=null){
-            
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval; //How much time pass divided by drawInterval
             lastTime = currentTime;
@@ -112,6 +111,7 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
         }
+        System.out.println("Run");
     }
         
     public void update(){

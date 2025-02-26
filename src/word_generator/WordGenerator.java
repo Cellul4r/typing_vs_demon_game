@@ -1,5 +1,6 @@
 package word_generator;
 
+import game_2d.GamePanel;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +19,7 @@ public class WordGenerator {
     public static final ArrayList<String> EASY_WORDs = new ArrayList<>();
     public static final ArrayList<String> MEDIUM_WORDs = new ArrayList<>();
     public static final ArrayList<String> HARD_WORDs = new ArrayList<>();
+    public static final Random rm = new Random();
     
     public static void loadWordList() {
         loadWord(EASY_WORD, "/resource/word_res/easy_word.txt");
@@ -45,13 +47,29 @@ public class WordGenerator {
 		}
     }
     
-    public static String randomWord(int type) {
-        Random rm = new Random();
+    public static String randomWord(int difficulty) {
+        int type = randomDifficulty(difficulty);
         return switch(type) {
             case EASY_WORD -> EASY_WORDs.get(rm.nextInt(EASY_WORDs.size()));
             case MEDIUM_WORD -> MEDIUM_WORDs.get(rm.nextInt(MEDIUM_WORDs.size()));
             case HARD_WORD -> HARD_WORDs.get(rm.nextInt(HARD_WORDs.size()));
             default -> "";
         };
+    }
+    
+    private static int randomDifficulty(int difficulty) {
+        int easyChance = switch(difficulty) {
+            case GamePanel.EASY -> 80;
+            case GamePanel.MEDIUM -> 60;
+            case GamePanel.HARD -> 40;
+            default -> 100;
+        };
+        int medHardChance = (100 - easyChance) / 2;
+        int chance = rm.nextInt(100);
+        int type;
+        if(chance <= easyChance) type = EASY_WORD;
+        else if(chance <= easyChance + medHardChance) type = MEDIUM_WORD;
+        else type = HARD_WORD;
+        return type;
     }
 }

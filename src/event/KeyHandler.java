@@ -86,13 +86,13 @@ public class KeyHandler implements KeyListener {
                     gp.restartGame();
                     if(gp.commandNum == 0){
                         gp.gameState = GamePanel.PLAY_STATE; //Easy
-                        gp.difficulty = 0;
+                        gp.difficulty = GamePanel.EASY;
                     }   if(gp.commandNum == 1){
                         gp.gameState = GamePanel.PLAY_STATE; //Medium
-                        gp.difficulty = 1;
+                        gp.difficulty = GamePanel.MEDIUM;
                     }   if(gp.commandNum == 2){
                         gp.gameState = GamePanel.PLAY_STATE; //Hard
-                        gp.difficulty = 2;
+                        gp.difficulty = GamePanel.HARD;
                     }
                 }
             }
@@ -118,25 +118,20 @@ public class KeyHandler implements KeyListener {
                 }
             }
         } else {
-            if(code == KeyEvent.VK_UP){
-                upPressed = true;
-            } else if(code == KeyEvent.VK_DOWN){
-                downPressed = true;
-            }
-            this.keyChar = e.getKeyChar();
-            if(keyChar == KeyEvent.VK_ENTER || keyChar == KeyEvent.VK_SPACE){
-                enterPressed = true;
-            }
-            if(keyChar == KeyEvent.VK_BACK_SPACE || keyChar == KeyEvent.VK_DELETE){
-                deletePressed = true;
-            }
-        
-            if(code == KeyEvent.VK_ESCAPE){
-                if(gp.gameState == GamePanel.PLAY_STATE){
-                    gp.gameState = GamePanel.PAUSE_STATE;
-                } else if(gp.gameState == GamePanel.PAUSE_STATE){
-                    gp.gameState = GamePanel.PLAY_STATE;
+            code = e.getKeyCode();
+            switch (code) {
+                case KeyEvent.VK_UP -> upPressed = true;
+                case KeyEvent.VK_DOWN -> downPressed = true;
+                case KeyEvent.VK_ENTER -> enterPressed = true;
+                case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
+                case KeyEvent.VK_ESCAPE -> {
+                    if(gp.gameState == GamePanel.PLAY_STATE){
+                        gp.gameState = GamePanel.PAUSE_STATE;
+                    } else if(gp.gameState == GamePanel.PAUSE_STATE){
+                        gp.gameState = GamePanel.PLAY_STATE;
+                    }
                 }
+                default -> keyChar = e.getKeyChar();
             }
         }
     }
@@ -144,17 +139,12 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if(code == KeyEvent.VK_UP){
-            upPressed = false;
-        } else if(code == KeyEvent.VK_DOWN){
-            downPressed = false;
+        switch (code) {
+            case KeyEvent.VK_UP -> upPressed = false;
+            case KeyEvent.VK_DOWN -> downPressed = false;
+            case KeyEvent.VK_ENTER -> enterPressed = false;
+            case KeyEvent.VK_BACK_SPACE -> deletePressed = false;
         }
-        
-        if(keyChar == KeyEvent.VK_ENTER){
-            enterPressed = false;
-        } else if(keyChar == KeyEvent.VK_BACK_SPACE){
-            deletePressed = false;
-        }    
     }
     
     public boolean getUpPressed() {return upPressed;}
@@ -170,6 +160,8 @@ public class KeyHandler implements KeyListener {
     public void resetKeyUpPressed() { upPressed = false;}
     
     public void resetKeyDownPressed() { upPressed = false;}
+    
+    public void resetKeyDeletePressed() { deletePressed = false; }
     
     public void resetKeyChar(){ keyChar = '\0';}
     
