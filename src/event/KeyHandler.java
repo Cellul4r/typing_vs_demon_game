@@ -11,7 +11,7 @@ import sound.SoundManager;
  */
 public class KeyHandler implements KeyListener {
     
-    private boolean upPressed, downPressed, enterPressed, deletePressed;
+    private boolean upPressed, downPressed, enterPressed, deletePressed, spacePressed;
     private char keyChar;
     GamePanel gp;
     
@@ -131,6 +131,7 @@ public class KeyHandler implements KeyListener {
                         gp.gameState = GamePanel.PLAY_STATE;
                     }
                 }
+                case KeyEvent.VK_SPACE -> spacePressed = true;
                 default -> keyChar = e.getKeyChar();
             }
         }
@@ -155,6 +156,8 @@ public class KeyHandler implements KeyListener {
     
     public boolean getDeletePressed() {return deletePressed;}
     
+    public boolean getTabPressed() { return spacePressed; }
+    
     public char getKeyChar(){ return keyChar;}
     
     public void resetKeyUpPressed() { upPressed = false;}
@@ -162,6 +165,8 @@ public class KeyHandler implements KeyListener {
     public void resetKeyDownPressed() { upPressed = false;}
     
     public void resetKeyDeletePressed() { deletePressed = false; }
+    
+    public void resetKeyTabPressed() { spacePressed = false; }
     
     public void resetKeyChar(){ keyChar = '\0';}
     

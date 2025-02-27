@@ -14,6 +14,8 @@ import sound.SoundManager;
  */
 public class Player extends Entity {
     
+    private static final int DEFAULT_X = 2 * GamePanel.TILE_SIZE;
+    private static final int DEFAULT_CHANNEL = 2;
     private final KeyHandler keyH;
     private String userInput = "";
     private char keyChar;
@@ -21,25 +23,20 @@ public class Player extends Entity {
     private int health;
     private int score = 0;
     private BufferedImage playerImage;
+    private Item item;
 //    private int spriteCounter = 0;
 //    private int spriteNum = 1;
     
     public Player(GamePanel gp, KeyHandler keyH){
-        super(gp);
+        super(gp, DEFAULT_X, GamePanel.CHANNEL_SPACING, DEFAULT_CHANNEL);
         this.keyH = keyH;
+        
         setDefaultValues();
         getImage();
     }
     
     public void setDefaultValues(){
-        //Player's default position
-        x = 2 * GamePanel.TILE_SIZE;
-        y = gp.getChannelY(2);
-        channel = 2;
-        
-        speed = GamePanel.CHANNEL_SPACING; //player moves by X pixels
         direction = "down";
-        
         maxHealth = 50;
         health = maxHealth;
     }
@@ -89,6 +86,11 @@ public class Player extends Entity {
         } else if(keyH.getDeletePressed() && userInput.length()!=0){
             userInput = userInput.substring(0, userInput.length() - 1);
             keyH.resetKeyDeletePressed();
+        } else if(keyH.getTabPressed()) {
+            if(item != null) {
+                item.useItem();
+                item = null;
+            }
         }
     }
     
@@ -132,7 +134,13 @@ public class Player extends Entity {
         g2.drawImage(playerImage, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
     }
     
-    public void decreaseHealth(int amount){ this.health -= Math.min(health, amount);}
+    public void changeHealth(int amount) {
+        health += amount;
+        if(health < 0) health = 0;
+        if(health > maxHealth) health = maxHealth;
+    }
+    
+    public void setItem(Item item) { this.item = item; }
     
     public int getHealth(){ return this.health;}
     

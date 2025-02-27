@@ -17,6 +17,7 @@ public class UI {
     private final Font TimesNewRoman_40;
     private final Font TimesNewRoman_30;
     private Graphics2D g2;
+    private boolean showWaveCompletedMessage;
     
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -33,6 +34,7 @@ public class UI {
             case GamePanel.PAUSE_STATE -> drawPauseScreen();
             case GamePanel.GAME_OVER_STATE -> drawGameOver();
         }
+        g2.dispose();
     }
     
     private void drawTitleScreen(){
@@ -52,6 +54,9 @@ public class UI {
                     Color.white, GamePanel.TILE_SIZE);
         // draw Wave Number UI
         drawCenteredText(String.valueOf(gp.getWave().getLevel()), TimesNewRoman_40, Color.white, GamePanel.TILE_SIZE);
+        if(showWaveCompletedMessage) {
+            drawCenteredText("Wave " + gp.getWave().getLevel() + " Completed!", TimesNewRoman_40, Color.black, GamePanel.SCREEN_HEIGHT / 2);
+        }
         
         // draw Health UI
         int defaultWidth = 5 * GamePanel.TILE_SIZE;
@@ -167,5 +172,9 @@ public class UI {
     
     private int getXTopRightText(String text) {
         return GamePanel.SCREEN_WIDTH - ((int)g2.getFontMetrics().getStringBounds(text, g2).getWidth())/2;
+    }
+    
+    public void setShowWaveCompletedMessage(boolean show) {
+        showWaveCompletedMessage = show;
     }
 }

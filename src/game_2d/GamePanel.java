@@ -149,4 +149,6 @@ public class GamePanel extends JPanel implements Runnable{
     public Player getPlayer(){ return player;}
     
     public Wave getWave() { return this.wave;}  
+    
+    public UI getUiM() { return this.uiManager;};
 }

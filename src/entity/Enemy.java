@@ -18,32 +18,30 @@ import word_generator.WordGenerator;
  */
 public class Enemy extends Entity{
     
+    public static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
+    private static final int DEFAULT_X = 20 * GamePanel.TILE_SIZE;
     private static final int DAMAGE = 1;
     private static final long INVINCIBLE_DURATION = 800;
     private static final int BASE_SPEED = 1;
     private static final int MAX_SPEED = 4;
-    private static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
     
     private static BufferedImage enemyImage1;
     private static BufferedImage enemyImage2;
-    private BufferedImage image;
+    protected BufferedImage image;
     
-    private String word;
     private double speedFactor;
     private boolean invincibleFrame = false;
     private long invincibleTime;
+    protected String word;
     
     public Enemy(GamePanel gp, int channel){
-        this(gp, channel, 1);
+        this(gp, channel, 0, "left");
     }
     
     public Enemy(GamePanel gp, int channel, int level) {
-        super(gp, channel);
+        super(gp, DEFAULT_X, channel);
         
         getImage();
-        this.channel = channel;
-        this.x = GamePanel.TILE_SIZE * 20;
-        this.y = gp.getChannelY(channel);
         this.direction = "left";
         this.word = randomWord();
         
@@ -51,6 +49,15 @@ public class Enemy extends Entity{
         this.speed = BASE_SPEED + (int)(BASE_SPEED * level * speedFactor);
         this.speed = Math.min(speed, MAX_SPEED);
         System.out.println(speed + " " + level);
+    }
+    
+    public Enemy(GamePanel gp, int channel, int speed, String direction) {
+        super(gp, DEFAULT_X, channel);
+        
+        getImage();
+        this.direction = direction;
+        this.speed = speed;
+        this.word = randomWord();
     }
     
     public static void loadImage() {
@@ -89,7 +96,7 @@ public class Enemy extends Entity{
         if(!collisionOn) {
             x -= speed;
         } else if(!invincibleFrame){
-            gp.getPlayer().decreaseHealth(DAMAGE);
+            gp.getPlayer().changeHealth(-DAMAGE);
             setInvincibility();
         }
         if (invincibleFrame && System.currentTimeMillis() - invincibleTime > INVINCIBLE_DURATION) {
@@ -105,7 +112,7 @@ public class Enemy extends Entity{
     @Override
     public void draw(Graphics2D g2){
         // draw Enemy
-        g2.drawImage(image, x, y, 3 * GamePanel.TILE_SIZE / 2, 3 * GamePanel.TILE_SIZE / 2, null);
+        g2.drawImage(image, x, y, 5 * GamePanel.TILE_SIZE / 4, 5 * GamePanel.TILE_SIZE / 4, null);
         
         // draw Enemy's Word
         g2.setColor(Color.WHITE);

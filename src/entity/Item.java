@@ -1,18 +1,18 @@
 package entity;
 
 import game_2d.GamePanel;
-import java.awt.image.BufferedImage;
-
+import java.util.Random;
 /**
  *
  * @author cellul4r
  */
-public abstract class Item extends Entity {
+public abstract class Item extends Enemy {
     
-    private BufferedImage image;
-    
-    public Item(GamePanel gp) {
-        super(gp);
+    public Item(GamePanel gp, int channel) {
+        super(gp, channel);
+        
+        Random rm = new Random();
+        x = rm.nextInt(5*GamePanel.TILE_SIZE, 18*GamePanel.TILE_SIZE);
     }
     
     public abstract void useItem();

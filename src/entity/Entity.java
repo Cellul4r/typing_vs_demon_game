@@ -30,6 +30,19 @@ public abstract class Entity {
         this.solidArea = new Rectangle(0, 0, GamePanel.TILE_SIZE / 2, GamePanel.TILE_SIZE / 2);
     }
     
+    public Entity(GamePanel gp, int x, int channel) {
+        this(gp,x,0,channel);
+    }
+    
+    public Entity(GamePanel gp, int x, int speed, int channel) {
+        this.gp = gp;
+        this.x = x;
+        this.y = gp.getChannelY(channel);
+        this.speed = speed;
+        this.channel = channel;
+        this.solidArea = new Rectangle(0, 0, GamePanel.TILE_SIZE / 2, GamePanel.TILE_SIZE / 2);
+    }
+    
     protected abstract void updateAnimation();
     protected abstract void getImage();
     public abstract void update();
@@ -53,5 +66,9 @@ public abstract class Entity {
     
     public Rectangle getSolidArea() {
         return this.solidArea;
+    }
+    
+    public int getChannel() {
+        return this.channel;
     }
 }
