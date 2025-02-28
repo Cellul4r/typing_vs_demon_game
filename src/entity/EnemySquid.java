@@ -35,6 +35,7 @@ public class EnemySquid extends Enemy {
             images[5] = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1_6.png"));
             images[6] = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1_7.png"));
             images[7] = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1_8.png"));
+            freezeImage = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1_freeze.png"));
         } catch (IOException ex) {
             Logger.getLogger(WordObject.class.getName()).log(Level.SEVERE, null, ex);
         }   

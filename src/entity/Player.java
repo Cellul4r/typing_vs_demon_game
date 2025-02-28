@@ -12,7 +12,7 @@ import sound.SoundManager;
  *
  * @author HP
  */
-public class Player extends EnemyStick {
+public class Player extends Entity {
     
     private static final int DEFAULT_X = 2 * GamePanel.TILE_SIZE;
     private static final int DEFAULT_CHANNEL = 2;
@@ -134,4 +134,6 @@ public class Player extends EnemyStick {
     public int getScore() { return this.score;}
     
     public int getMaxHealth() { return this.maxHealth;}
+    
+    public Item getItem() { return this.item; }
 }

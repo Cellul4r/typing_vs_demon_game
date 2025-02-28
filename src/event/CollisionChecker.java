@@ -1,6 +1,6 @@
 package event;
 
-import entity.EnemyStick;
+import entity.Entity;
 import game_2d.GamePanel;
 import java.awt.Rectangle;
 
@@ -16,7 +16,7 @@ public class CollisionChecker {
         this.gp = gp;
     }
     
-    public boolean checkCollision(EnemyStick entity) {
+    public boolean checkCollision(Entity entity) {
         
         Rectangle solidArea = entity.getSolidArea();
         int entityLeftX = entity.getX() - solidArea.x;

@@ -1,6 +1,7 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.image.BufferedImage;
 /**
  *
  * @author cellul4r
@@ -16,6 +17,7 @@ public abstract class Enemy extends WordObject {
     protected double speedFactor;
     protected boolean invincibleFrame = false;
     protected long invincibleTime;
+    protected BufferedImage freezeImage;
     
     public Enemy(GamePanel gp, int channel){
         this(gp, channel, 0);
@@ -35,7 +37,6 @@ public abstract class Enemy extends WordObject {
     @Override
     public void update(){
         collisionOn = gp.getCChecker().checkCollision(this);
-        if(collisionOn) System.out.println("Collision!");
         if(!collisionOn) {
             x -= speed;
         } else if(!invincibleFrame){
@@ -63,8 +64,13 @@ public abstract class Enemy extends WordObject {
         this.speed = baseSpeed + (int)(baseSpeed * level * speedFactor);
         System.out.println(speed + " " + level);
     }
+    
     private void setInvincibility() {
         invincibleFrame = true;
         invincibleTime = System.currentTimeMillis();
+    }
+    
+    public void setToFreezeImage() {
+        image = freezeImage;
     }
 }

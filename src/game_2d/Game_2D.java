@@ -1,12 +1,5 @@
 package game_2d;
 
-import entity.EnemySquid;
-import entity.Enemy2;
-import entity.ItemBomb;
-import entity.ItemFreezer;
-import entity.ItemHealer;
-import entity.WordObject;
-import entity.Player;
 import javax.swing.JFrame;
 import word_generator.WordGenerator;
 

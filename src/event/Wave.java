@@ -1,7 +1,8 @@
 package event;
 
+import entity.Enemy;
 import entity.EnemySquid;
-import entity.Enemy2;
+import entity.EnemyStick;
 import entity.WordObject;
 import entity.Item;
 import entity.ItemBomb;
@@ -79,12 +80,12 @@ public class Wave {
         // 10% item 90% Enemy
         int chance = rm.nextInt(100);
         WordObject wordObject;
-        if(chance < 90) {
+        if(chance < 85) {
             chance = rm.nextInt(100);
             if(chance < 50) {
                 wordObject = new EnemySquid(gp, row, level);
             } else {
-                wordObject = new Enemy2(gp, row, level);
+                wordObject = new EnemyStick(gp, row, level);
             }
             enemySpawn++;
         } else {
@@ -120,6 +121,16 @@ public class Wave {
         
         // chack if freeze item is being used right now or not
         if(isFreeze) {
+            if(freezeTime == 0) {
+                // firstTime for freeze
+                for(int i = 0; i < GamePanel.GAME_ROW; i++) {
+                    for(WordObject wordObject : wordObjectList[i]) {
+                        if(wordObject instanceof Enemy enemy) {
+                            enemy.setToFreezeImage();
+                        }
+                    }
+                }
+            }
             if(freezeTime == ItemFreezer.FREEZE_TIME) {
                 isFreeze = false;
                 freezeTime = 0;

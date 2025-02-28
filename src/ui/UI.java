@@ -58,8 +58,8 @@ public class UI {
     
     private void drawPlayScreen() {
         // draw UserInput's Word of the player
-        drawText(gp.getPlayer().getUserInput(), TimesNewRoman_40, Color.white,  
-                    GamePanel.TILE_SIZE * 4, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
+        drawText(gp.getPlayer().getUserInput(), TimesNewRoman_40, Color.black,  
+                    GamePanel.TILE_SIZE * 5, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
         // draw Score of player UI
         drawTopRightText(String.valueOf(gp.getPlayer().getScore()), TimesNewRoman_40,
                     Color.white, GamePanel.TILE_SIZE);
@@ -75,6 +75,11 @@ public class UI {
         int heartHeight = GamePanel.TILE_SIZE / 3;
         g2.setColor(Color.red);
         g2.fillRoundRect(GamePanel.TILE_SIZE, GamePanel.TILE_SIZE / 2, heartWidth, heartHeight, 15, 15);
+        
+        // draw Item inventory UI
+        if(gp.getPlayer().getItem() != null) {
+            g2.drawImage(gp.getPlayer().getItem().getItemImage(), 6 * GamePanel.TILE_SIZE, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE + 10, null);
+        }
     }
     
     private void drawPauseScreen(){ // Pause Menu for the player

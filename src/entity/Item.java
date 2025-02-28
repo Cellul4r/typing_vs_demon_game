@@ -9,8 +9,6 @@ import java.util.Random;
  */
 public abstract class Item extends WordObject {
     
-    protected static BufferedImage itemImage;
-    
     public Item(GamePanel gp, int channel) {
         super(gp, channel);
         Random rm = new Random();
@@ -19,4 +17,7 @@ public abstract class Item extends WordObject {
     
     public abstract void useItem();
     
+    public BufferedImage getItemImage() {
+        return images[0];
+    }
 }

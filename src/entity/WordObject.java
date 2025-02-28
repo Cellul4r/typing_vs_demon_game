@@ -10,7 +10,7 @@ import word_generator.WordGenerator;
  *
  * @author HP
  */
-public class WordObject extends EnemyStick {
+public class WordObject extends Entity {
     
     public static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
     protected String word;
@@ -42,8 +42,9 @@ public class WordObject extends EnemyStick {
         g2.drawImage(image, x, y, 5 * GamePanel.TILE_SIZE / 4, 5 * GamePanel.TILE_SIZE / 4, null);
         
         // draw Enemy's Word
+        int width = g2.getFontMetrics().stringWidth(word);
         g2.setColor(Color.WHITE);
-        g2.fillRect(x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
+        g2.fillRect(x + (GamePanel.TILE_SIZE - width)/2 - 10, y - 25, width + 20, g2.getFontMetrics().getHeight());
         
         g2.setFont(FONT);
         g2.setColor(Color.BLACK);
