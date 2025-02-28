@@ -12,7 +12,7 @@ import sound.SoundManager;
  *
  * @author HP
  */
-public class Player extends Entity {
+public class Player extends EnemyStick {
     
     private static final int DEFAULT_X = 2 * GamePanel.TILE_SIZE;
     private static final int DEFAULT_CHANNEL = 2;

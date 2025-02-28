@@ -1,6 +1,6 @@
 package game_2d;
 
-import entity.Enemy1;
+import entity.EnemySquid;
 import entity.Enemy2;
 import entity.ItemBomb;
 import entity.ItemFreezer;

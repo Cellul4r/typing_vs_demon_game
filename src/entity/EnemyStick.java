@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @author HP
  */
 
-public abstract class Entity {
+public abstract class EnemyStick {
     
     protected int spriteTime;
     protected int imageAmount;
@@ -29,19 +29,19 @@ public abstract class Entity {
     protected Rectangle solidArea;
     protected boolean collisionOn = false;
     
-    public Entity(GamePanel gp, int channel) {
+    public EnemyStick(GamePanel gp, int channel) {
         this(gp, 0, channel);
     }
     
-    public Entity(GamePanel gp, int x, int channel) {
+    public EnemyStick(GamePanel gp, int x, int channel) {
         this(gp,x,0,channel);
     }
     
-    public Entity(GamePanel gp, int x, int speed, int channel) {
+    public EnemyStick(GamePanel gp, int x, int speed, int channel) {
         this(gp,x,speed,"left",channel);
     }
     
-    public Entity(GamePanel gp, int x, int speed, String direction, int channel) {
+    public EnemyStick(GamePanel gp, int x, int speed, String direction, int channel) {
         this.gp = gp;
         this.x = x;
         this.y = gp.getChannelY(channel);

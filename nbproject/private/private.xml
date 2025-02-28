@@ -3,24 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/GamePanel.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Player.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/WordObject.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Entity.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Enemy.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/Wave.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Player.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Item.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/ItemHealer.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/ItemBomb.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/ItemFreezer.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/ItemHealer.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/Game_2D.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/word_generator/WordGenerator.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Enemy1.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/entity/Enemy2.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/Wave.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/CollisionChecker.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/game_2d/GamePanel.java</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/tile/TileManager.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/event/KeyHandler.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/ui/UI.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/sound/Sound.java</file>
             <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/sound/SoundManager.java</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/resource/ui_res/command_arrow.png</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/resource/ui_res/background.jpg</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/resource/ui_res/difficulty_menu_background.png</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/resource/ui_res/difficulty_menu_command2.png</file>
-            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/resource/ui_res/difficulty_menu_command3.png</file>
+            <file>file:/home/cellul4r/Documents/typing_vs_demon_game/src/ui/UI.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,6 @@
 package event;
 
-import entity.Enemy1;
+import entity.EnemySquid;
 import entity.Enemy2;
 import entity.WordObject;
 import entity.Item;
@@ -82,7 +82,7 @@ public class Wave {
         if(chance < 90) {
             chance = rm.nextInt(100);
             if(chance < 50) {
-                wordObject = new Enemy1(gp, row, level);
+                wordObject = new EnemySquid(gp, row, level);
             } else {
                 wordObject = new Enemy2(gp, row, level);
             }

@@ -10,7 +10,7 @@ import word_generator.WordGenerator;
  *
  * @author HP
  */
-public class WordObject extends Entity {
+public class WordObject extends EnemyStick {
     
     public static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
     protected String word;

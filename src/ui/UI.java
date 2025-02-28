@@ -110,7 +110,7 @@ public class UI {
     
     private void drawTutorialMenu(){
         
-        setBackground(Color.BLACK);
+        drawImage("/resource/ui_res/background.jpg", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         drawCenteredText("Controls", TimesNewRoman_80, Color.white, GamePanel.TILE_SIZE * 2);
         drawCenteredText(new String[]{"SHOOT : ENTER / SPACE", "MOVE UP : ^", "MOVE DOWN : v", 
                             "Type words to shoot enemies according to your row."}, 
@@ -123,6 +123,11 @@ public class UI {
         String[] urls = {"/resource/ui_res/difficulty_menu_command1.png", "/resource/ui_res/difficulty_menu_command2.png", 
                         "/resource/ui_res/difficulty_menu_command3.png"};
         drawMenuImage(urls, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        switch (gp.commandNum) {
+            case 0 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
+            case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
+            default -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 7 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
+        }
         setDimBackGround(Color.black);
     }
     

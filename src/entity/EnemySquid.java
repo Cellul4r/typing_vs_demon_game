@@ -11,9 +11,9 @@ import javax.imageio.ImageIO;
  *
  * @author cellul4r
  */
-public class Enemy1 extends Enemy {
+public class EnemySquid extends Enemy {
     
-    public Enemy1(GamePanel gp, int channel, int level) {
+    public EnemySquid(GamePanel gp, int channel, int level) {
         super(gp, channel, level);
         this.damage = 1;
         this.baseSpeed = 2;
