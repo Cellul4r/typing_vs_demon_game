@@ -1,10 +1,11 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import word_generator.WordGenerator;
 
 /**
  *
@@ -22,23 +23,17 @@ public class ItemHealer extends Item {
     public void useItem() {
         gp.getPlayer().changeHealth(HEAL_VALUE);
     }
-
+    
+    
     @Override
-    protected void updateAnimation() {
-        // item has no animation
-    }
-
-    @Override
-    protected void getImage() {
+    public void loadImage() {
+        spriteTime = 0;
+        imageAmount = 1;
+        images = new BufferedImage[imageAmount];
         try {
-            image = ImageIO.read(Enemy.class.getResourceAsStream("/resource/player_res/penguin.png"));
+            images[0] = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
-        } 
-    }
-
-    @Override
-    public void update() {
-        // item does not have to move
-    }       
+            Logger.getLogger(WordObject.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }   
 }

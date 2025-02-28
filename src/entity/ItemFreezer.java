@@ -1,7 +1,10 @@
 package entity;
 
 import game_2d.GamePanel;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -22,22 +25,14 @@ public class ItemFreezer extends Item {
     }
 
     @Override
-    protected void updateAnimation() {
-        // item has no animation
-    }
-
-    @Override
-    protected void getImage() {
+    public void loadImage() {
+        spriteTime = 0;
+        imageAmount = 1;
+        images = new BufferedImage[imageAmount];
         try {
-            image = ImageIO.read(Enemy.class.getResourceAsStream("/resource/player_res/test.png"));
+            images[0] = ImageIO.read(WordObject.class.getResourceAsStream("/resource/enemy_res/enemy1.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
-        } 
+            Logger.getLogger(WordObject.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
-
-    @Override
-    public void update() {
-        // item does not have to move
-    } 
-    
 }

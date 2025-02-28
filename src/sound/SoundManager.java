@@ -6,18 +6,22 @@ package sound;
  */
 public class SoundManager {
     
-    Sound sound[] = new Sound[5];
-    public static final int TITLE_MUSIC = 2;
-    public static final int PLAY_MUSIC = 3;
+    Sound sound[] = new Sound[6];
+    public static final int TITLE_MUSIC = 0;
+    public static final int PLAY_MUSIC = 1;
+    public static final int ENEMY_DEAD = 2;
+    public static final int GUN_SOUND = 3;
     public static final int ENEMY_SOUND = 4;
+    public static final int WRONG_TYPED = 5;
     
     public SoundManager(){
         //Wav file only
-        sound[0] = new Sound("/resource/sound_res/Start Menu.wav", 0.0f);
-        sound[1] = new Sound("/resource/sound_res/Wilhelm Scream.wav", -10.0f);
-        sound[2] = new Sound("/resource/sound_res/main_menu.wav", -10.0f);
-        sound[3] = new Sound("/resource/sound_res/play_game.wav", -15.0f);
-        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -10.0f);
+        sound[0] = new Sound("/resource/sound_res/main_menu.wav", -15.0f);
+        sound[1] = new Sound("/resource/sound_res/play_game.wav", -15.0f);
+        sound[2] = new Sound("/resource/sound_res/enemy_dead.wav", 0.0f);
+        sound[3] = new Sound("/resource/sound_res/gun_sound.wav", 0.0f);
+        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -15.0f);
+        sound[5] = new Sound("/resource/sound_res/wrong_typed.wav", 0.0f);
     }
     
     public void playSoundEffect(int i) {

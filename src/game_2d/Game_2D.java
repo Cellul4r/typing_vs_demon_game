@@ -1,6 +1,12 @@
 package game_2d;
 
-import entity.Enemy;
+import entity.Enemy1;
+import entity.Enemy2;
+import entity.ItemBomb;
+import entity.ItemFreezer;
+import entity.ItemHealer;
+import entity.WordObject;
+import entity.Player;
 import javax.swing.JFrame;
 import word_generator.WordGenerator;
 
@@ -34,7 +40,6 @@ public class Game_2D {
     }
         
     public static void loadGame() {
-        Enemy.loadImage();
         WordGenerator.loadWordList();
     }
 }

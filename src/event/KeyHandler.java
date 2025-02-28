@@ -156,7 +156,7 @@ public class KeyHandler implements KeyListener {
     
     public boolean getDeletePressed() {return deletePressed;}
     
-    public boolean getTabPressed() { return spacePressed; }
+    public boolean getSpacePressed() { return spacePressed; }
     
     public char getKeyChar(){ return keyChar;}
     
@@ -166,7 +166,9 @@ public class KeyHandler implements KeyListener {
     
     public void resetKeyDeletePressed() { deletePressed = false; }
     
-    public void resetKeyTabPressed() { spacePressed = false; }
+    public void resetKeyEnterPressed() { enterPressed = false; }
+    
+    public void resetKeySpacePressed() { spacePressed = false; }
     
     public void resetKeyChar(){ keyChar = '\0';}
     

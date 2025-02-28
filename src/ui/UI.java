@@ -5,6 +5,9 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -16,6 +19,9 @@ public class UI {
     private final Font TimesNewRoman_80;
     private final Font TimesNewRoman_40;
     private final Font TimesNewRoman_30;
+    private BufferedImage cursorImage;
+    private BufferedImage mainMenuBackground;
+    private BufferedImage difficultyMenuBackground;
     private Graphics2D g2;
     private boolean showWaveCompletedMessage;
     
@@ -24,6 +30,11 @@ public class UI {
         TimesNewRoman_80 = new Font("Times New Roman", Font.BOLD, 80);
         TimesNewRoman_40 = new Font("Times New Roman", Font.BOLD, 40);
         TimesNewRoman_30 = new Font("Times New Roman", Font.BOLD, 30);
+        try{
+            cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
+        }catch(IOException e){
+            e.printStackTrace();
+        }       
     }
     
     public void draw(Graphics2D g2) {
@@ -67,7 +78,7 @@ public class UI {
     }
     
     private void drawPauseScreen(){ // Pause Menu for the player
-
+        
         // background Color
         setDimBackGround(Color.black);
         // draw Text "Pause"
@@ -87,33 +98,47 @@ public class UI {
     }
     
     private void drawMainMenu() {
-        setBackground(Color.BLACK);
-        // draw TitleName
-        drawCenteredText("Typing VS Demon", TimesNewRoman_80, Color.white, GamePanel.TILE_SIZE * 3);
-        // draw MenuSelection
-        drawMenu(new String[]{"NEW GAME", "QUIT"}, TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 8);
+        drawImage("/resource/ui_res/main_menu_background.png", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        String[] urls = {"/resource/ui_res/main_menu_command1.png", "/resource/ui_res/main_menu_command2.png"};
+        drawMenuImage(urls, GamePanel.TILE_SIZE, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        if(gp.commandNum == 0) {
+            drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
+        } else {
+            drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + 4 * GamePanel.TILE_SIZE / 5);
+        }
     }
     
-    private void drawTutorialMenu() {
+    private void drawTutorialMenu(){
+        
         setBackground(Color.BLACK);
         drawCenteredText("Controls", TimesNewRoman_80, Color.white, GamePanel.TILE_SIZE * 2);
         drawCenteredText(new String[]{"SHOOT : ENTER / SPACE", "MOVE UP : ^", "MOVE DOWN : v", 
                             "Type words to shoot enemies according to your row."}, 
-                            TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 5);
+                            TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 5);  
         drawMenu(new String[] {"CONTINUE", "EXIT"}, TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 10);
     }
     
     private void drawDifficultySelectionMenu() {
-        setBackground(Color.BLACK);
-        drawCenteredText("Choose Difficulty", TimesNewRoman_80, Color.white, GamePanel.TILE_SIZE * 3);
-
-        drawMenu(new String[]{"EASY", "MEDIUM", "HARD"}, TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 8);
+        drawImage("/resource/ui_res/difficulty_menu_background.png", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        String[] urls = {"/resource/ui_res/difficulty_menu_command1.png", "/resource/ui_res/difficulty_menu_command2.png", 
+                        "/resource/ui_res/difficulty_menu_command3.png"};
+        drawMenuImage(urls, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        setDimBackGround(Color.black);
     }
     
     private void drawText(String text, Font font, Color color, int x, int y) {
         g2.setFont(font);
         g2.setColor(color);
         g2.drawString(text, x, y);
+    }
+    
+    private void drawImage(String url, int x, int y, int width, int height) {
+        try{
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(url));
+            g2.drawImage(image, x, y, width, height, null); 
+        }catch(IOException e){
+            e.printStackTrace();
+        }       
     }
     
     private void drawCenteredText(String text, Font font, Color color, int y) {
@@ -138,6 +163,12 @@ public class UI {
         }
     }
     
+    private void drawMenuImage(String[] urls, int y, int width, int height) {
+        
+        for(int i = 0; i < urls.length; i++) {
+            drawImage(urls[i], 0, y, width, height);
+        }
+    }
     private void drawMenu(String[] texts, Font font, Color color, int y) {
         
         for(int i = 0; i < texts.length; i++) {
@@ -151,7 +182,7 @@ public class UI {
     }
     
     private void drawCursorMenu(int x, int y) {
-        g2.drawString(">", x - GamePanel.TILE_SIZE, y);
+        g2.drawImage(cursorImage, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
     
     private void setBackground(Color color) {
@@ -160,7 +191,7 @@ public class UI {
     }
     
     private void setDimBackGround(Color color) {
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); //dim screen by 50%
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); //dim screen by 50%
         setBackground(color);
 //        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.0f)); //dim screen by 50%
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));

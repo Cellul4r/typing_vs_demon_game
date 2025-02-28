@@ -1,6 +1,6 @@
 package game_2d;
 
-import entity.Enemy;
+import entity.WordObject;
 import sound.Sound;
 import event.KeyHandler;
 import event.CollisionChecker;

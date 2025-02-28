@@ -1,7 +1,8 @@
 package event;
 
-import entity.Enemy;
-import entity.Entity;
+import entity.Enemy1;
+import entity.Enemy2;
+import entity.WordObject;
 import entity.Item;
 import entity.ItemBomb;
 import entity.ItemFreezer;
@@ -18,12 +19,12 @@ import sound.SoundManager;
  */
 public class Wave {
     
-    private static final int ENTITY_DAFAULT = 5;
-    private static final int ENTITY_TIME_LIMIT = 53;
+    private static final int WORD_OBJECT_DEFAULT = 7;
+    private static final int WORD_OBEJCT_TIME_LIMIT = 53;
     private static final int WAVE_TIME_LIMIT = 120;
     private final GamePanel gp;
     private final double enemyFactor;
-    private final ArrayList<Entity>[] entityList;
+    private final ArrayList<WordObject>[] wordObjectList;
     private int level;
     private int enemyAmount;
     private int enemySpawn;
@@ -34,9 +35,9 @@ public class Wave {
     
     public Wave(GamePanel gp) {
         this.gp = gp;
-        this.entityList = new ArrayList[GamePanel.GAME_ROW];
+        this.wordObjectList = new ArrayList[GamePanel.GAME_ROW];
         for(int i = 0; i < GamePanel.GAME_ROW; i++) {
-            entityList[i] = new ArrayList();
+            wordObjectList[i] = new ArrayList();
         }
         
         enemyFactor = switch (gp.difficulty) {
@@ -48,49 +49,56 @@ public class Wave {
     }
     
     public boolean checkPlayerWord(int playerRow, String word) {
-        for(Entity entity : entityList[playerRow]) {
-            if(((Enemy)entity).getWord().equals(word)) {
-                if(entity instanceof Item item) {
+        for(WordObject wordObject : wordObjectList[playerRow]) {
+            if(((WordObject)wordObject).getWord().equals(word)) {
+                gp.getSoundM().playSoundEffect(SoundManager.GUN_SOUND);
+                if(wordObject instanceof Item item) {
                     gp.getPlayer().setItem(item);
                 } else {
-                    gp.getSoundM().playSoundEffect(1); // change Number later
+                    gp.getSoundM().playSoundEffect(SoundManager.ENEMY_DEAD); // change Number later
                 }
-                entityList[playerRow].remove(entity);
+                wordObjectList[playerRow].remove(wordObject);
                 return true;
             }
         }
+        gp.getSoundM().playSoundEffect(SoundManager.WRONG_TYPED);
         return false;
     }
         
     private void createWave() {
-        enemyAmount = ENTITY_DAFAULT + (int)(ENTITY_DAFAULT*level*enemyFactor);
+        enemyAmount = WORD_OBJECT_DEFAULT + (int)(WORD_OBJECT_DEFAULT*level*enemyFactor);
         enemySpawn = 0;
         System.out.println(level + " " + enemyAmount);
         level++;
         gp.getSoundM().playSoundEffect(SoundManager.ENEMY_SOUND);
     }
     
-    private void randomEntity() {
+    private void randomWordObject() {
         Random rm = new Random();
         int row = rm.nextInt(GamePanel.GAME_ROW);
         // 10% item 90% Enemy
         int chance = rm.nextInt(100);
-        Entity entity;
+        WordObject wordObject;
         if(chance < 90) {
-            entity = new Enemy(gp, row, level);
+            chance = rm.nextInt(100);
+            if(chance < 50) {
+                wordObject = new Enemy1(gp, row, level);
+            } else {
+                wordObject = new Enemy2(gp, row, level);
+            }
             enemySpawn++;
         } else {
             chance = rm.nextInt(100);
             if(chance <= 33) {
-                entity = new ItemHealer(gp, row);
+                wordObject = new ItemHealer(gp, row);
             } else if(chance <= 66){
-                entity = new ItemBomb(gp, row);
+                wordObject = new ItemBomb(gp, row);
             } else {
-                entity = new ItemFreezer(gp, row);
+                wordObject = new ItemFreezer(gp, row);
             }
             enemyAmount--;
         }
-        entityList[row].add(0,entity);
+        wordObjectList[row].add(0,wordObject);
     }
     
     public void update() {
@@ -110,6 +118,7 @@ public class Wave {
             }
         }
         
+        // chack if freeze item is being used right now or not
         if(isFreeze) {
             if(freezeTime == ItemFreezer.FREEZE_TIME) {
                 isFreeze = false;
@@ -119,10 +128,11 @@ public class Wave {
             }
             return;
         }
+        
         // spawn enemy
         if(enemySpawn < enemyAmount) {
-            if(enemyTick == ENTITY_TIME_LIMIT) {
-                randomEntity();
+            if(enemyTick == WORD_OBEJCT_TIME_LIMIT) {
+                randomWordObject();
                 enemyTick = 0;
             } else {
                 enemyTick++;
@@ -130,41 +140,41 @@ public class Wave {
         }
         // update enemy movements
         for(int i = 0; i < GamePanel.GAME_ROW; i++) {
-            for(Entity entity : entityList[i]) {
-                entity.update();
+            for(WordObject wordObject : wordObjectList[i]) {
+                wordObject.update();
             }
         }
     }
     
     public void draw(Graphics2D g2) {
         for(int i = 0; i < GamePanel.GAME_ROW; i++) {
-            for(Entity entity : entityList[i]) {
-                entity.draw(g2);
+            for(WordObject wordObject : wordObjectList[i]) {
+                wordObject.draw(g2);
             }
         }
     }
     
     public void deleteRowWave(int row) {
-        ArrayList<Entity> newEntityList = new ArrayList<>();
+        ArrayList<WordObject> newWordObjectList = new ArrayList<>();
         boolean hasEnemy = false;
-        for(Entity entity : entityList[row]) {
-            if(entity instanceof Item) {
-                newEntityList.add(0, entity);
+        for(WordObject wordObject : wordObjectList[row]) {
+            if(wordObject instanceof Item) {
+                newWordObjectList.add(0, wordObject);
             } else {
                 hasEnemy = true;
             }
         }
         if(hasEnemy) {
-            gp.getSoundM().playSoundEffect(1);
+            gp.getSoundM().playSoundEffect(SoundManager.ENEMY_DEAD);
         }
-        entityList[row] = newEntityList;
+        wordObjectList[row] = newWordObjectList;
     }
     
     private boolean isWaveEmpty() {
         boolean empty = true;
         for(int i = 0; i < GamePanel.GAME_ROW && empty; i++) {
-            for(Entity entity : entityList[i]) {
-                if(entity instanceof Enemy) {
+            for(WordObject wordObject : wordObjectList[i]) {
+                if(wordObject instanceof WordObject) {
                     empty = false;
                     break;
                 }
