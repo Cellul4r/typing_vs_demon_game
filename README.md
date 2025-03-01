@@ -25,12 +25,12 @@
 ### Run in Java IDE
   
   * Requirements **Java 17** or higher
-  * IDE that supports **Ant** Project (eg. Apache NetBeans)
+  * Apache NetBeans IDE
   1. Download the repository file (Project) from the download section or clone this project by typing in the command prompt/terminal :
      
           git clone https://github.com/Cellul4r/typing_vs_demon_game.git
      
-  2. Import the project file in Apache NetBeans or other Java IDE.
+  2. Import the project file in Apache NetBeans
   3. compile and run from IDE and Enjoy!
 
 ## Team Contribution
