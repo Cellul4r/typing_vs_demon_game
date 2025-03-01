@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public abstract class Enemy extends WordObject {
     
     protected static final int DEFAULT_X = 20 * GamePanel.TILE_SIZE;
-    protected static final long INVINCIBLE_DURATION = 800;
+    protected static final long INVINCIBLE_DURATION = 1500;
     
     protected int damage;
     protected int baseSpeed;
@@ -22,7 +22,6 @@ public abstract class Enemy extends WordObject {
     protected int spriteAttackCounter = 0;
     protected int spriteAttackNum = 0;
     protected BufferedImage[] attackImages;
-    
     protected BufferedImage freezeImage;
     
     public Enemy(GamePanel gp, int channel){

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import sound.SoundManager;
 
 /**
  *
@@ -19,7 +20,7 @@ public class ItemBomb extends Item {
     
     @Override
     public void useItem() {
-        System.out.println("Boom!");
+        gp.getSoundM().playSoundEffect(SoundManager.BOMB_SOUND);
         gp.getWave().deleteRowWave(gp.getPlayer().getChannel());
     }
 

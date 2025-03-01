@@ -19,10 +19,10 @@ public class CollisionChecker {
     public boolean checkCollision(Entity entity) {
         
         Rectangle solidArea = entity.getSolidArea();
-        int entityLeftX = Math.max(0,entity.getX() - solidArea.x);
-        int entityRightX = entity.getX() + solidArea.x;
+        int entityLeftX = entity.getX() - solidArea.x;
+        int entityRightX = entity.getX() + solidArea.x + solidArea.width;
         int entityTopY = entity.getY() - solidArea.y;
-        int entityBottomY = entity.getY() + solidArea.y;
+        int entityBottomY = entity.getY() + solidArea.y + solidArea.height;
         
         int entityLeftCol = entityLeftX / GamePanel.TILE_SIZE;
         int entityRightCol = entityRightX / GamePanel.TILE_SIZE;

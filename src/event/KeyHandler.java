@@ -110,6 +110,7 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 gp.getSoundM().stopMusic(SoundManager.PLAY_MUSIC);
+                gp.getSoundM().stopSoundEffect(SoundManager.PLAYER_LOSE);
                 if(gp.commandNum == 0){
                     gp.gameState = GamePanel.TITLE_STATE;
                     gp.titleScreenState = 0;

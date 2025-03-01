@@ -3,6 +3,7 @@ package entity;
 import game_2d.GamePanel;
 import event.KeyHandler;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -30,7 +31,7 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp, DEFAULT_X, GamePanel.CHANNEL_SPACING, DEFAULT_CHANNEL);
         this.keyH = keyH;
-        this.maxHealth = 80;
+        this.maxHealth = 100;
         this.health = maxHealth;
     }
     
@@ -55,6 +56,7 @@ public class Player extends Entity {
         if(health == 0) {
             gp.gameState = GamePanel.GAME_OVER_STATE;
             gp.getSoundM().stopMusic(SoundManager.ENEMY_SOUND);
+            gp.getSoundM().playSoundEffect(SoundManager.PLAYER_LOSE);
         }
         checkKey();
         updateAnimation();
@@ -116,6 +118,7 @@ public class Player extends Entity {
         int tileSize = GamePanel.TILE_SIZE;
         
         // draw Player
+        
         g2.drawImage(image, x, y, 3 * tileSize / 2, 3 * tileSize / 2, null);
     }
     

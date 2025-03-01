@@ -135,7 +135,7 @@ public class GamePanel extends JPanel implements Runnable{
         player = new Player(this, keyH);
     }
     
-    public int getChannelY(int row) { return this.channelRow[row];}
+    public int getChannelY(int row) { return channelRow[row];}
     
     public TileManager getTileM() { return this.tileM;}
     
