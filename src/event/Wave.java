@@ -77,10 +77,10 @@ public class Wave {
     private void randomWordObject() {
         Random rm = new Random();
         int row = rm.nextInt(GamePanel.GAME_ROW);
-        // 10% item 90% Enemy
+        // 8% item 92% Enemy
         int chance = rm.nextInt(100);
         WordObject wordObject;
-        if(chance < 85) {
+        if(chance < 92) {
             chance = rm.nextInt(100);
             if(chance < 50) {
                 wordObject = new EnemySquid(gp, row, level);
@@ -185,7 +185,7 @@ public class Wave {
         boolean empty = true;
         for(int i = 0; i < GamePanel.GAME_ROW && empty; i++) {
             for(WordObject wordObject : wordObjectList[i]) {
-                if(wordObject instanceof WordObject) {
+                if(wordObject instanceof Enemy) {
                     empty = false;
                     break;
                 }

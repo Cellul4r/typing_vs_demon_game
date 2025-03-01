@@ -47,11 +47,13 @@ public class Sound {
     public void stopSoundEffect(){
         if(clip == null) return;
         clip.stop();
+        clip.close();
     }
     
     public void stopMusic() {
         if(clip == null) return;
         clip.stop();
+        clip.flush();
         clip.close();
     }
 }

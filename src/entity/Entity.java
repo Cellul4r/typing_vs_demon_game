@@ -53,13 +53,17 @@ public abstract class Entity {
         getImage();
     }
     
+    protected abstract void loadImage();
+    public abstract void update();
+    public abstract void draw(Graphics2D g2);
+    
     protected void getImage() {
         if(images[spriteNum] == null) {
             System.out.println("Pic null " + getClass().getSimpleName());
         }
         image = images[spriteNum];
     }
-    
+        
     protected void updateAnimation() {
         spriteCounter++;
         if(spriteCounter > spriteTime){
@@ -71,10 +75,6 @@ public abstract class Entity {
             spriteCounter = 0;
         }
     }
-    
-    public abstract void loadImage();
-    public abstract void update();
-    public abstract void draw(Graphics2D g2);
     
     public int getX() { return this.x;}
     

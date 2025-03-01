@@ -23,7 +23,7 @@ public class Player extends Entity {
     private int maxHealth;
     private int health;
     private int score = 0;
-    private Item item;
+    private Item item = new ItemHealer(gp, 1);
     
     
     
@@ -35,8 +35,8 @@ public class Player extends Entity {
     }
     
     @Override
-    public void loadImage() {
-        spriteTime = GamePanel.FPS / 4;
+    protected void loadImage() {
+        spriteTime = 5;
         imageAmount = 5;
         images = new BufferedImage[imageAmount];
         try{

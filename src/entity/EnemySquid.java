@@ -22,7 +22,7 @@ public class EnemySquid extends Enemy {
     }
     
     @Override
-    public void loadImage() {
+    protected void loadImage() {
         spriteTime = GamePanel.FPS / 4;
         imageAmount = 8;
         images = new BufferedImage[imageAmount];

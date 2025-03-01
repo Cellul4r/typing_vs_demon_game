@@ -20,8 +20,15 @@ public class UI {
     private final Font TimesNewRoman_40;
     private final Font TimesNewRoman_30;
     private BufferedImage cursorImage;
-    private BufferedImage mainMenuBackground;
-    private BufferedImage difficultyMenuBackground;
+    private BufferedImage mainMenuBg;
+    private BufferedImage tutorialMenuBg;
+    private BufferedImage diffcultyMenuBg;
+    private BufferedImage itemInvBg;
+    private BufferedImage healthBar;
+    private BufferedImage pauseButton;
+    private BufferedImage mainMenuCmd1, mainMenuCmd2;
+    private BufferedImage diffcultyMenuCmd1, difficulyMenuCmd2, difficultyMenuCmd3;
+    private BufferedImage labelBg;
     private Graphics2D g2;
     private boolean showWaveCompletedMessage;
     
@@ -31,7 +38,19 @@ public class UI {
         TimesNewRoman_40 = new Font("Times New Roman", Font.BOLD, 40);
         TimesNewRoman_30 = new Font("Times New Roman", Font.BOLD, 30);
         try{
+            mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
+            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu.jpg"));
+            diffcultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
+            pauseButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_button.png"));
+            itemInvBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/item_inventory_background.png"));
+            healthBar = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/health_bar_ui.png"));
+            mainMenuCmd1 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_command1.png"));
+            mainMenuCmd2 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_command2.png"));
+            diffcultyMenuCmd1 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_command1.png"));
+            difficulyMenuCmd2 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_command2.png"));
+            difficultyMenuCmd3 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_command3.png"));
+            labelBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/label_background.png"));
         }catch(IOException e){
             e.printStackTrace();
         }       
@@ -61,33 +80,35 @@ public class UI {
         drawText(gp.getPlayer().getUserInput(), TimesNewRoman_40, Color.black,  
                     GamePanel.TILE_SIZE * 5, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
         // draw Score of player UI
-        drawTopRightText(String.valueOf(gp.getPlayer().getScore()), TimesNewRoman_40,
+        drawImage(labelBg, GamePanel.SCREEN_WIDTH - 2 * GamePanel.TILE_SIZE, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
+        drawTopRightText(String.valueOf(gp.getPlayer().getScore()), TimesNewRoman_30,
                     Color.white, GamePanel.TILE_SIZE);
-        // draw Wave Number UI
-        drawCenteredText(String.valueOf(gp.getWave().getLevel()), TimesNewRoman_40, Color.white, GamePanel.TILE_SIZE);
+        // draw Wave Completed UI
         if(showWaveCompletedMessage) {
             drawCenteredText("Wave " + gp.getWave().getLevel() + " Completed!", TimesNewRoman_40, Color.black, GamePanel.SCREEN_HEIGHT / 2);
         }
         
         // draw Health UI
-        int defaultWidth = 5 * GamePanel.TILE_SIZE;
+        int defaultWidth = 7 * GamePanel.TILE_SIZE / 2 - 3;
         int heartWidth = (int)((double)gp.getPlayer().getHealth() / gp.getPlayer().getMaxHealth() * defaultWidth);
-        int heartHeight = GamePanel.TILE_SIZE / 3;
-        g2.setColor(Color.red);
-        g2.fillRoundRect(GamePanel.TILE_SIZE, GamePanel.TILE_SIZE / 2, heartWidth, heartHeight, 15, 15);
+        int heartHeight = GamePanel.TILE_SIZE / 4 - 2;
+        g2.setColor(new Color(222,56,70));
+        drawImage(healthBar, 10, 9, 5 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+        g2.fillRoundRect(4 * GamePanel.TILE_SIZE / 3 + 5, GamePanel.TILE_SIZE / 2 + 5, heartWidth, heartHeight, 1, 1);
         
         // draw Item inventory UI
+        drawImage(itemInvBg, 5 * GamePanel.TILE_SIZE + 20, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
         if(gp.getPlayer().getItem() != null) {
-            g2.drawImage(gp.getPlayer().getItem().getItemImage(), 6 * GamePanel.TILE_SIZE, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE + 10, null);
+            drawImage(gp.getPlayer().getItem().getItemImage(), 6 * GamePanel.TILE_SIZE - 5, 40, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
         }
     }
     
     private void drawPauseScreen(){ // Pause Menu for the player
         
-        // background Color
+        // background Color (Dim)
         setDimBackGround(Color.black);
         // draw Text "Pause"
-        drawCenteredText("PAUSED", TimesNewRoman_80, Color.white, GamePanel.SCREEN_HEIGHT / 2);
+        drawCenteredImage(pauseButton, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
     }
     
     private void drawGameOver(){ // When player lose -> GameOver Show up
@@ -103,9 +124,9 @@ public class UI {
     }
     
     private void drawMainMenu() {
-        drawImage("/resource/ui_res/main_menu_background.png", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        String[] urls = {"/resource/ui_res/main_menu_command1.png", "/resource/ui_res/main_menu_command2.png"};
-        drawMenuImage(urls, GamePanel.TILE_SIZE, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        drawImage(mainMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        BufferedImage[] images = {mainMenuCmd1, mainMenuCmd2};
+        drawMenuImage(images, GamePanel.TILE_SIZE, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         if(gp.commandNum == 0) {
             drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
         } else {
@@ -114,20 +135,18 @@ public class UI {
     }
     
     private void drawTutorialMenu(){
-        
-        drawImage("/resource/ui_res/background.jpg", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        drawCenteredText("Controls", TimesNewRoman_80, Color.white, GamePanel.TILE_SIZE * 2);
-        drawCenteredText(new String[]{"SHOOT : ENTER / SPACE", "MOVE UP : ^", "MOVE DOWN : v", 
-                            "Type words to shoot enemies according to your row."}, 
-                            TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 5);  
-        drawMenu(new String[] {"CONTINUE", "EXIT"}, TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 10);
+        drawImage(tutorialMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        if(gp.commandNum == 0) {
+            drawCursorMenu(11 * GamePanel.TILE_SIZE, 12 * GamePanel.TILE_SIZE);
+        } else {
+            drawCursorMenu(4 * GamePanel.TILE_SIZE - 10, 12 * GamePanel.TILE_SIZE);
+        }
     }
     
     private void drawDifficultySelectionMenu() {
-        drawImage("/resource/ui_res/difficulty_menu_background.png", 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        String[] urls = {"/resource/ui_res/difficulty_menu_command1.png", "/resource/ui_res/difficulty_menu_command2.png", 
-                        "/resource/ui_res/difficulty_menu_command3.png"};
-        drawMenuImage(urls, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        drawImage(diffcultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        BufferedImage[] images = {diffcultyMenuCmd1, difficulyMenuCmd2, difficultyMenuCmd3};
+        drawMenuImage(images, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         switch (gp.commandNum) {
             case 0 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
             case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
@@ -142,13 +161,8 @@ public class UI {
         g2.drawString(text, x, y);
     }
     
-    private void drawImage(String url, int x, int y, int width, int height) {
-        try{
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(url));
-            g2.drawImage(image, x, y, width, height, null); 
-        }catch(IOException e){
-            e.printStackTrace();
-        }       
+    private void drawImage(BufferedImage image, int x, int y, int width, int height) {
+        g2.drawImage(image, x, y, width, height, null);    
     }
     
     private void drawCenteredText(String text, Font font, Color color, int y) {
@@ -158,11 +172,16 @@ public class UI {
         g2.drawString(text, x, y);
     }
     
+    private void drawCenteredImage(BufferedImage image, int y, int width, int height) {
+        int x = GamePanel.SCREEN_WIDTH / 2 - 3 * image.getWidth() / 2;
+        drawImage(image, x, y, width, height);
+    }
+    
     private void drawTopRightText(String text, Font font, Color color, int y) {
         g2.setFont(font);
         g2.setColor(color);
         int x = getXTopRightText(text);
-        g2.drawString(text, x - GamePanel.TILE_SIZE, y);
+        g2.drawString(text, x - GamePanel.TILE_SIZE, y + 35);
     }
     
     private void drawCenteredText(String[] texts, Font font, Color color, int y) {
@@ -173,10 +192,9 @@ public class UI {
         }
     }
     
-    private void drawMenuImage(String[] urls, int y, int width, int height) {
-        
-        for(int i = 0; i < urls.length; i++) {
-            drawImage(urls[i], 0, y, width, height);
+    private void drawMenuImage(BufferedImage[] images, int y, int width, int height) { 
+        for(int i = 0; i < images.length; i++) {
+            drawImage(images[i], 0, y, width, height);
         }
     }
     private void drawMenu(String[] texts, Font font, Color color, int y) {
@@ -208,13 +226,16 @@ public class UI {
     }
     
     private int getXforCenteredText(String text){
-        return GamePanel.SCREEN_WIDTH / 2 - ((int)g2.getFontMetrics().getStringBounds(text, g2).getWidth())/2;
+        return GamePanel.SCREEN_WIDTH / 2 - getWidthText(text) / 2;
     }
     
     private int getXTopRightText(String text) {
-        return GamePanel.SCREEN_WIDTH - ((int)g2.getFontMetrics().getStringBounds(text, g2).getWidth())/2;
+        return GamePanel.SCREEN_WIDTH - getWidthText(text) / 2;
     }
     
+    private int getWidthText(String text) {
+        return (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    }
     public void setShowWaveCompletedMessage(boolean show) {
         showWaveCompletedMessage = show;
     }

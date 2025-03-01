@@ -10,7 +10,7 @@ import word_generator.WordGenerator;
  *
  * @author HP
  */
-public class WordObject extends Entity {
+public abstract class WordObject extends Entity {
     
     public static final Font FONT = new Font("Times New Roman", Font.BOLD, 16);
     protected String word;
@@ -61,6 +61,6 @@ public class WordObject extends Entity {
     public int getYs(){ return y;}
 
     @Override
-    public void loadImage() {}
+    protected void loadImage() {}
     
 }
