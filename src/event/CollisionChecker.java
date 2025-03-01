@@ -19,7 +19,7 @@ public class CollisionChecker {
     public boolean checkCollision(Entity entity) {
         
         Rectangle solidArea = entity.getSolidArea();
-        int entityLeftX = entity.getX() - solidArea.x;
+        int entityLeftX = Math.max(0,entity.getX() - solidArea.x);
         int entityRightX = entity.getX() + solidArea.x;
         int entityTopY = entity.getY() - solidArea.y;
         int entityBottomY = entity.getY() + solidArea.y;

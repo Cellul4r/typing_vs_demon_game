@@ -23,6 +23,7 @@ public class UI {
     private BufferedImage mainMenuBg;
     private BufferedImage tutorialMenuBg;
     private BufferedImage diffcultyMenuBg;
+    private BufferedImage gameoverMenu;
     private BufferedImage itemInvBg;
     private BufferedImage healthBar;
     private BufferedImage pauseButton;
@@ -39,8 +40,9 @@ public class UI {
         TimesNewRoman_30 = new Font("Times New Roman", Font.BOLD, 30);
         try{
             mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
-            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu.jpg"));
+            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
             diffcultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
+            gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
             pauseButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_button.png"));
             itemInvBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/item_inventory_background.png"));
@@ -106,21 +108,20 @@ public class UI {
     private void drawPauseScreen(){ // Pause Menu for the player
         
         // background Color (Dim)
-        setDimBackGround(Color.black);
+        setDimBackGround(Color.black, 0.5f);
         // draw Text "Pause"
-        drawCenteredImage(pauseButton, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
+        drawCenteredImage(pauseButton, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 
+                            20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
     }
     
     private void drawGameOver(){ // When player lose -> GameOver Show up
         
         // background Color
-        setDimBackGround(Color.black);
-        // draw Text "Pause"
-        drawCenteredText("GAME OVER", TimesNewRoman_80, Color.white, GamePanel.SCREEN_HEIGHT / 2);
+        setDimBackGround(Color.black, 0.5f);
         
-        // selection menu for the player
-        drawMenu(new String[]{"MAIN MENU"}, TimesNewRoman_30, Color.white, GamePanel.TILE_SIZE * 10);
-        
+        drawCenteredImage(gameoverMenu, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 
+                            20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
+        drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - 2 *GamePanel.TILE_SIZE - 25, GamePanel.SCREEN_HEIGHT / 2 + GamePanel.TILE_SIZE + 13);
     }
     
     private void drawMainMenu() {
@@ -152,7 +153,7 @@ public class UI {
             case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
             default -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 7 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
         }
-        setDimBackGround(Color.black);
+        setDimBackGround(Color.black, 0.2f);
     }
     
     private void drawText(String text, Font font, Color color, int x, int y) {
@@ -218,8 +219,8 @@ public class UI {
         g2.fillRect(0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
     }
     
-    private void setDimBackGround(Color color) {
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); //dim screen by 50%
+    private void setDimBackGround(Color color, float value) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, value)); //dim screen by 50%
         setBackground(color);
 //        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.0f)); //dim screen by 50%
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));

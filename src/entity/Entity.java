@@ -59,7 +59,7 @@ public abstract class Entity {
     
     protected void getImage() {
         if(images[spriteNum] == null) {
-            System.out.println("Pic null " + getClass().getSimpleName());
+            return;
         }
         image = images[spriteNum];
     }

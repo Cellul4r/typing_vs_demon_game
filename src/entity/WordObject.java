@@ -59,8 +59,5 @@ public abstract class WordObject extends Entity {
     public String getWord(){ return word.toUpperCase();}
     
     public int getYs(){ return y;}
-
-    @Override
-    protected void loadImage() {}
     
 }

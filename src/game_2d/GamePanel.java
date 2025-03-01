@@ -1,12 +1,9 @@
 package game_2d;
 
-import entity.WordObject;
-import sound.Sound;
 import event.KeyHandler;
 import event.CollisionChecker;
 import entity.Player;
 import event.Wave;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -124,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(gameState == PLAY_STATE || gameState == PAUSE_STATE){
+        if(gameState == PLAY_STATE || gameState == PAUSE_STATE || gameState == GAME_OVER_STATE){
             tileM.draw(g2);
             player.draw(g2);
             wave.draw(g2);

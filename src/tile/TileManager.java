@@ -24,7 +24,7 @@ public class TileManager {
         mapTileNum = new int [GamePanel.MAX_SCREEN_COL][GamePanel.MAX_SCREEN_ROW];
         getTileImage();
         loadMap("/resource/map_res/map01.txt");
-    }
+    } 
     
     private void getTileImage() {
         

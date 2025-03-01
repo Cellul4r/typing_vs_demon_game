@@ -17,6 +17,12 @@ public abstract class Enemy extends WordObject {
     protected double speedFactor;
     protected boolean invincibleFrame = false;
     protected long invincibleTime;
+    protected int spriteAttackTime;
+    protected int attackImageAmount;
+    protected int spriteAttackCounter = 0;
+    protected int spriteAttackNum = 0;
+    protected BufferedImage[] attackImages;
+    
     protected BufferedImage freezeImage;
     
     public Enemy(GamePanel gp, int channel){
@@ -35,12 +41,39 @@ public abstract class Enemy extends WordObject {
     }
     
     @Override
+    protected void getImage() {
+        if(collisionOn && attackImages[spriteAttackNum] != null) {
+            // attack animation
+            image = attackImages[spriteAttackNum];
+        } else {
+            // walk animation
+            super.getImage();
+        }
+    }
+    
+    @Override
+    protected void updateAnimation() {
+        if(collisionOn) {
+            spriteAttackCounter++;
+            if(spriteAttackCounter > spriteAttackTime) {
+                spriteAttackNum++;
+                if(spriteAttackNum >= attackImageAmount) {
+                    spriteAttackNum = 0;
+                }
+                getImage();
+                spriteAttackCounter = 0;
+            }
+        } else {
+            super.updateAnimation();
+        }
+    }
+    
+    @Override
     public void update(){
         collisionOn = gp.getCChecker().checkCollision(this);
         if(!collisionOn) {
             x -= speed;
         } else if(!invincibleFrame){
-            
             gp.getPlayer().changeHealth(-damage);
             setInvincibility();
         }
