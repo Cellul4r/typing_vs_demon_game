@@ -24,7 +24,7 @@ public class SoundManager {
         sound[1] = new Sound("/resource/sound_res/play_game.wav", -20.0f);
         sound[2] = new Sound("/resource/sound_res/enemy_dead.wav", -15.0f);
         sound[3] = new Sound("/resource/sound_res/gun_sound.wav", 3.0f);
-        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -18.0f);
+        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -25.0f);
         sound[5] = new Sound("/resource/sound_res/wrong_typed.wav", 6.0f);
         sound[6] = new Sound("/resource/sound_res/player_lose_sound.wav", -10.0f);
         sound[7] = new Sound("/resource/sound_res/healing_sound.wav", -10.0f);
