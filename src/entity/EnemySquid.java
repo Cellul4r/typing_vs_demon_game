@@ -15,7 +15,7 @@ public class EnemySquid extends Enemy {
     
     public EnemySquid(GamePanel gp, int channel, int level) {
         super(gp, channel, level);
-        this.damage = 2;
+        this.damage = 1;
         this.baseSpeed = 2;
         this.maxSpeed = 4;
         setSpeed(level);
