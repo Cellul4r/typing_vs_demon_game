@@ -51,7 +51,7 @@ public class Wave {
     
     public boolean checkPlayerWord(int playerRow, String word) {
         for(WordObject wordObject : wordObjectList[playerRow]) {
-            if(((WordObject)wordObject).getWord().equals(word)) {
+            if(wordObject.getWord().equals(word)) {
                 gp.getSoundM().playSoundEffect(SoundManager.GUN_SOUND);
                 if(wordObject instanceof Item item) {
                     gp.getPlayer().setItem(item);
@@ -77,10 +77,10 @@ public class Wave {
     private void randomWordObject() {
         Random rm = new Random();
         int row = rm.nextInt(GamePanel.GAME_ROW);
-        // 8% item 92% Enemy
+        // 5% item 95% Enemy
         int chance = rm.nextInt(100);
         WordObject wordObject;
-        if(chance < 92) {
+        if(chance < 95) {
             chance = rm.nextInt(100);
             if(chance < 50) {
                 wordObject = new EnemySquid(gp, row, level);
