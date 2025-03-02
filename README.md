@@ -8,6 +8,12 @@
   * If you want to improve your typing speed and accuracy, this game is for you!
 
 ## Screenshot
+![main menu](screenshot/main_menu.png)
+![tutorial menu](screenshot/tutorial_menu.png)
+![difficulty selection menu](screenshot/difficulty_menu.png)
+![play screen](screenshot/play_menu.png)
+![pause screen](screenshot/pause_menu.png)
+![game over screen](screenshot/game_over_menu.png)
 ## Installation
 ### Windows
 1. download `.exe` file from github directory `/DownloadApp/Windows`.
