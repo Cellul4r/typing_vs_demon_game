@@ -26,7 +26,6 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        //System.out.println(KeyEvent.getKeyText(code));
         if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_MAIN){
             switch (code) {
                 case KeyEvent.VK_UP -> {

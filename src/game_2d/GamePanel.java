@@ -107,7 +107,6 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
         }
-        System.out.println("Run");
     }
         
     public void update(){

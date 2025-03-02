@@ -69,7 +69,6 @@ public class Wave {
     private void createWave() {
         enemyAmount = WORD_OBJECT_DEFAULT + (int)(WORD_OBJECT_DEFAULT*level*enemyFactor);
         enemySpawn = 0;
-        System.out.println(level + " " + enemyAmount);
         level++;
         gp.getSoundM().playSoundEffect(SoundManager.ENEMY_SOUND);
     }

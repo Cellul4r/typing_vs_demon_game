@@ -14,7 +14,6 @@ public class Game_2D {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //System.out.println("Hello World");
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

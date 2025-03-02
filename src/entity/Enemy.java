@@ -94,7 +94,6 @@ public abstract class Enemy extends WordObject {
     protected void setSpeed(int level) {
         speedFactor = getSpeedFactor(gp.difficulty);
         this.speed = Math.min(maxSpeed, baseSpeed + (int)(baseSpeed * level * speedFactor));
-        System.out.println(speed + " " + level);
     }
     
     private void setInvincibility() {
