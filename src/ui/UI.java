@@ -40,7 +40,7 @@ public class UI {
         DIALOG_30 = new Font("DIALOG", Font.BOLD, 30);
         try{
             mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
-            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.jpg"));
+            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
             difficultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
             gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
