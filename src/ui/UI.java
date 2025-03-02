@@ -22,7 +22,7 @@ public class UI {
     private BufferedImage cursorImage;
     private BufferedImage mainMenuBg;
     private BufferedImage tutorialMenuBg;
-    private BufferedImage diffcultyMenuBg;
+    private BufferedImage difficultyMenuBg;
     private BufferedImage gameoverMenu;
     private BufferedImage itemInvBg;
     private BufferedImage healthBar;
@@ -41,7 +41,7 @@ public class UI {
         try{
             mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
             tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
-            diffcultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
+            difficultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
             gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
             pauseButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_button.png"));
@@ -145,7 +145,7 @@ public class UI {
     }
     
     private void drawDifficultySelectionMenu() {
-        drawImage(diffcultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        drawImage(difficultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         BufferedImage[] images = {diffcultyMenuCmd1, difficulyMenuCmd2, difficultyMenuCmd3};
         drawMenuImage(images, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         switch (gp.commandNum) {
