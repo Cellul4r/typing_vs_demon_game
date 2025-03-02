@@ -40,7 +40,7 @@ public class UI {
         DIALOG_30 = new Font("DIALOG", Font.BOLD, 30);
         try{
             mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
-            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
+            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.jpg"));
             difficultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
             gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
@@ -130,34 +130,29 @@ public class UI {
     
     private void drawMainMenu() {
         drawImage(mainMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        BufferedImage[] images = {mainMenuCmd1, mainMenuCmd2};
-        drawMenuImage(images, GamePanel.TILE_SIZE, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         if(gp.commandNum == 0) {
-            drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
+            drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
         } else {
-            drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + 4 * GamePanel.TILE_SIZE / 5);
+            drawCursorMenu(8 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
         }
     }
     
     private void drawTutorialMenu(){
         drawImage(tutorialMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         if(gp.commandNum == 0) {
-            drawCursorMenu(11 * GamePanel.TILE_SIZE, 12 * GamePanel.TILE_SIZE);
+            drawCursorMenu(11 * GamePanel.TILE_SIZE, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
         } else {
-            drawCursorMenu(4 * GamePanel.TILE_SIZE - 10, 12 * GamePanel.TILE_SIZE);
+            drawCursorMenu(4 * GamePanel.TILE_SIZE - 15, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
         }
     }
     
     private void drawDifficultySelectionMenu() {
         drawImage(difficultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        BufferedImage[] images = {diffcultyMenuCmd1, difficulyMenuCmd2, difficultyMenuCmd3};
-        drawMenuImage(images, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         switch (gp.commandNum) {
             case 0 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
             case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
             default -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 7 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
         }
-        setDimBackGround(Color.black, 0.2f);
     }
     
     private void drawText(String text, Font font, Color color, int x, int y) {
