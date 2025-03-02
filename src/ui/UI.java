@@ -16,9 +16,9 @@ import javax.imageio.ImageIO;
 public class UI {
     
     private final GamePanel gp;
-    private final Font TimesNewRoman_80;
-    private final Font TimesNewRoman_40;
-    private final Font TimesNewRoman_30;
+    private final Font DIALOG_80;
+    private final Font DIALOG_40;
+    private final Font DIALOG_30;
     private BufferedImage cursorImage;
     private BufferedImage mainMenuBg;
     private BufferedImage tutorialMenuBg;
@@ -35,9 +35,9 @@ public class UI {
     
     public UI(GamePanel gp) {
         this.gp = gp;
-        TimesNewRoman_80 = new Font("Times New Roman", Font.BOLD, 80);
-        TimesNewRoman_40 = new Font("Times New Roman", Font.BOLD, 40);
-        TimesNewRoman_30 = new Font("Times New Roman", Font.BOLD, 30);
+        DIALOG_80 = new Font("DIALOG", Font.BOLD, 80);
+        DIALOG_40 = new Font("DIALOG", Font.BOLD, 40);
+        DIALOG_30 = new Font("DIALOG", Font.BOLD, 30);
         try{
             mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
             tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
@@ -79,15 +79,19 @@ public class UI {
     
     private void drawPlayScreen() {
         // draw UserInput's Word of the player
-        drawText(gp.getPlayer().getUserInput(), TimesNewRoman_40, Color.black,  
-                    GamePanel.TILE_SIZE * 5, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
+		g2.setColor(Color.black);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		g2.fillRect(5 * GamePanel.TILE_SIZE, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
+					10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        drawCenteredText(gp.getPlayer().getUserInput(), DIALOG_40, Color.white, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
         // draw Score of player UI
         drawImage(labelBg, GamePanel.SCREEN_WIDTH - 2 * GamePanel.TILE_SIZE, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
-        drawTopRightText(String.valueOf(gp.getPlayer().getScore()), TimesNewRoman_30,
+        drawTopRightText(String.valueOf(gp.getPlayer().getScore()), DIALOG_30,
                     Color.white, GamePanel.TILE_SIZE);
         // draw Wave Completed UI
         if(showWaveCompletedMessage) {
-            drawCenteredText("Wave " + gp.getWave().getLevel() + " Completed!", TimesNewRoman_40, Color.black, GamePanel.SCREEN_HEIGHT / 2);
+            drawCenteredText("Wave " + gp.getWave().getLevel() + " Completed!", DIALOG_40, Color.black, GamePanel.SCREEN_HEIGHT / 2);
         }
         
         // draw Health UI
