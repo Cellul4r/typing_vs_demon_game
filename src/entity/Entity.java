@@ -25,7 +25,6 @@ public abstract class Entity {
     protected int spriteCounter = 0;
     protected int spriteNum = 0;
     
-    
     protected Rectangle solidArea;
     protected boolean collisionOn = false;
     
