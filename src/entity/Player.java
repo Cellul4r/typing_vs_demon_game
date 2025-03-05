@@ -26,8 +26,6 @@ public class Player extends Entity {
     private int score = 0;
     private Item item;
     
-    
-    
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp, DEFAULT_X, GamePanel.CHANNEL_SPACING, DEFAULT_CHANNEL);
         this.keyH = keyH;
