@@ -82,7 +82,6 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_ENTER -> {
                     gp.getSoundM().stopMusic(SoundManager.TITLE_MUSIC);
                     gp.getSoundM().playMusic(SoundManager.PLAY_MUSIC);
-                    gp.restartGame();
                     if(gp.commandNum == 0){
                         gp.gameState = GamePanel.PLAY_STATE; //Easy
                         gp.difficulty = GamePanel.EASY;
@@ -104,24 +103,19 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_RIGHT){
                 gp.commandNum++;
-                if(gp.commandNum > 1)
+                if(gp.commandNum > 0)
                     gp.commandNum = 0;
             }
             if(code == KeyEvent.VK_ENTER){
-                gp.getSoundM().stopMusic(SoundManager.PLAY_MUSIC);
-                gp.getSoundM().stopSoundEffect(SoundManager.PLAYER_LOSE);
                 if(gp.commandNum == 0){
-                    gp.gameState = GamePanel.TITLE_STATE;
-                    gp.titleScreenState = 0;
-                    gp.getSoundM().playMusic(SoundManager.TITLE_MUSIC);
                     gp.restartGame();
                 }
             }
         } else {
             code = e.getKeyCode();
             switch (code) {
-                case KeyEvent.VK_UP -> upPressed = true;
-                case KeyEvent.VK_DOWN -> downPressed = true;
+                case KeyEvent.VK_UP, KeyEvent.VK_LEFT -> upPressed = true;
+                case KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT -> downPressed = true;
                 case KeyEvent.VK_ENTER -> enterPressed = true;
                 case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
                 case KeyEvent.VK_ESCAPE -> {
@@ -141,8 +135,8 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         switch (code) {
-            case KeyEvent.VK_UP -> upPressed = false;
-            case KeyEvent.VK_DOWN -> downPressed = false;
+            case KeyEvent.VK_UP, KeyEvent.VK_LEFT -> upPressed = false;
+            case KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT -> downPressed = false;
             case KeyEvent.VK_ENTER -> enterPressed = false;
             case KeyEvent.VK_BACK_SPACE -> deletePressed = false;
         }

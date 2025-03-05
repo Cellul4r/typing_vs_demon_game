@@ -56,7 +56,9 @@ public class Player extends Entity {
         if(health == 0) {
             gp.gameState = GamePanel.GAME_OVER_STATE;
             gp.getSoundM().stopMusic(SoundManager.ENEMY_SOUND);
+            gp.getSoundM().stopMusic(SoundManager.PLAY_MUSIC);
             gp.getSoundM().playSoundEffect(SoundManager.PLAYER_LOSE);
+            return;
         }
         checkKey();
         updateAnimation();

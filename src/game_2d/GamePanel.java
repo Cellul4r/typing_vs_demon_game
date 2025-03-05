@@ -79,8 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
             channelRow[i] = j;
         }
         
-        gameState = TITLE_STATE;
-        soundM.playMusic(SoundManager.TITLE_MUSIC);
+        restartGame();
     }
     
     public void startGameThread() {
@@ -96,7 +95,7 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
         
-        while(gameThread!=null){
+        while(gameThread != null){
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval; //How much time pass divided by drawInterval
             lastTime = currentTime;
@@ -130,6 +129,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void restartGame() {
+        gameState = TITLE_STATE;
+        titleScreenState = TITLE_MAIN;
+        soundM.playMusic(SoundManager.TITLE_MUSIC);
+        soundM.stopMusic(SoundManager.PLAY_MUSIC);
         wave = new Wave(this);
         player = new Player(this, keyH);
     }
