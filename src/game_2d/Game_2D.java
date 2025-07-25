@@ -10,11 +10,9 @@ import javax.swing.*;
  * @author HP
  */
 public class Game_2D {
-    /**
-     * @param args the command line arguments
-     */
+
+    private static JFrame window = new JFrame();
     public static void main(String[] args) {
-        JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        window.setResizable(false);
         window.setTitle("Typing Vs Demons");
@@ -30,7 +28,11 @@ public class Game_2D {
         loadGame();
         gamepanel.startGameThread();
     }
-        
+
+    public static JFrame getWindow() {
+        return window;
+    }
+
     public static void loadGame() {
         WordGenerator.loadWordList();
     }
