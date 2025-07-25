@@ -14,12 +14,12 @@ public class Game_2D {
     public static JFrame window = new JFrame();
     public static void main(String[] args) {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Typing Vs  Demons");
+        window.setUndecorated(true);
+        window.setResizable(true);
+        window.setTitle("Typing Vs Demons");
         
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
-
         window.pack(); //Size the window to be equal to this.setPreferredSize
 
         window.setLocationRelativeTo(null); //set window at the center of the screen
