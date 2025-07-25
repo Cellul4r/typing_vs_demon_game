@@ -20,7 +20,7 @@ public class ItemBomb extends Item {
     
     @Override
     public void useItem() {
-        gp.getSoundM().playSoundEffect(SoundManager.BOMB_SOUND);
+        gp.getSoundM().play(SoundManager.BOMB_SOUND);
         gp.getWave().deleteRowWave(gp.getPlayer().getChannel());
     }
 

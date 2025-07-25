@@ -1,10 +1,10 @@
 package sound;
 
-import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import java.net.URL;
 
 /**
  *
@@ -19,9 +19,12 @@ public class Sound {
     public Sound(String url, float volume) {
         soundURL = getClass().getResource(url);
         this.volume = volume;
+        setFile();
     }
     
     public void setFile(){
+        if(clip != null) return;
+
         try{
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL);
             clip = AudioSystem.getClip();
@@ -35,8 +38,7 @@ public class Sound {
     }
     
     public void play(){
-        if(clip != null && clip.isRunning()) return;
-        setFile();
+        clip.setFramePosition(0);
         clip.start();
     }
     
@@ -44,16 +46,7 @@ public class Sound {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     
-    public void stopSoundEffect(){
-        if(clip == null) return;
+    public void stop(){
         clip.stop();
-        clip.close();
-    }
-    
-    public void stopMusic() {
-        if(clip == null) return;
-        clip.stop();
-        clip.flush();
-        clip.close();
     }
 }

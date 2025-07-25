@@ -6,7 +6,7 @@ package sound;
  */
 public class SoundManager {
     
-    Sound sound[] = new Sound[10];
+    Sound[] sounds = new Sound[10];
     public static final int TITLE_MUSIC = 0;
     public static final int PLAY_MUSIC = 1;
     public static final int ENEMY_DEAD = 2;
@@ -20,32 +20,33 @@ public class SoundManager {
     
     public SoundManager(){
         //Wav file only
-        sound[0] = new Sound("/resource/sound_res/main_menu.wav", -25.0f);
-        sound[1] = new Sound("/resource/sound_res/play_game.wav", -32.0f);
-        sound[2] = new Sound("/resource/sound_res/enemy_dead.wav", -25.0f);
-        sound[3] = new Sound("/resource/sound_res/gun_sound.wav", -10.0f);
-        sound[4] = new Sound("/resource/sound_res/enemy_sound.wav", -35.0f);
-        sound[5] = new Sound("/resource/sound_res/wrong_typed.wav", 6.0f);
-        sound[6] = new Sound("/resource/sound_res/player_lose_sound.wav", -20.0f);
-        sound[7] = new Sound("/resource/sound_res/healing_sound.wav", -22.0f);
-        sound[8] = new Sound("/resource/sound_res/freeze_sound.wav", -22.0f);
-        sound[9] = new Sound("/resource/sound_res/bomb_sound.wav", -28.0f);
+        sounds[0] = new Sound("/resource/sound_res/main_menu.wav", -25.0f);
+        sounds[1] = new Sound("/resource/sound_res/play_game.wav", -30.0f);
+        sounds[2] = new Sound("/resource/sound_res/enemy_dead.wav", -25.0f);
+        sounds[3] = new Sound("/resource/sound_res/gun_sound.wav", -10.0f);
+        sounds[4] = new Sound("/resource/sound_res/enemy_sound.wav", -35.0f);
+        sounds[5] = new Sound("/resource/sound_res/wrong_typed.wav", 6.0f);
+        sounds[6] = new Sound("/resource/sound_res/player_lose_sound.wav", -20.0f);
+        sounds[7] = new Sound("/resource/sound_res/healing_sound.wav", -22.0f);
+        sounds[8] = new Sound("/resource/sound_res/freeze_sound.wav", -22.0f);
+        sounds[9] = new Sound("/resource/sound_res/bomb_sound.wav", -28.0f);
     }   
     
-    public void playSoundEffect(int i) {
-        sound[i].play();
-    }
-    
-    public void stopSoundEffect(int i) {
-        sound[i].stopSoundEffect();
-    }
-    
-    public void stopMusic(int i) {
-        sound[i].stopMusic();
+    public void play(int i) {
+        sounds[i].play();
     }
 
-    public void playMusic(int i) {
-        sound[i].play();
-        sound[i].loop();
+    public void loop(int i) {
+        sounds[i].loop();
+    }
+
+    public void stop(int i) {
+        sounds[i].stop();
+    }
+    
+    public void stopAllSounds() {
+        for (Sound value : sounds) {
+            value.stop();
+        }
     }
 }

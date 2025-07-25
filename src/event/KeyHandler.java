@@ -1,9 +1,10 @@
 package event;
 
 import game_2d.GamePanel;
+import sound.SoundManager;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import sound.SoundManager;
 
 /**
  *
@@ -80,8 +81,8 @@ public class KeyHandler implements KeyListener {
                         gp.commandNum = 0;
                 }
                 case KeyEvent.VK_ENTER -> {
-                    gp.getSoundM().stopMusic(SoundManager.TITLE_MUSIC);
-                    gp.getSoundM().playMusic(SoundManager.PLAY_MUSIC);
+                    gp.getSoundM().stop(SoundManager.TITLE_MUSIC);
+                    gp.getSoundM().play(SoundManager.PLAY_MUSIC);
                     if(gp.commandNum == 0){
                         gp.gameState = GamePanel.PLAY_STATE; //Easy
                         gp.difficulty = GamePanel.EASY;

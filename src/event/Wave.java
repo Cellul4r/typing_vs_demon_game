@@ -1,18 +1,12 @@
 package event;
 
-import entity.Enemy;
-import entity.EnemySquid;
-import entity.EnemyStick;
-import entity.WordObject;
-import entity.Item;
-import entity.ItemBomb;
-import entity.ItemFreezer;
-import entity.ItemHealer;
+import entity.*;
 import game_2d.GamePanel;
-import java.awt.Graphics2D;
+import sound.SoundManager;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
-import sound.SoundManager;
 
 /**
  *
@@ -52,17 +46,17 @@ public class Wave {
     public boolean checkPlayerWord(int playerRow, String word) {
         for(WordObject wordObject : wordObjectList[playerRow]) {
             if(wordObject.getWord().equals(word)) {
-                gp.getSoundM().playSoundEffect(SoundManager.GUN_SOUND);
+                gp.getSoundM().play(SoundManager.GUN_SOUND);
                 if(wordObject instanceof Item item) {
                     gp.getPlayer().setItem(item);
                 } else {
-                    gp.getSoundM().playSoundEffect(SoundManager.ENEMY_DEAD); // change Number later
+                    gp.getSoundM().play(SoundManager.ENEMY_DEAD); // change Number later
                 }
                 wordObjectList[playerRow].remove(wordObject);
                 return true;
             }
         }
-        gp.getSoundM().playSoundEffect(SoundManager.WRONG_TYPED);
+        gp.getSoundM().play(SoundManager.WRONG_TYPED);
         return false;
     }
         
@@ -70,7 +64,7 @@ public class Wave {
         enemyAmount = WORD_OBJECT_DEFAULT + (int)(WORD_OBJECT_DEFAULT*level*enemyFactor);
         enemySpawn = 0;
         level++;
-        gp.getSoundM().playSoundEffect(SoundManager.ENEMY_SOUND);
+        gp.getSoundM().play(SoundManager.ENEMY_SOUND);
     }
     
     private void randomWordObject() {
@@ -104,7 +98,7 @@ public class Wave {
     public void update() {
         // check if the player clear that wave
         if(isWaveEmpty()) {
-            gp.getSoundM().stopSoundEffect(SoundManager.ENEMY_SOUND);
+            gp.getSoundM().stop(SoundManager.ENEMY_SOUND);
             if(level != 0) {
                 gp.getUiM().setShowWaveCompletedMessage(true);
                 // draw Summary how many Time has player played and show the score.
@@ -175,7 +169,7 @@ public class Wave {
             }
         }
         if(hasEnemy) {
-            gp.getSoundM().playSoundEffect(SoundManager.ENEMY_DEAD);
+            gp.getSoundM().play(SoundManager.ENEMY_DEAD);
         }
         wordObjectList[row] = newWordObjectList;
     }

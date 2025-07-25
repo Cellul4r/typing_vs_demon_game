@@ -1,16 +1,15 @@
 package game_2d;
 
-import event.KeyHandler;
-import event.CollisionChecker;
 import entity.Player;
+import event.CollisionChecker;
+import event.KeyHandler;
 import event.Wave;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
 import sound.SoundManager;
 import tile.TileManager;
 import ui.UI;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -131,8 +130,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void restartGame() {
         gameState = TITLE_STATE;
         titleScreenState = TITLE_MAIN;
-        soundM.playMusic(SoundManager.TITLE_MUSIC);
-        soundM.stopMusic(SoundManager.PLAY_MUSIC);
+        soundM.stopAllSounds();
+        soundM.loop(SoundManager.TITLE_MUSIC);
         wave = new Wave(this);
         player = new Player(this, keyH);
     }

@@ -1,12 +1,13 @@
 package entity;
 
 import game_2d.GamePanel;
+import sound.SoundManager;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import sound.SoundManager;
 
 /**
  *
@@ -23,7 +24,7 @@ public class ItemHealer extends Item {
     @Override
     public void useItem() {
         gp.getPlayer().changeHealth(HEAL_VALUE);
-        gp.getSoundM().playSoundEffect(SoundManager.HEALING_SOUND);
+        gp.getSoundM().play(SoundManager.HEALING_SOUND);
     }
     
     @Override

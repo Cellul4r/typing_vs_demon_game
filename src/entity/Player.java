@@ -1,13 +1,13 @@
 package entity;
 
-import game_2d.GamePanel;
 import event.KeyHandler;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import game_2d.GamePanel;
+import sound.SoundManager;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import sound.SoundManager;
 
 /**
  *
@@ -53,9 +53,9 @@ public class Player extends Entity {
     public void update(){
         if(health == 0) {
             gp.gameState = GamePanel.GAME_OVER_STATE;
-            gp.getSoundM().stopMusic(SoundManager.ENEMY_SOUND);
-            gp.getSoundM().stopMusic(SoundManager.PLAY_MUSIC);
-            gp.getSoundM().playSoundEffect(SoundManager.PLAYER_LOSE);
+            gp.getSoundM().stop(SoundManager.ENEMY_SOUND);
+            gp.getSoundM().stop(SoundManager.PLAY_MUSIC);
+            gp.getSoundM().play(SoundManager.PLAYER_LOSE);
             return;
         }
         checkKey();
