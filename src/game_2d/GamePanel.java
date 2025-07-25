@@ -20,13 +20,13 @@ public class GamePanel extends JPanel implements Runnable{
     // default Settings for SCREEN
     private static final int ORIGINAL_TILE_SIZE = 16; //Pixel Size of Characters
     private static final int SCALE = 3; //Scale of Pixel Size
-    
-    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; //Real Size of Characters
-    
-    public static final int MAX_SCREEN_COL = 20;
+
+    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 48 Real Size of Characters
+
+    public static final int MAX_SCREEN_COL = 24;
     public static final int MAX_SCREEN_ROW = 14;
-    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
-    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 960
+    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 672
     
     // default Settings for gameplay
     public static final int GAME_ROW = 5;
