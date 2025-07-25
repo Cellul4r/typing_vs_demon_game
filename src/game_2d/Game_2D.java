@@ -11,11 +11,11 @@ import javax.swing.*;
  */
 public class Game_2D {
 
-    private static JFrame window = new JFrame();
+    public static JFrame window = new JFrame();
     public static void main(String[] args) {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        window.setResizable(false);
-        window.setTitle("Typing Vs Demons");
+        window.setResizable(false);
+        window.setTitle("Typing Vs  Demons");
         
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
@@ -27,10 +27,6 @@ public class Game_2D {
 
         loadGame();
         gamepanel.startGameThread();
-    }
-
-    public static JFrame getWindow() {
-        return window;
     }
 
     public static void loadGame() {
