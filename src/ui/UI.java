@@ -1,13 +1,11 @@
 package ui;
 
 import game_2d.GamePanel;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -66,7 +64,6 @@ public class UI {
             case GamePanel.PAUSE_STATE -> drawPauseScreen();
             case GamePanel.GAME_OVER_STATE -> drawGameOver();
         }
-        g2.dispose();
     }
     
     private void drawTitleScreen(){

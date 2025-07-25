@@ -10,6 +10,7 @@ import ui.UI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -27,7 +28,9 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MAX_SCREEN_ROW = 14;
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 960
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 672
-    
+    public static final int SCREEN_WIDTH_FULL = SCREEN_WIDTH;
+    public static final int SCREEN_HEIGHT_FULL = SCREEN_HEIGHT;
+
     // default Settings for gameplay
     public static final int GAME_ROW = 5;
     private static final int GAME_SCALE = 2;
@@ -51,7 +54,11 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MEDIUM = 1;
     public static final int HARD = 2;
     public int difficulty = 0;
-    
+
+    // tempScreen for Double Buffered Screen
+    private BufferedImage tempScreen;
+    private Graphics2D g2D;
+
     // Component
     private static int channelRow[];
     private Thread gameThread; //Running game loops
@@ -79,8 +86,25 @@ public class GamePanel extends JPanel implements Runnable{
         }
         
         restartGame();
+        tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        g2D = (Graphics2D) tempScreen.getGraphics();
     }
-    
+
+    private void drawToTempScreen() {
+        if(gameState == PLAY_STATE || gameState == PAUSE_STATE || gameState == GAME_OVER_STATE){
+            tileM.draw(g2D);
+            player.draw(g2D);
+            wave.draw(g2D);
+        }
+        uiManager.draw(g2D);
+    }
+
+    private void drawToScreen() {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, SCREEN_WIDTH_FULL, SCREEN_HEIGHT_FULL, null);
+        g.dispose();
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -89,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game Loop : run -> update -> draw
     @Override
     public void run() {
-        double drawInterval = 1000000000 / FPS; //60 FPS == draw the screen every 0.016 seconds
+        double drawInterval = 1000000000 / FPS; //30 FPS == draw the screen every 0.016 seconds
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -101,7 +125,8 @@ public class GamePanel extends JPanel implements Runnable{
             
             if(delta >= 1) { //update character's position every delta
                 update();
-                repaint();
+                drawToTempScreen(); // draw everything to the buffered Image
+                drawToScreen(); // draw the buffered Image to screen
                 delta--;
             }
         }
@@ -113,20 +138,7 @@ public class GamePanel extends JPanel implements Runnable{
             wave.update();
         }
     }
-    
-    @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        if(gameState == PLAY_STATE || gameState == PAUSE_STATE || gameState == GAME_OVER_STATE){
-            tileM.draw(g2);
-            player.draw(g2);
-            wave.draw(g2);
-        }
-        uiManager.draw(g2);
-        g2.dispose();
-    }
-    
+
     public void restartGame() {
         gameState = TITLE_STATE;
         titleScreenState = TITLE_MAIN;
