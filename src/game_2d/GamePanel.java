@@ -28,8 +28,6 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MAX_SCREEN_ROW = 14;
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 960
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 672
-    public static final int SCREEN_WIDTH_FULL = SCREEN_WIDTH;
-    public static final int SCREEN_HEIGHT_FULL = SCREEN_HEIGHT;
 
     // default Settings for gameplay
     public static final int GAME_ROW = 5;
@@ -56,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable{
     public int difficulty = 0;
 
     // tempScreen for Double Buffered Screen
+    public static int screenWidthFull = SCREEN_WIDTH;
+    public static int screenHeightFull = SCREEN_HEIGHT;
     private BufferedImage tempScreen;
     private Graphics2D g2D;
 
@@ -88,6 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
         restartGame();
         tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2D = (Graphics2D) tempScreen.getGraphics();
+        setFullScreen();
     }
 
     private void drawToTempScreen() {
@@ -101,8 +102,19 @@ public class GamePanel extends JPanel implements Runnable{
 
     private void drawToScreen() {
         Graphics g = getGraphics();
-        g.drawImage(tempScreen, 0, 0, SCREEN_WIDTH_FULL, SCREEN_HEIGHT_FULL, null);
+        g.drawImage(tempScreen, 0, 0, screenWidthFull, screenHeightFull, null);
         g.dispose();
+    }
+
+    private void setFullScreen() {
+
+        // get local screen device
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gd.setFullScreenWindow(Game_2D.window);
+
+        // get full screen width and height
+        screenWidthFull = Game_2D.window.getWidth();
+        screenHeightFull = Game_2D.window.getHeight();
     }
 
     public void startGameThread() {
