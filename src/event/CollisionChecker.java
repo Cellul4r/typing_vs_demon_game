@@ -57,8 +57,11 @@ public class CollisionChecker {
                 tileNum2 = 0;
             }
         }
-        
-        return (gp.getTileM().getTile(tileNum1).getCollision() || 
+
+        if(gp.getTileM().getTile(tileNum1) == null || gp.getTileM().getTile(tileNum2) == null) {
+            return true;
+        }
+        return (gp.getTileM().getTile(tileNum1).getCollision() ||
                 gp.getTileM().getTile(tileNum2).getCollision());
     }
 }
