@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Enemy extends WordObject {
     
-    protected static final int DEFAULT_X = 20 * GamePanel.TILE_SIZE;
+    protected static final int DEFAULT_X = GamePanel.MAX_SCREEN_COL * GamePanel.TILE_SIZE;
     protected static final long INVINCIBLE_DURATION = 1500;
     
     protected int damage;
