@@ -72,14 +72,13 @@ public class GamePanel extends JPanel implements Runnable{
     private Wave wave;
     
     public GamePanel() {
-        setUpGame();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); //so the game can 'focus' on receiving key
     }
     
-    private void setUpGame() {
+    public void setUpGame() {
         channelRow = new int[GAME_ROW];
         for(int i = 0, j = FIRST_CHANNEL_Y; i < GAME_ROW; i++, j += CHANNEL_SPACING) {
             channelRow[i] = j;
@@ -91,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
         setFullScreen();
     }
 
-    private void drawToTempScreen() {
+     private void drawToTempScreen() {
         if(gameState == PLAY_STATE || gameState == PAUSE_STATE || gameState == GAME_OVER_STATE){
             tileM.draw(g2D);
             player.draw(g2D);

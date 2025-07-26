@@ -15,7 +15,7 @@ public class Game_2D {
     public static void main(String[] args) {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setUndecorated(true);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setTitle("Typing Vs Demons");
         
         GamePanel gamepanel = new GamePanel();
@@ -26,6 +26,7 @@ public class Game_2D {
         window.setVisible(true);
 
         loadGame();
+        gamepanel.setUpGame();
         gamepanel.startGameThread();
     }
 
