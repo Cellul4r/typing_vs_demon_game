@@ -1,14 +1,15 @@
 package tile;
 
 import game_2d.GamePanel;
-import java.awt.Graphics2D;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -84,7 +85,20 @@ public class TileManager {
         }
     }
     
-    public Tile getTile(int i) { return this.tile[i];}
+    public Tile getTile(int i) {
+        if(i == -1) {
+            return null;
+        }
+
+        return this.tile[i];
+    }
     
-    public int getMapTileNum(int x, int y) { return this.mapTileNum[x][y];}
+    public int getMapTileNum(int x, int y) {
+
+        if(x < 0 || y < 0 || x >= GamePanel.MAX_SCREEN_COL || y >= GamePanel.MAX_SCREEN_ROW) {
+            return -1;
+        }
+
+        return this.mapTileNum[x][y];
+    }
 }
