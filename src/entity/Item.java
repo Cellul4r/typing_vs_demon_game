@@ -12,7 +12,7 @@ public abstract class Item extends WordObject {
     public Item(GamePanel gp, int channel) {
         super(gp, channel);
         Random rm = new Random();
-        x = rm.nextInt(5*GamePanel.TILE_SIZE, 18*GamePanel.TILE_SIZE);
+        x = rm.nextInt(GamePanel.MAX_SCREEN_COL / 2     *GamePanel.TILE_SIZE, (GamePanel.MAX_SCREEN_COL - 2) * GamePanel.TILE_SIZE);
     }
     
     public abstract void useItem();
