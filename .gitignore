@@ -6,8 +6,11 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-out/
 
+# Intellij IDEA
+out/
+.idea/
+*.iml
 # Class Files #
 *.class
 
