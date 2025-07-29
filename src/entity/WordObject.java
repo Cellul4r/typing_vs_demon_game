@@ -42,11 +42,11 @@ public abstract class WordObject extends Entity {
         g2.drawImage(image, x, y, 5 * GamePanel.TILE_SIZE / 4, 5 * GamePanel.TILE_SIZE / 4, null);
         
         // draw Enemy's Word
+        g2.setFont(FONT);
         int width = g2.getFontMetrics().stringWidth(word);
         g2.setColor(Color.WHITE);
         g2.fillRect(x + (GamePanel.TILE_SIZE - width)/2 - 10, y - 25, width + 20, g2.getFontMetrics().getHeight());
         
-        g2.setFont(FONT);
         g2.setColor(Color.BLACK);
         g2.drawRect(x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2 - 10, y - 25, g2.getFontMetrics().stringWidth(word) + 20, g2.getFontMetrics().getHeight());
         g2.drawString(word, x + (GamePanel.TILE_SIZE - (g2.getFontMetrics().stringWidth(word)))/2, y - 10);
