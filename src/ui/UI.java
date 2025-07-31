@@ -78,7 +78,7 @@ public class UI {
         // draw UserInput's Word of the player
 		g2.setColor(Color.black);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-		g2.fillRect(5 * GamePanel.TILE_SIZE, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
+		g2.fillRect((GamePanel.SCREEN_WIDTH - (10 * GamePanel.TILE_SIZE)) / 2, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
 					10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         drawCenteredText(gp.getPlayer().getUserInput(), DIALOG_40, Color.white, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
@@ -100,9 +100,9 @@ public class UI {
         g2.fillRoundRect(4 * GamePanel.TILE_SIZE / 3 + 5, GamePanel.TILE_SIZE / 2 + 5, heartWidth, heartHeight, 1, 1);
         
         // draw Item inventory UI
-        drawImage(itemInvBg, 5 * GamePanel.TILE_SIZE + 20, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
+        drawImage(itemInvBg, 6 * GamePanel.TILE_SIZE, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
         if(gp.getPlayer().getItem() != null) {
-            drawImage(gp.getPlayer().getItem().getItemImage(), 6 * GamePanel.TILE_SIZE - 5, 40, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+            drawImage(gp.getPlayer().getItem().getItemImage(), 6 * GamePanel.TILE_SIZE + 25, 40, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
         }
     }
     
@@ -137,7 +137,7 @@ public class UI {
     private void drawTutorialMenu(){
         drawImage(tutorialMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
         if(gp.commandNum == 0) {
-            drawCursorMenu(11 * GamePanel.TILE_SIZE, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
+            drawCursorMenu(13 * GamePanel.TILE_SIZE, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2 - 5);
         } else {
             drawCursorMenu(4 * GamePanel.TILE_SIZE - 15, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
         }
