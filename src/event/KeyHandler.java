@@ -27,108 +27,56 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_MAIN){
-            switch (code) {
-                case KeyEvent.VK_UP -> {
-                    gp.commandNum--;
-                    if(gp.commandNum < 0)
-                        gp.commandNum = 1;
-                }
-                case KeyEvent.VK_DOWN -> {
-                    gp.commandNum++;
-                    if(gp.commandNum > 1)
-                        gp.commandNum = 0;
-                }
-                case KeyEvent.VK_ENTER -> {
-                    if(gp.commandNum == 0){
-                        gp.titleScreenState = GamePanel.TITLE_TUTORIAL;
-                    } else if(gp.commandNum == 1){
-                        System.exit(0);
-                    }
-                }
-            }
-        } else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_TUTORIAL){
-            switch (code) {
-                case KeyEvent.VK_UP -> {
-                    gp.commandNum--;
-                    if(gp.commandNum < 0)
-                        gp.commandNum = 1;
-                }
-                case KeyEvent.VK_DOWN -> {
-                    gp.commandNum++;
-                    if(gp.commandNum > 1)
-                        gp.commandNum = 0;
-                }
-                case KeyEvent.VK_ENTER -> {
-                    if(gp.commandNum == 0){
-                        gp.titleScreenState = GamePanel.TITLE_DIFFICULTY;
-                    }   if(gp.commandNum == 1){
-                        gp.titleScreenState = GamePanel.TITLE_MAIN;
-                    }
-                }
-            }
-        }
-        else if(gp.gameState == GamePanel.TITLE_STATE && gp.titleScreenState == GamePanel.TITLE_DIFFICULTY){
-            switch (code) {
-                case KeyEvent.VK_UP -> {
-                    gp.commandNum--;
-                    if(gp.commandNum < 0)
-                        gp.commandNum = 2;
-                }
-                case KeyEvent.VK_DOWN -> {
-                    gp.commandNum++;
-                    if(gp.commandNum > 2)
-                        gp.commandNum = 0;
-                }
-                case KeyEvent.VK_ENTER -> {
-                    gp.getSoundM().stop(SoundManager.TITLE_MUSIC);
-                    gp.getSoundM().play(SoundManager.PLAY_MUSIC);
-                    if(gp.commandNum == 0){
-                        gp.gameState = GamePanel.PLAY_STATE; //Easy
-                        gp.difficulty = GamePanel.EASY;
-                    }   if(gp.commandNum == 1){
-                        gp.gameState = GamePanel.PLAY_STATE; //Medium
-                        gp.difficulty = GamePanel.MEDIUM;
-                    }   if(gp.commandNum == 2){
-                        gp.gameState = GamePanel.PLAY_STATE; //Hard
-                        gp.difficulty = GamePanel.HARD;
-                    }
-                }
-            }
-        }
-        else if(gp.gameState == GamePanel.GAME_OVER_STATE){
-            if(code == KeyEvent.VK_UP || code == KeyEvent.VK_LEFT){
+        GameStateManager gsm = gp.getGameStateManager();
+        GameState current = gsm.getCurrentState();
+
+        switch (code) {
+            case KeyEvent.VK_UP -> {
+                upPressed = true;
                 gp.commandNum--;
-                if(gp.commandNum < 0)
-                    gp.commandNum = 1;
+                if (gp.commandNum < 0)
+                    gp.commandNum = getMaxCommandNum();
             }
-            if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_RIGHT){
+            case KeyEvent.VK_DOWN -> {
+                downPressed = true;
                 gp.commandNum++;
-                if(gp.commandNum > 0)
+                if (gp.commandNum > getMaxCommandNum())
                     gp.commandNum = 0;
             }
-            if(code == KeyEvent.VK_ENTER){
-                if(gp.commandNum == 0){
-                    gp.restartGame();
+            case KeyEvent.VK_LEFT -> {
+                upPressed = true;
+                if (current instanceof TitleTutorialState){
+                    gp.commandNum++;
+                    if (gp.commandNum > getMaxCommandNum())
+                        gp.commandNum = 0;
                 }
             }
-        } else {
-            code = e.getKeyCode();
-            switch (code) {
-                case KeyEvent.VK_UP, KeyEvent.VK_LEFT -> upPressed = true;
-                case KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT -> downPressed = true;
-                case KeyEvent.VK_ENTER -> enterPressed = true;
-                case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
-                case KeyEvent.VK_ESCAPE -> {
-                    if(gp.gameState == GamePanel.PLAY_STATE){
-                        gp.gameState = GamePanel.PAUSE_STATE;
-                    } else if(gp.gameState == GamePanel.PAUSE_STATE){
-                        gp.gameState = GamePanel.PLAY_STATE;
-                    }
+            case KeyEvent.VK_RIGHT -> {
+                downPressed = true;
+                if (current instanceof TitleTutorialState){
+                    gp.commandNum--;
+                    if (gp.commandNum < getMaxCommandNum())
+                        gp.commandNum = 0;
                 }
-                case KeyEvent.VK_SPACE -> spacePressed = true;
-                default -> keyChar = e.getKeyChar();
             }
+            case KeyEvent.VK_ENTER -> {
+                enterPressed = true;
+                
+                if(!(current instanceof PlayState)){
+                    gsm.setCommandNum(gp.commandNum);
+                    gsm.changeGameState();
+                }
+            }
+            case KeyEvent.VK_ESCAPE -> {
+                if (current instanceof PlayState) {
+                    gsm.setState(new PauseState(gsm));
+                } else if (current instanceof PauseState) {
+                    gsm.setState(new PlayState(gsm));
+                }
+            }
+            case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
+            case KeyEvent.VK_SPACE -> spacePressed = true;
+            default -> keyChar = e.getKeyChar();
         }
     }
 
@@ -141,6 +89,27 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_ENTER -> enterPressed = false;
             case KeyEvent.VK_BACK_SPACE -> deletePressed = false;
         }
+    }
+    
+    // Returns the max valid commandNum for the current state 
+    // like in the TitleMainState, there's only Start and Exit so we return Max=1
+    private int getMaxCommandNum() {
+        GameState state = gp.getGameStateManager().getCurrentState();
+        
+        if (state instanceof TitleMainState) return 1;
+        if (state instanceof TitleTutorialState) return 1;
+        if (state instanceof TitleDifficultyState) return 2;
+        if (state instanceof GameOverState) return 0;
+        return 0;
+    }
+    
+    public void resetAllKeys() {
+        upPressed = false;
+        downPressed = false;
+        enterPressed = false;
+        deletePressed = false;
+        spacePressed = false;
+        keyChar = '\0';
     }
     
     public boolean getUpPressed() {return upPressed;}
@@ -168,3 +137,29 @@ public class KeyHandler implements KeyListener {
     public void resetKeyChar(){ keyChar = '\0';}
     
 }
+
+//int code = e.getKeyCode();
+//        switch (code) {
+//            case KeyEvent.VK_UP, KeyEvent.VK_LEFT -> upPressed = true;
+//            case KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT -> downPressed = true;
+//            case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
+//            case KeyEvent.VK_ENTER -> {
+//                enterPressed = true;
+//                // Tell GameStateManager to change state via current state's logic
+//                if (gp.getGameStateManager().getCurrentState() instanceof PauseState) {
+//                    gp.getGameStateManager().setState(new TitleMainState(gp.getGameStateManager()));
+//                }
+//                gp.getGameStateManager().setCommandNum(gp.commandNum);
+//                gp.getGameStateManager().changeGameState();
+//                
+//            }
+//            case KeyEvent.VK_ESCAPE -> {
+//                if (gp.getGameStateManager().getCurrentState() instanceof PlayState) {
+//                    gp.getGameStateManager().setState(new PauseState(gp.getGameStateManager()));
+//                } else if (gp.getGameStateManager().getCurrentState() instanceof PauseState) {
+//                    gp.getGameStateManager().setState(new PlayState(gp.getGameStateManager()));
+//                }
+//            }
+//            default -> keyChar = e.getKeyChar();
+//        }
+//    }

@@ -2,7 +2,13 @@ package game_2d;
 
 import entity.Player;
 import event.CollisionChecker;
+import event.GameOverState;
+import event.GameState;
+import event.GameStateManager;
 import event.KeyHandler;
+import event.PauseState;
+import event.PlayState;
+import event.TitleMainState;
 import event.Wave;
 import sound.SoundManager;
 import tile.TileManager;
@@ -37,16 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int FPS = 30;
     
     // Game State Settings
-    public static final int TITLE_STATE = 0;
-    public static final int PLAY_STATE = 1;
-    public static final int PAUSE_STATE = 2;
-    public static final int GAME_OVER_STATE = 3;
-    public static final int TITLE_MAIN = 0;
-    public static final int TITLE_TUTORIAL = 1;
-    public static final int TITLE_DIFFICULTY = 2;
-    public int gameState;
     public int commandNum = 0;
-    public int titleScreenState = 0;
     
     public static final int EASY = 0;
     public static final int MEDIUM = 1;
@@ -67,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final SoundManager soundM = new SoundManager();
     private final CollisionChecker cChecker = new CollisionChecker(this);
     private final UI uiManager = new UI(this);
+    private final GameStateManager gameStateManager = new GameStateManager(this);
     
     private Player player;
     private Wave wave;
@@ -91,7 +89,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
      private void drawToTempScreen() {
-        if(gameState == PLAY_STATE || gameState == PAUSE_STATE || gameState == GAME_OVER_STATE){
+        GameState current = gameStateManager.getCurrentState();
+        if(current instanceof PlayState || current instanceof PauseState || current instanceof GameOverState){
             tileM.draw(g2D);
             player.draw(g2D);
             wave.draw(g2D);
@@ -144,19 +143,21 @@ public class GamePanel extends JPanel implements Runnable{
     }
         
     public void update(){
-        if(gameState == PLAY_STATE){
+        GameState current = gameStateManager.getCurrentState();
+        if (current instanceof PlayState) {
             player.update();
             wave.update();
         }
     }
 
     public void restartGame() {
-        gameState = TITLE_STATE;
-        titleScreenState = TITLE_MAIN;
+        commandNum = 0;
+        difficulty = EASY;
         soundM.stopAllSounds();
         soundM.loop(SoundManager.TITLE_MUSIC);
         wave = new Wave(this);
         player = new Player(this, keyH);
+        gameStateManager.setState(new TitleMainState(gameStateManager));
     }
     
     public int getChannelY(int row) { return channelRow[row];}
@@ -172,4 +173,8 @@ public class GamePanel extends JPanel implements Runnable{
     public Wave getWave() { return this.wave;}  
     
     public UI getUiM() { return this.uiManager;};
+    
+    public GameStateManager getGameStateManager() { return this.gameStateManager;};
+    
+    public KeyHandler getKeyHandler() { return this.keyH;};
 }

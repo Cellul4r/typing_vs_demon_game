@@ -1,5 +1,6 @@
 package entity;
 
+import event.GameOverState;
 import event.KeyHandler;
 import game_2d.GamePanel;
 import sound.SoundManager;
@@ -25,6 +26,7 @@ public class Player extends Entity {
     private int health;
     private int score = 0;
     private Item item;
+    private boolean firstFrame = true;
     
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp, DEFAULT_X, GamePanel.CHANNEL_SPACING, DEFAULT_CHANNEL);
@@ -52,11 +54,18 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
-            gp.gameState = GamePanel.GAME_OVER_STATE;
+            gp.commandNum = 0;
+            gp.getGameStateManager().setState(new GameOverState(gp.getGameStateManager()));
             gp.getSoundM().stop(SoundManager.ENEMY_SOUND);
             gp.getSoundM().stop(SoundManager.PLAY_MUSIC);
             gp.getSoundM().play(SoundManager.PLAYER_LOSE);
             return;
+        }
+        
+        //only reason why this exists is because of the first frame WRONG_TYPED sound
+        if(firstFrame){
+            firstFrame=false;
+            keyH.resetAllKeys();
         }
         checkKey();
         updateAnimation();
@@ -128,6 +137,10 @@ public class Player extends Entity {
         if(health > maxHealth) health = maxHealth;
     }
     
+    public void resetFirstFrame() {
+        firstFrame = true;
+    }
+        
     public void setItem(Item item) { this.item = item; }
     
     public int getHealth(){ return this.health;}

@@ -1,5 +1,12 @@
 package ui;
 
+import event.GameOverState;
+import event.GameState;
+import event.PauseState;
+import event.PlayState;
+import event.TitleDifficultyState;
+import event.TitleMainState;
+import event.TitleTutorialState;
 import game_2d.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -58,29 +65,29 @@ public class UI {
     
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        switch(gp.gameState) {
-            case GamePanel.TITLE_STATE -> drawTitleScreen();
-            case GamePanel.PLAY_STATE -> drawPlayScreen();
-            case GamePanel.PAUSE_STATE -> drawPauseScreen();
-            case GamePanel.GAME_OVER_STATE -> drawGameOver();
-        }
-    }
-    
-    private void drawTitleScreen(){
-        switch(gp.titleScreenState) {
-            case GamePanel.TITLE_MAIN -> drawMainMenu(); 
-            case GamePanel.TITLE_TUTORIAL -> drawTutorialMenu();
-            case GamePanel.TITLE_DIFFICULTY -> drawDifficultySelectionMenu();
+        GameState state = gp.getGameStateManager().getCurrentState();
+        if (state instanceof TitleMainState) {
+            drawMainMenu();
+        } else if (state instanceof TitleTutorialState) {
+            drawTutorialMenu();
+        } else if (state instanceof TitleDifficultyState) {
+            drawDifficultySelectionMenu();
+        } else if (state instanceof PlayState) {
+            drawPlayScreen();
+        } else if (state instanceof PauseState) {
+            drawPauseScreen();
+        } else if (state instanceof GameOverState) {
+            drawGameOver();
         }
     }
     
     private void drawPlayScreen() {
         // draw UserInput's Word of the player
-		g2.setColor(Color.black);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-		g2.fillRect((GamePanel.SCREEN_WIDTH - (10 * GamePanel.TILE_SIZE)) / 2, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
-					10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        g2.setColor(Color.black);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        g2.fillRect((GamePanel.SCREEN_WIDTH - (10 * GamePanel.TILE_SIZE)) / 2, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
+                                10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         drawCenteredText(gp.getPlayer().getUserInput(), DIALOG_40, Color.white, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
         // draw Score of player UI
         drawImage(labelBg, GamePanel.SCREEN_WIDTH - 2 * GamePanel.TILE_SIZE, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
