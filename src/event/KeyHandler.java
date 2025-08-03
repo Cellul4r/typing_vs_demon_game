@@ -1,9 +1,17 @@
-package gamestate;
+package event;
 
 import gamestate.GameStateManager;
 import gamestate.GameOverState;
 import gamestate.GameState;
 import game_2d.GamePanel;
+import gamestate.GameOverState;
+import gamestate.GameState;
+import gamestate.GameStateManager;
+import gamestate.PauseState;
+import gamestate.PlayState;
+import gamestate.TitleDifficultyState;
+import gamestate.TitleMainState;
+import gamestate.TitleTutorialState;
 import sound.SoundManager;
 
 import java.awt.event.KeyEvent;

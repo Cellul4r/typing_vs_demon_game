@@ -5,7 +5,7 @@ import event.CollisionChecker;
 import gamestate.GameOverState;
 import gamestate.GameState;
 import gamestate.GameStateManager;
-import gamestate.KeyHandler;
+import event.KeyHandler;
 import gamestate.PauseState;
 import gamestate.PlayState;
 import gamestate.TitleMainState;
