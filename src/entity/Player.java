@@ -54,7 +54,6 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
-            gp.commandNum = 0;
             gp.getGameStateManager().setState(new GameOverState(gp.getGameStateManager()));
             gp.getSoundM().stop(SoundManager.ENEMY_SOUND);
             gp.getSoundM().stop(SoundManager.PLAY_MUSIC);

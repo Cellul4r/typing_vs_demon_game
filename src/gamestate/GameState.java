@@ -10,7 +10,10 @@ package gamestate;
  */
 public interface GameState {
     
-    void changeState(int commandNum);
+    void changeState();
     GameState getGameState();
+    void moveUp();
+    void moveDown();
+    int getCommandNum(); // for UI
     
 }

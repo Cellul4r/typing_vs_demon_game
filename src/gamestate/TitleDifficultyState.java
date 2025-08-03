@@ -12,13 +12,14 @@ import game_2d.GamePanel;
  */
 public class TitleDifficultyState implements GameState {
     private GameStateManager gsm;
+    private int commandNum = 0;
 
     public TitleDifficultyState(GameStateManager gsm) {
         this.gsm = gsm;
     }
 
     @Override
-    public void changeState(int commandNum) {
+    public void changeState() {
         switch (commandNum) {
             case 0 -> {
                 gsm.getGamePanel().difficulty = GamePanel.EASY;
@@ -38,6 +39,25 @@ public class TitleDifficultyState implements GameState {
     @Override
     public GameState getGameState() {
         return this;
+    }
+    
+    @Override
+    public void moveUp() {
+        commandNum--;
+        if (commandNum < 0) 
+            commandNum = 2;
+    }
+
+    @Override
+    public void moveDown() {
+        commandNum++;
+        if (commandNum > 2) 
+            commandNum = 0;
+    }
+
+    @Override
+    public int getCommandNum() {
+        return commandNum;
     }
 }
 

@@ -10,19 +10,33 @@ package gamestate;
  */
 public class PauseState implements GameState {
     private GameStateManager gsm;
+    private int commandNum = 0;
 
     public PauseState(GameStateManager gsm) {
         this.gsm = gsm;
     }
 
     @Override
-    public void changeState(int commandNum) {
+    public void changeState() {
         gsm.getGamePanel().restartGame();
     }
 
     @Override
     public GameState getGameState() {
         return this;
+    }
+
+    @Override
+    public void moveUp() {
+    }
+
+    @Override
+    public void moveDown() {
+    }
+
+    @Override
+    public int getCommandNum() {
+        return this.commandNum;
     }
 }
 

@@ -10,13 +10,14 @@ package gamestate;
  */
 public class PlayState implements GameState {
     private GameStateManager gsm;
+    private int commandNum = 0;
 
     public PlayState(GameStateManager gsm) {
         this.gsm = gsm;
     }
 
     @Override
-    public void changeState(int commandNum) {
+    public void changeState() {
         gsm.setState(new PauseState(gsm));
         gsm.getGamePanel().getPlayer().resetFirstFrame();
     }
@@ -24,6 +25,19 @@ public class PlayState implements GameState {
     @Override
     public GameState getGameState() {
         return this;
+    }
+
+    @Override
+    public void moveUp() {
+    }
+
+    @Override
+    public void moveDown() {
+    }
+
+    @Override
+    public int getCommandNum() {
+        return this.commandNum;
     }
 }
 

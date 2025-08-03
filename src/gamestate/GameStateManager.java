@@ -22,7 +22,7 @@ public class GameStateManager {
     }
 
     public void changeGameState() {
-        currentState.changeState(commandNum);
+        currentState.changeState();
         commandNum = 0;
     }
 

@@ -42,9 +42,6 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int CHANNEL_SPACING = GAME_SCALE * TILE_SIZE;
     public static final int FPS = 30;
     
-    // Game State Settings
-    public int commandNum = 0;
-    
     public static final int EASY = 0;
     public static final int MEDIUM = 1;
     public static final int HARD = 2;
@@ -151,7 +148,6 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void restartGame() {
-        commandNum = 0;
         difficulty = EASY;
         soundM.stopAllSounds();
         soundM.loop(SoundManager.TITLE_MUSIC);

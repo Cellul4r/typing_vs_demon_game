@@ -133,8 +133,9 @@ public class UI {
     }
     
     private void drawMainMenu() {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(mainMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        if(gp.commandNum == 0) {
+        if(commandNum == 0) {
             drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
         } else {
             drawCursorMenu(8 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
@@ -142,8 +143,9 @@ public class UI {
     }
     
     private void drawTutorialMenu(){
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(tutorialMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        if(gp.commandNum == 0) {
+        if(commandNum == 0) {
             drawCursorMenu(13 * GamePanel.TILE_SIZE, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2 - 5);
         } else {
             drawCursorMenu(4 * GamePanel.TILE_SIZE - 15, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
@@ -151,8 +153,9 @@ public class UI {
     }
     
     private void drawDifficultySelectionMenu() {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(difficultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        switch (gp.commandNum) {
+        switch (commandNum) {
             case 0 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
             case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
             default -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 7 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
@@ -202,12 +205,13 @@ public class UI {
         }
     }
     private void drawMenu(String[] texts, Font font, Color color, int y) {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         
         for(int i = 0; i < texts.length; i++) {
             int newY = y + GamePanel.TILE_SIZE * i;
             drawCenteredText(texts[i], font, color, newY);
             
-            if(gp.commandNum == i) {
+            if(commandNum == i) {
                 drawCursorMenu(getXforCenteredText(texts[i]), newY);
             }
         }

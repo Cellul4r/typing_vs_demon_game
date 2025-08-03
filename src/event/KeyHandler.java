@@ -41,37 +41,28 @@ public class KeyHandler implements KeyListener {
         switch (code) {
             case KeyEvent.VK_UP -> {
                 upPressed = true;
-                gp.commandNum--;
-                if (gp.commandNum < 0)
-                    gp.commandNum = getMaxCommandNum();
+                current.moveUp();
             }
             case KeyEvent.VK_DOWN -> {
                 downPressed = true;
-                gp.commandNum++;
-                if (gp.commandNum > getMaxCommandNum())
-                    gp.commandNum = 0;
+                current.moveDown();
             }
             case KeyEvent.VK_LEFT -> {
                 upPressed = true;
                 if (current instanceof TitleTutorialState){
-                    gp.commandNum++;
-                    if (gp.commandNum > getMaxCommandNum())
-                        gp.commandNum = 0;
+                    current.moveUp();
                 }
             }
             case KeyEvent.VK_RIGHT -> {
                 downPressed = true;
                 if (current instanceof TitleTutorialState){
-                    gp.commandNum--;
-                    if (gp.commandNum < getMaxCommandNum())
-                        gp.commandNum = 0;
+                    current.moveDown();
                 }
             }
             case KeyEvent.VK_ENTER -> {
                 enterPressed = true;
                 
                 if(!(current instanceof PlayState)){
-                    gsm.setCommandNum(gp.commandNum);
                     gsm.changeGameState();
                 }
             }
@@ -145,29 +136,3 @@ public class KeyHandler implements KeyListener {
     public void resetKeyChar(){ keyChar = '\0';}
     
 }
-
-//int code = e.getKeyCode();
-//        switch (code) {
-//            case KeyEvent.VK_UP, KeyEvent.VK_LEFT -> upPressed = true;
-//            case KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT -> downPressed = true;
-//            case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
-//            case KeyEvent.VK_ENTER -> {
-//                enterPressed = true;
-//                // Tell GameStateManager to change state via current state's logic
-//                if (gp.getGameStateManager().getCurrentState() instanceof PauseState) {
-//                    gp.getGameStateManager().setState(new TitleMainState(gp.getGameStateManager()));
-//                }
-//                gp.getGameStateManager().setCommandNum(gp.commandNum);
-//                gp.getGameStateManager().changeGameState();
-//                
-//            }
-//            case KeyEvent.VK_ESCAPE -> {
-//                if (gp.getGameStateManager().getCurrentState() instanceof PlayState) {
-//                    gp.getGameStateManager().setState(new PauseState(gp.getGameStateManager()));
-//                } else if (gp.getGameStateManager().getCurrentState() instanceof PauseState) {
-//                    gp.getGameStateManager().setState(new PlayState(gp.getGameStateManager()));
-//                }
-//            }
-//            default -> keyChar = e.getKeyChar();
-//        }
-//    }
