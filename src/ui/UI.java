@@ -1,12 +1,12 @@
 package ui;
 
-import event.GameOverState;
-import event.GameState;
-import event.PauseState;
-import event.PlayState;
-import event.TitleDifficultyState;
-import event.TitleMainState;
-import event.TitleTutorialState;
+import gamestate.GameOverState;
+import gamestate.GameState;
+import gamestate.PauseState;
+import gamestate.PlayState;
+import gamestate.TitleDifficultyState;
+import gamestate.TitleMainState;
+import gamestate.TitleTutorialState;
 import game_2d.GamePanel;
 
 import javax.imageio.ImageIO;

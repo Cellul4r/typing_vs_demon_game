@@ -2,23 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package event;
+package gamestate;
 
 /**
  *
  * @author HP
  */
-public class PlayState implements GameState {
+public class PauseState implements GameState {
     private GameStateManager gsm;
 
-    public PlayState(GameStateManager gsm) {
+    public PauseState(GameStateManager gsm) {
         this.gsm = gsm;
     }
 
     @Override
     public void changeState(int commandNum) {
-        gsm.setState(new PauseState(gsm));
-        gsm.getGamePanel().getPlayer().resetFirstFrame();
+        gsm.getGamePanel().restartGame();
     }
 
     @Override

@@ -1,5 +1,8 @@
-package event;
+package gamestate;
 
+import gamestate.GameStateManager;
+import gamestate.GameOverState;
+import gamestate.GameState;
 import game_2d.GamePanel;
 import sound.SoundManager;
 

@@ -1,7 +1,7 @@
 package entity;
 
-import event.GameOverState;
-import event.KeyHandler;
+import gamestate.GameOverState;
+import gamestate.KeyHandler;
 import game_2d.GamePanel;
 import sound.SoundManager;
 
