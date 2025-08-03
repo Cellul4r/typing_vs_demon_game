@@ -1,8 +1,5 @@
 package event;
 
-import gamestate.GameStateManager;
-import gamestate.GameOverState;
-import gamestate.GameState;
 import game_2d.GamePanel;
 import gamestate.GameOverState;
 import gamestate.GameState;
