@@ -73,25 +73,19 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_UP -> {
                     gp.commandNum--;
                     if(gp.commandNum < 0)
-                        gp.commandNum = 2;
+                        gp.commandNum = 0;
                 }
                 case KeyEvent.VK_DOWN -> {
                     gp.commandNum++;
-                    if(gp.commandNum > 2)
+                    if(gp.commandNum > 0)
                         gp.commandNum = 0;
                 }
                 case KeyEvent.VK_ENTER -> {
                     gp.getSoundM().stop(SoundManager.TITLE_MUSIC);
                     gp.getSoundM().play(SoundManager.PLAY_MUSIC);
-                    if(gp.commandNum == 0){
-                        gp.gameState = GamePanel.PLAY_STATE; //Easy
-                        gp.difficulty = GamePanel.EASY;
-                    }   if(gp.commandNum == 1){
+                    if(gp.commandNum == 0) {
                         gp.gameState = GamePanel.PLAY_STATE; //Medium
                         gp.difficulty = GamePanel.MEDIUM;
-                    }   if(gp.commandNum == 2){
-                        gp.gameState = GamePanel.PLAY_STATE; //Hard
-                        gp.difficulty = GamePanel.HARD;
                     }
                 }
             }
