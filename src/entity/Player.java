@@ -7,7 +7,7 @@ import sound.SoundManager;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 
 /**
  *
@@ -23,6 +23,7 @@ public class Player extends Entity {
     private char keyChar;
     private int maxHealth;
     private int health;
+    private int highestScore;
     private int score = 0;
     private Item item;
     
@@ -31,6 +32,16 @@ public class Player extends Entity {
         this.keyH = keyH;
         this.maxHealth = 100;
         this.health = maxHealth;
+        // read highest score
+        try {
+            InputStream is = new FileInputStream("src/highest_score.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String highestScoreStr = br.readLine();
+            highestScore = Integer.parseInt(highestScoreStr);
+            br.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -56,6 +67,23 @@ public class Player extends Entity {
             gp.getSoundM().stop(SoundManager.ENEMY_SOUND);
             gp.getSoundM().stop(SoundManager.PLAY_MUSIC);
             gp.getSoundM().play(SoundManager.PLAYER_LOSE);
+            try {
+                InputStream is = new FileInputStream("src/highest_score.txt");
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String highestScoreStr = br.readLine();
+                highestScore = Integer.parseInt(highestScoreStr);
+                if(score > highestScore) {
+                    highestScore = score;
+                }
+                br.close();
+
+                OutputStream os = new FileOutputStream("src/highest_score.txt");
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+                bw.write(String.valueOf(highestScore));
+                bw.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
         checkKey();
@@ -139,4 +167,6 @@ public class Player extends Entity {
     public int getMaxHealth() { return this.maxHealth;}
     
     public Item getItem() { return this.item; }
+
+    public int getHighestScore() { return this.highestScore; }
 }

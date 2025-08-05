@@ -116,11 +116,16 @@ public class UI {
     }
     
     private void drawGameOver(){ // When player lose -> GameOver Show up
-        
         // background Color
         setDimBackGround(Color.black, 0.5f);
-        
-        drawCenteredImage(gameoverMenu, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 
+
+        // draw Score and highest Score
+        drawCenteredText("Highest Score: %s".
+                formatted(gp.getPlayer().getHighestScore()), DIALOG_40, Color.WHITE, GamePanel.SCREEN_HEIGHT / 8);
+        drawCenteredText("Current Score: %s".
+                formatted(gp.getPlayer().getScore()), DIALOG_40, Color.WHITE, GamePanel.SCREEN_HEIGHT / 4);
+
+        drawCenteredImage(gameoverMenu, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2,
                             20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
         drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - 2 *GamePanel.TILE_SIZE - 25, GamePanel.SCREEN_HEIGHT / 2 + GamePanel.TILE_SIZE + 13);
     }
