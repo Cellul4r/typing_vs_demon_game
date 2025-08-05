@@ -15,7 +15,7 @@ import java.util.Random;
 public class Wave {
     
     private static final int WORD_OBJECT_DEFAULT = 7;
-    private static final int WORD_OBEJCT_TIME_LIMIT = 53;
+    private static final int WORD_OBEJCT_TIME_LIMIT = 30;
     private static final int WAVE_TIME_LIMIT = 120;
     private final GamePanel gp;
     private final double enemyFactor;
@@ -104,6 +104,9 @@ public class Wave {
                 // draw Summary how many Time has player played and show the score.
             }
             if(waveTick == WAVE_TIME_LIMIT) {
+                if(level == 7) {
+                    gp.gameState = GamePanel.GAME_OVER_STATE;
+                }
                 createWave();
                 gp.getUiM().setShowWaveCompletedMessage(false);
                 waveTick = 0;
