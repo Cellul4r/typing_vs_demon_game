@@ -29,7 +29,7 @@ public class SoundManager {
         sounds[6] = new Sound("/resource/sound_res/player_lose_sound.wav", -20.0f);
         sounds[7] = new Sound("/resource/sound_res/healing_sound.wav", -22.0f);
         sounds[8] = new Sound("/resource/sound_res/freeze_sound.wav", -22.0f);
-        sounds[9] = new Sound("/resource/sound_res/bomb_sound.wav", -8.0f); //-28.0f
+        sounds[9] = new Sound("/resource/sound_res/bomb_sound.wav", -10.0f); //-28.0f
     }   
     
     public void play(int i) {
