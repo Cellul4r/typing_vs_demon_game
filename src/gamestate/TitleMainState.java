@@ -4,6 +4,8 @@
  */
 package gamestate;
 
+import sound.SoundManager;
+
 /**
  *
  * @author HP
@@ -45,5 +47,11 @@ public class TitleMainState implements GameState {
     @Override
     public int getCommandNum() {
         return commandNum;
+    }
+    
+    @Override
+    public void doSound(SoundManager soundM){
+        soundM.stopAllSounds();
+        soundM.loop(SoundManager.TITLE_MUSIC);
     }
 }

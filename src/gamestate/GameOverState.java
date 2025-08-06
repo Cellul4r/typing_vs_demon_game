@@ -4,6 +4,8 @@
  */
 package gamestate;
 
+import sound.SoundManager;
+
 /**
  *
  * @author HP
@@ -45,5 +47,12 @@ public class GameOverState implements GameState {
     @Override
     public int getCommandNum() {
         return commandNum;
+    }
+    
+    @Override
+    public void doSound(SoundManager soundM){
+        soundM.stop(SoundManager.ENEMY_SOUND);
+        soundM.stop(SoundManager.PLAY_MUSIC);
+        soundM.play(SoundManager.PLAYER_LOSE);
     }
 }

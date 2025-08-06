@@ -4,6 +4,8 @@
  */
 package gamestate;
 
+import sound.SoundManager;
+
 /**
  *
  * @author HP
@@ -15,5 +17,6 @@ public interface GameState {
     void moveUp();
     void moveDown();
     int getCommandNum(); // for UI
+    void doSound(SoundManager soundM);
     
 }

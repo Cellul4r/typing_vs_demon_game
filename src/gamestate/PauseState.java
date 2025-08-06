@@ -4,6 +4,8 @@
  */
 package gamestate;
 
+import sound.SoundManager;
+
 /**
  *
  * @author HP
@@ -37,6 +39,11 @@ public class PauseState implements GameState {
     @Override
     public int getCommandNum() {
         return this.commandNum;
+    }
+    
+    @Override
+    public void doSound(SoundManager soundM){
+        soundM.pause(SoundManager.PLAY_MUSIC);
     }
 }
 

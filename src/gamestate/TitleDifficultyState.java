@@ -5,6 +5,7 @@
 package gamestate;
 
 import game_2d.GamePanel;
+import sound.SoundManager;
 
 /**
  *
@@ -23,15 +24,15 @@ public class TitleDifficultyState implements GameState {
         switch (commandNum) {
             case 0 -> {
                 gsm.getGamePanel().difficulty = GamePanel.EASY;
-                gsm.setState(new PlayState(gsm));
+                gsm.setState(new PlayState(gsm, false));
             }
             case 1 -> {
                 gsm.getGamePanel().difficulty = GamePanel.MEDIUM;
-                gsm.setState(new PlayState(gsm));
+                gsm.setState(new PlayState(gsm, false));
             }
             case 2 -> {
                 gsm.getGamePanel().difficulty = GamePanel.HARD;
-                gsm.setState(new PlayState(gsm));
+                gsm.setState(new PlayState(gsm, false));
             }
         }
     }
@@ -58,6 +59,11 @@ public class TitleDifficultyState implements GameState {
     @Override
     public int getCommandNum() {
         return commandNum;
+    }
+    
+    @Override
+    public void doSound(SoundManager soundM){
+        
     }
 }
 

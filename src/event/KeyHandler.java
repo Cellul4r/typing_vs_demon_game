@@ -70,7 +70,7 @@ public class KeyHandler implements KeyListener {
                 if (current instanceof PlayState) {
                     gsm.setState(new PauseState(gsm));
                 } else if (current instanceof PauseState) {
-                    gsm.setState(new PlayState(gsm));
+                    gsm.setState(new PlayState(gsm, true));
                 }
             }
             case KeyEvent.VK_BACK_SPACE -> deletePressed = true;
@@ -88,18 +88,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_ENTER -> enterPressed = false;
             case KeyEvent.VK_BACK_SPACE -> deletePressed = false;
         }
-    }
-    
-    // Returns the max valid commandNum for the current state 
-    // like in the TitleMainState, there's only Start and Exit so we return Max=1
-    private int getMaxCommandNum() {
-        GameState state = gp.getGameStateManager().getCurrentState();
-        
-        if (state instanceof TitleMainState) return 1;
-        if (state instanceof TitleTutorialState) return 1;
-        if (state instanceof TitleDifficultyState) return 2;
-        if (state instanceof GameOverState) return 0;
-        return 0;
     }
     
     public void resetAllKeys() {

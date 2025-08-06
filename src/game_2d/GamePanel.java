@@ -149,8 +149,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void restartGame() {
         difficulty = EASY;
-        soundM.stopAllSounds();
-        soundM.loop(SoundManager.TITLE_MUSIC);
         wave = new Wave(this);
         player = new Player(this, keyH);
         gameStateManager.setState(new TitleMainState(gameStateManager));

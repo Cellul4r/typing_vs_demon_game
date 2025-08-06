@@ -28,6 +28,7 @@ public class GameStateManager {
 
     public void setState(GameState newState) {
         this.currentState = newState;
+        currentState.doSound(gp.getSoundM());
     }
 
     public GameState getCurrentState() {

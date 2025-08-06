@@ -4,6 +4,8 @@
  */
 package gamestate;
 
+import sound.SoundManager;
+
 /**
  *
  * @author HP
@@ -11,9 +13,11 @@ package gamestate;
 public class PlayState implements GameState {
     private GameStateManager gsm;
     private int commandNum = 0;
+    private boolean resumeMusic;
 
-    public PlayState(GameStateManager gsm) {
+    public PlayState(GameStateManager gsm, boolean resumeMusic) {
         this.gsm = gsm;
+        this.resumeMusic = resumeMusic;
     }
 
     @Override
@@ -38,6 +42,16 @@ public class PlayState implements GameState {
     @Override
     public int getCommandNum() {
         return this.commandNum;
+    }
+    
+    @Override
+    public void doSound(SoundManager soundM) {
+        soundM.stop(SoundManager.TITLE_MUSIC);
+        if (resumeMusic) {
+            soundM.resume(SoundManager.PLAY_MUSIC);
+        } else {
+            soundM.play(SoundManager.PLAY_MUSIC); // Start from beginning
+        }
     }
 }
 
