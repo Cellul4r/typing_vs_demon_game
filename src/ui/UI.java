@@ -1,5 +1,12 @@
 package ui;
 
+import gamestate.GameOverState;
+import gamestate.GameState;
+import gamestate.PauseState;
+import gamestate.PlayState;
+import gamestate.TitleDifficultyState;
+import gamestate.TitleMainState;
+import gamestate.TitleTutorialState;
 import game_2d.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -58,29 +65,29 @@ public class UI {
     
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        switch(gp.gameState) {
-            case GamePanel.TITLE_STATE -> drawTitleScreen();
-            case GamePanel.PLAY_STATE -> drawPlayScreen();
-            case GamePanel.PAUSE_STATE -> drawPauseScreen();
-            case GamePanel.GAME_OVER_STATE -> drawGameOver();
-        }
-    }
-    
-    private void drawTitleScreen(){
-        switch(gp.titleScreenState) {
-            case GamePanel.TITLE_MAIN -> drawMainMenu(); 
-            case GamePanel.TITLE_TUTORIAL -> drawTutorialMenu();
-            case GamePanel.TITLE_DIFFICULTY -> drawDifficultySelectionMenu();
+        GameState state = gp.getGameStateManager().getCurrentState();
+        if (state instanceof TitleMainState) {
+            drawMainMenu();
+        } else if (state instanceof TitleTutorialState) {
+            drawTutorialMenu();
+        } else if (state instanceof TitleDifficultyState) {
+            drawDifficultySelectionMenu();
+        } else if (state instanceof PlayState) {
+            drawPlayScreen();
+        } else if (state instanceof PauseState) {
+            drawPauseScreen();
+        } else if (state instanceof GameOverState) {
+            drawGameOver();
         }
     }
     
     private void drawPlayScreen() {
         // draw UserInput's Word of the player
-		g2.setColor(Color.black);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-		g2.fillRect((GamePanel.SCREEN_WIDTH - (10 * GamePanel.TILE_SIZE)) / 2, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
-					10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        g2.setColor(Color.black);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        g2.fillRect((GamePanel.SCREEN_WIDTH - (10 * GamePanel.TILE_SIZE)) / 2, GamePanel.SCREEN_HEIGHT - 2 * GamePanel.TILE_SIZE + 10, 
+                                10 * GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         drawCenteredText(gp.getPlayer().getUserInput(), DIALOG_40, Color.white, GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE);
         // draw Score of player UI
         drawImage(labelBg, GamePanel.SCREEN_WIDTH - 2 * GamePanel.TILE_SIZE, 0, 2 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
@@ -126,8 +133,9 @@ public class UI {
     }
     
     private void drawMainMenu() {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(mainMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        if(gp.commandNum == 0) {
+        if(commandNum == 0) {
             drawCursorMenu(6 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
         } else {
             drawCursorMenu(8 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
@@ -135,8 +143,9 @@ public class UI {
     }
     
     private void drawTutorialMenu(){
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(tutorialMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        if(gp.commandNum == 0) {
+        if(commandNum == 0) {
             drawCursorMenu(13 * GamePanel.TILE_SIZE, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2 - 5);
         } else {
             drawCursorMenu(4 * GamePanel.TILE_SIZE - 15, 10 * GamePanel.TILE_SIZE + 3 * GamePanel.TILE_SIZE / 2);
@@ -144,8 +153,9 @@ public class UI {
     }
     
     private void drawDifficultySelectionMenu() {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         drawImage(difficultyMenuBg, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
-        switch (gp.commandNum) {
+        switch (commandNum) {
             case 0 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 5 * GamePanel.TILE_SIZE);
             case 1 -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 6 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 4);
             default -> drawCursorMenu(7 * GamePanel.TILE_SIZE, 7 * GamePanel.TILE_SIZE + GamePanel.TILE_SIZE / 2);
@@ -195,12 +205,13 @@ public class UI {
         }
     }
     private void drawMenu(String[] texts, Font font, Color color, int y) {
+        int commandNum = gp.getGameStateManager().getCurrentState().getCommandNum();
         
         for(int i = 0; i < texts.length; i++) {
             int newY = y + GamePanel.TILE_SIZE * i;
             drawCenteredText(texts[i], font, color, newY);
             
-            if(gp.commandNum == i) {
+            if(commandNum == i) {
                 drawCursorMenu(getXforCenteredText(texts[i]), newY);
             }
         }

@@ -15,6 +15,7 @@ public class Sound {
     private Clip clip;
     private final URL soundURL;
     private float volume;
+    private long clipPosition = 0; // Track where we paused
     
     public Sound(String url, float volume) {
         soundURL = getClass().getResource(url);
@@ -48,5 +49,19 @@ public class Sound {
     
     public void stop(){
         clip.stop();
+    }
+
+    public void pause() {
+        if (clip != null && clip.isRunning()) {
+            clipPosition = clip.getMicrosecondPosition();
+            clip.stop();
+        }
+    }
+    
+    public void resume() {
+        if (clip != null && !clip.isRunning()) {
+            clip.setMicrosecondPosition(clipPosition);
+            clip.start();
+        }
     }
 }
