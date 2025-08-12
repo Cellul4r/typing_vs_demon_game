@@ -45,15 +45,15 @@ public class TitleDifficultyState implements GameState {
     @Override
     public void moveUp() {
         commandNum--;
-        if (commandNum < 0) 
-            commandNum = 2;
+        if (commandNum < 1)
+            commandNum = 1;
     }
 
     @Override
     public void moveDown() {
         commandNum++;
-        if (commandNum > 2) 
-            commandNum = 0;
+        if (commandNum > 1)
+            commandNum = 1;
     }
 
     @Override
