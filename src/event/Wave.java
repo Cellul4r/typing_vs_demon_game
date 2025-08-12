@@ -2,6 +2,7 @@ package event;
 
 import entity.*;
 import game_2d.GamePanel;
+import gamestate.GameOverState;
 import sound.SoundManager;
 
 import java.awt.*;
@@ -109,6 +110,9 @@ public class Wave {
                 createWave();
                 gp.getUiM().setShowWaveCompletedMessage(false);
                 waveTick = 0;
+				if(level == 8) {
+					gp.getPlayer().changeHealth(-gp.getPlayer().getMaxHealth());
+				}
             } else {
                 waveTick++;
             }
