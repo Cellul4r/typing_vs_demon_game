@@ -75,8 +75,10 @@ public class Wave {
         WordObject wordObject;
         if(chance < 95) {
             chance = rm.nextInt(100);
-            if(chance < 50) {
+            if(chance < 35) {
                 wordObject = new EnemySquid(gp, row, level);
+            } else if(chance < 70) {
+                wordObject = new EnemyWitch(gp, row, level);
             } else {
                 wordObject = new EnemyStick(gp, row, level);
             }
