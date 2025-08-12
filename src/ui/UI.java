@@ -134,9 +134,13 @@ public class UI {
 
         // draw Score of the player
         drawCenteredText("Highest Score: " + gp.highestScore,
-                DIALOG_40, Color.white, 2 * GamePanel.TILE_SIZE);
+                DIALOG_30, Color.white, GamePanel.TILE_SIZE);
         drawCenteredText("With Time: " + gp.timeScore  + " seconds",
-                DIALOG_40, Color.white, 3 * GamePanel.TILE_SIZE);
+                DIALOG_30, Color.white, 2 * GamePanel.TILE_SIZE);
+        drawCenteredText("Current Score: " + gp.getPlayer().getScore(),
+                DIALOG_40, Color.yellow, 3 * GamePanel.TILE_SIZE);
+        drawCenteredText("Current Play Time: " + gp.getPlayer().getPlayTime()  + " seconds",
+                DIALOG_40, Color.yellow, 4 * GamePanel.TILE_SIZE);
     }
     
     private void drawMainMenu() {

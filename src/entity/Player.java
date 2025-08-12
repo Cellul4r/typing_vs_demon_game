@@ -24,6 +24,7 @@ public class Player extends Entity {
     private int maxHealth;
     private int health;
     private int score = 0;
+    private long playTime = 0;
     private Item item;
     private boolean firstFrame = true;
     
@@ -53,7 +54,7 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
-            long playTime = System.currentTimeMillis() / 1000 - gp.startPlay;
+            playTime = System.currentTimeMillis() / 1000 - gp.startPlay;
             if(score > gp.highestScore) {
                 gp.highestScore = score;
                 gp.timeScore = playTime;
@@ -152,6 +153,8 @@ public class Player extends Entity {
     public int getScore() { return this.score;}
     
     public int getMaxHealth() { return this.maxHealth;}
+
+    public long getPlayTime() { return this.playTime; }
     
     public Item getItem() { return this.item; }
 }
