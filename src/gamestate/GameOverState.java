@@ -34,13 +34,13 @@ public class GameOverState implements GameState {
     public void moveUp() {
         commandNum--;
         if (commandNum < 0) 
-            commandNum = 1;
+            commandNum = 0;
     }
 
     @Override
     public void moveDown() {
         commandNum++;
-        if (commandNum > 1) 
+        if (commandNum > 0)
             commandNum = 0;
     }
 
