@@ -31,7 +31,7 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp, DEFAULT_X, GamePanel.CHANNEL_SPACING, DEFAULT_CHANNEL);
         this.keyH = keyH;
-        this.maxHealth = 100;
+        this.maxHealth = 80;
         this.health = maxHealth;
     }
     

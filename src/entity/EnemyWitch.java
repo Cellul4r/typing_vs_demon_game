@@ -14,7 +14,7 @@ public class EnemyWitch extends Enemy {
         super(gp, channel, level);
         this.damage = 10;
         this.baseSpeed = 3;
-        this.maxSpeed = 8;
+        this.maxSpeed = 6;
         setSpeed(level);
     }
 

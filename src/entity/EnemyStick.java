@@ -15,7 +15,7 @@ public class EnemyStick extends Enemy {
     
     public EnemyStick(GamePanel gp, int channel, int level) {
         super(gp, channel, level);
-        this.damage = 2;
+        this.damage = 20;
         this.baseSpeed = 1;
         this.maxSpeed = 4;
         setSpeed(level);
