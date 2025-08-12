@@ -53,7 +53,13 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
-            gp.highestScore = Math.max(score, gp.highestScore);
+            long playTime = System.currentTimeMillis() - gp.startPlay;
+            if(score > gp.highestScore) {
+                gp.highestScore = score;
+                gp.timeScore = playTime;
+            } else if(score == gp.highestScore && playTime < gp.timeScore) {
+                gp.timeScore = playTime;
+            }
             gp.getGameStateManager().setState(new GameOverState(gp.getGameStateManager()));
             return;
         }

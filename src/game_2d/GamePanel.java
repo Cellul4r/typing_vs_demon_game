@@ -47,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int HARD = 2;
     public int difficulty = 0;
     public int highestScore = 0;
+    public long timeScore = 0;
+    public long startPlay = 0;
 
     // tempScreen for Double Buffered Screen
     public static int screenWidthFull = SCREEN_WIDTH;
@@ -144,6 +146,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
         GameState current = gameStateManager.getCurrentState();
         if (current instanceof PlayState) {
+            if(startPlay == 0) {
+                startPlay = System.currentTimeMillis() / 1000;
+            }
             player.update();
             wave.update();
         }
