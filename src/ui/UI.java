@@ -126,7 +126,7 @@ public class UI {
                     GamePanel.SCREEN_WIDTH / 2 - pauseButton.getWidth() + 2 * GamePanel.TILE_SIZE,
                 GamePanel.SCREEN_HEIGHT / 2 + GamePanel.TILE_SIZE,
                 9 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
-        if(gp.getGameStateManager().getCommandNum() == 0) drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - pauseButton.getWidth() + 2 * GamePanel.TILE_SIZE,
+        if(gp.getGameStateManager().getCurrentState().getCommandNum() == 0) drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - pauseButton.getWidth() + 2 * GamePanel.TILE_SIZE,
                 GamePanel.SCREEN_HEIGHT / 2 + 3 * GamePanel.TILE_SIZE / 2);
     }
     
