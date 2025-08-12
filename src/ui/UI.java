@@ -32,6 +32,7 @@ public class UI {
     private BufferedImage itemInvBg;
     private BufferedImage healthBar;
     private BufferedImage pauseButton;
+    private BufferedImage mainMenuButton;
     private BufferedImage mainMenuCmd1, mainMenuCmd2;
     private BufferedImage diffcultyMenuCmd1, difficulyMenuCmd2, difficultyMenuCmd3;
     private BufferedImage labelBg;
@@ -50,6 +51,7 @@ public class UI {
             gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
             pauseButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_button.png"));
+            mainMenuButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_main_menu_button.png"));
             itemInvBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/item_inventory_background.png"));
             healthBar = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/health_bar_ui.png"));
             mainMenuCmd1 = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_command1.png"));
@@ -120,6 +122,12 @@ public class UI {
         // draw Text "Pause"
         drawCenteredImage(pauseButton, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 
                             20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
+        drawImage(mainMenuButton,
+                    GamePanel.SCREEN_WIDTH / 2 - pauseButton.getWidth() + 2 * GamePanel.TILE_SIZE,
+                GamePanel.SCREEN_HEIGHT / 2 + GamePanel.TILE_SIZE,
+                9 * GamePanel.TILE_SIZE, 2 * GamePanel.TILE_SIZE);
+        if(gp.getGameStateManager().getCommandNum() == 0) drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - pauseButton.getWidth() + 2 * GamePanel.TILE_SIZE,
+                GamePanel.SCREEN_HEIGHT / 2 + 3 * GamePanel.TILE_SIZE / 2);
     }
     
     private void drawGameOver(){ // When player lose -> GameOver Show up

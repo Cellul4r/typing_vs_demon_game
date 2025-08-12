@@ -30,10 +30,18 @@ public class PauseState implements GameState {
 
     @Override
     public void moveUp() {
+        commandNum++;
+        if(commandNum > 0) {
+            commandNum = 0;
+        }
     }
 
     @Override
     public void moveDown() {
+        commandNum--;
+        if(commandNum > 0) {
+            commandNum = 0;
+        }
     }
 
     @Override
