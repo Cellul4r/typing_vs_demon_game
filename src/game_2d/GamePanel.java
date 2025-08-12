@@ -86,7 +86,6 @@ public class GamePanel extends JPanel implements Runnable{
         tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2D = (Graphics2D) tempScreen.getGraphics();
         setFullScreen();
-        gameStateManager.setState(new GameOverState(gameStateManager));
     }
 
      private void drawToTempScreen() {
@@ -159,6 +158,7 @@ public class GamePanel extends JPanel implements Runnable{
         wave = new Wave(this);
         player = new Player(this, keyH);
         gameStateManager.setState(new TitleMainState(gameStateManager));
+        startPlay = 0;
     }
     
     public int getChannelY(int row) { return channelRow[row];}

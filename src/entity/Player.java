@@ -53,7 +53,7 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
-            long playTime = System.currentTimeMillis() - gp.startPlay;
+            long playTime = System.currentTimeMillis() / 1000 - gp.startPlay;
             if(score > gp.highestScore) {
                 gp.highestScore = score;
                 gp.timeScore = playTime;

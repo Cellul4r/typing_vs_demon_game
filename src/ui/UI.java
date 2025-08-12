@@ -135,7 +135,7 @@ public class UI {
         // draw Score of the player
         drawCenteredText("Highest Score: " + gp.highestScore,
                 DIALOG_40, Color.white, 2 * GamePanel.TILE_SIZE);
-        drawCenteredText("With Time: " + gp.timeScore,
+        drawCenteredText("With Time: " + gp.timeScore  + " seconds",
                 DIALOG_40, Color.white, 3 * GamePanel.TILE_SIZE);
     }
     
