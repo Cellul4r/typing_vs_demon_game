@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MEDIUM = 1;
     public static final int HARD = 2;
     public int difficulty = 0;
+    public int highestScore = 0;
 
     // tempScreen for Double Buffered Screen
     public static int screenWidthFull = SCREEN_WIDTH;
@@ -83,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
         tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2D = (Graphics2D) tempScreen.getGraphics();
         setFullScreen();
+        gameStateManager.setState(new GameOverState(gameStateManager));
     }
 
      private void drawToTempScreen() {

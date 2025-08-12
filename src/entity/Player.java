@@ -1,9 +1,8 @@
 package entity;
 
-import gamestate.GameOverState;
 import event.KeyHandler;
 import game_2d.GamePanel;
-import sound.SoundManager;
+import gamestate.GameOverState;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -54,6 +53,7 @@ public class Player extends Entity {
     @Override
     public void update(){
         if(health == 0) {
+            gp.highestScore = Math.max(score, gp.highestScore);
             gp.getGameStateManager().setState(new GameOverState(gp.getGameStateManager()));
             return;
         }

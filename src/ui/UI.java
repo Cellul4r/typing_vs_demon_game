@@ -126,10 +126,15 @@ public class UI {
         
         // background Color
         setDimBackGround(Color.black, 0.5f);
-        
+
+        // draw GameOver menu
         drawCenteredImage(gameoverMenu, GamePanel.SCREEN_HEIGHT / 2 - 3 * pauseButton.getHeight() / 2, 
                             20 * GamePanel.TILE_SIZE, 14 * GamePanel.TILE_SIZE);
         drawCursorMenu(GamePanel.SCREEN_WIDTH / 2 - 2 *GamePanel.TILE_SIZE - 25, GamePanel.SCREEN_HEIGHT / 2 + GamePanel.TILE_SIZE + 13);
+
+        // draw Score of the player
+        drawCenteredText("Highest Score: " + gp.highestScore,
+                DIALOG_40, Color.white, GamePanel.TILE_SIZE);
     }
     
     private void drawMainMenu() {
