@@ -15,7 +15,7 @@ import java.util.Random;
 public class Wave {
     
     private static final int WORD_OBJECT_DEFAULT = 10;
-    private static final int WORD_OBEJCT_TIME_LIMIT = 50;
+    private static final int WORD_OBEJCT_TIME_LIMIT = 45;
     private static final int WAVE_TIME_LIMIT = 60;
     private final GamePanel gp;
     private final double enemyFactor;
