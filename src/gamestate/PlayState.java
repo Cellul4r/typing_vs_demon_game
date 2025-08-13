@@ -50,7 +50,7 @@ public class PlayState implements GameState {
         if (resumeMusic) {
             soundM.resume(SoundManager.PLAY_MUSIC);
         } else {
-            soundM.play(SoundManager.PLAY_MUSIC); // Start from beginning
+            soundM.loop(SoundManager.PLAY_MUSIC); // Start from beginning
         }
     }
 }
