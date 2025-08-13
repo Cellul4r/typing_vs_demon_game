@@ -17,6 +17,7 @@ public class TitleDifficultyState implements GameState {
 
     public TitleDifficultyState(GameStateManager gsm) {
         this.gsm = gsm;
+        this.commandNum = 1;
     }
 
     @Override
