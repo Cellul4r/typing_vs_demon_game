@@ -1,11 +1,12 @@
 package entity;
 
 import game_2d.GamePanel;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,7 +18,7 @@ public class EnemySquid extends Enemy {
         super(gp, channel, level);
         this.damage = 5;
         this.baseSpeed = 2;
-        this.maxSpeed = 4;
+        this.maxSpeed = 6;
         setSpeed(level);
     }
     
