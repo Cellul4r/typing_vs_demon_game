@@ -13,8 +13,8 @@ public class EnemyWitch extends Enemy {
     public EnemyWitch(GamePanel gp, int channel, int level) {
         super(gp, channel, level);
         this.damage = 10;
-        this.baseSpeed = 3;
-        this.maxSpeed = 6;
+        this.baseSpeed = 2;
+        this.maxSpeed = 5;
         setSpeed(level);
     }
 
