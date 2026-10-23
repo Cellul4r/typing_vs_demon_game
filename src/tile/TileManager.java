@@ -4,6 +4,7 @@ import game_2d.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,12 +20,20 @@ public class TileManager {
     
     Tile[] tile;
     int mapTileNum[][];
+    private final BufferedImage mapImage;
     
     public TileManager() {
         tile = new Tile[22];
         mapTileNum = new int [GamePanel.MAX_SCREEN_COL][GamePanel.MAX_SCREEN_ROW];
         getTileImage();
         loadMap("/resource/map_res/map01.txt");
+        mapImage = new BufferedImage(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D mapGraphics = mapImage.createGraphics();
+        try {
+            drawTiles(mapGraphics);
+        } finally {
+            mapGraphics.dispose();
+        }
     } 
     
     private void getTileImage() {
@@ -75,6 +84,10 @@ public class TileManager {
     }
     
     public void draw(Graphics2D g2) {
+        g2.drawImage(mapImage, 0, 0, null);
+    }
+
+    private void drawTiles(Graphics2D g2) {
         for(int i = 0, x = 0; i < GamePanel.MAX_SCREEN_COL; i++) {
             for(int j = 0, y = 0; j < GamePanel.MAX_SCREEN_ROW; j++) {
                 int tileNum = mapTileNum[i][j];
