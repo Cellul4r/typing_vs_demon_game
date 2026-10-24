@@ -41,7 +41,7 @@
 
 ## Website Deployment
 
-**Currently deployed website:** _Website URL to be added._
+**Currently deployed website:** https://cellul4r.github.io/typing_vs_demon_game
 
 The browser version runs the Java 17 Swing game using
 [CheerpJ Core](https://cheerpj.com/docs/overview), without requiring
