@@ -45,9 +45,9 @@ public class UI {
         DIALOG_40 = new Font("DIALOG", Font.BOLD, 40);
         DIALOG_30 = new Font("DIALOG", Font.BOLD, 30);
         try{
-            mainMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/main_menu_background.png"));
-            tutorialMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/tutorial_menu_background.png"));
-            difficultyMenuBg = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/difficulty_menu_background.png"));
+            mainMenuBg = loadScreenBackground("/resource/ui_res/main_menu_background.png");
+            tutorialMenuBg = loadScreenBackground("/resource/ui_res/tutorial_menu_background.png");
+            difficultyMenuBg = loadScreenBackground("/resource/ui_res/difficulty_menu_background.png");
             gameoverMenu = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/game_over_menu.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/command_arrow.png"));
             pauseButton = ImageIO.read(getClass().getResourceAsStream("/resource/ui_res/pause_button.png"));
@@ -65,6 +65,18 @@ public class UI {
         }       
     }
     
+    private BufferedImage loadScreenBackground(String path) throws IOException {
+        BufferedImage original = ImageIO.read(getClass().getResourceAsStream(path));
+        BufferedImage scaled = new BufferedImage(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics = scaled.createGraphics();
+        try {
+            graphics.drawImage(original, 0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
+        } finally {
+            graphics.dispose();
+        }
+        return scaled;
+    }
+
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         GameState state = gp.getGameStateManager().getCurrentState();

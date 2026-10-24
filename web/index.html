@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Defend the forest with your keyboard. Play Typing VS Demon in your browser.">
+  <meta name="color-scheme" content="light">
+  <title>Typing VS Demon</title>
+  <link rel="icon" href="./favicon.ico?v=2" type="image/x-icon" sizes="16x16 32x32 48x48 64x64 128x128 256x256">
+  <link rel="preload" href="./assets/fonts/press-start-2p-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
+  <script defer src="./game.js"></script>
+</head>
+<body>
+  <div class="sky-decoration" aria-hidden="true">
+    <i class="cloud cloud-one"></i><i class="cloud cloud-two"></i><i class="cloud cloud-three"></i>
+  </div>
+  <main>
+    <header class="masthead">
+      <p class="eyebrow"><span aria-hidden="true">&mdash;</span> A keyboard is your weapon <span aria-hidden="true">&mdash;</span></p>
+      <div class="title-row">
+        <img class="hero-sprite" src="./assets/player1.png" width="80" height="80" alt="">
+        <h1>Typing <span>VS</span> Demon</h1>
+        <img class="hero-sprite enemy-sprite" src="./assets/enemy3_1.png" width="80" height="80" alt="">
+      </div>
+      <p class="intro">Pick your lane. Type the word. Hold the line.</p>
+    </header>
+    <section class="arcade" aria-label="Play Typing VS Demon">
+      <div class="toolbar">
+        <div class="toolbar-label"><span class="pixel-leaf" aria-hidden="true"></span> Defend the forest</div>
+        <div class="actions">
+          <button id="start" class="play-button" type="button"><span aria-hidden="true">&#9654;</span> Start game</button>
+          <button id="fullscreen" type="button" disabled>Fullscreen</button>
+          <button id="reload" type="button" hidden>Reload game</button>
+        </div>
+      </div>
+      <div class="message-strip">
+        <span class="message-marker" aria-hidden="true">!</span>
+        <p id="status" class="status" role="status" aria-live="polite">
+          Ready for battle. The first launch may take a minute. Your next visits load faster.
+        </p>
+      </div>
+      <details id="error-details" hidden>
+        <summary>Technical details</summary><pre id="error-message"></pre>
+      </details>
+      <section id="game-viewport" class="game-viewport" aria-label="Typing VS Demon game">
+        <div id="game-stage" class="game-stage">
+          <div id="placeholder" class="placeholder">
+            <div class="welcome-board">
+              <div class="board-stars" aria-hidden="true">+ &nbsp; + &nbsp; +</div>
+              <h2>The forest needs a hero.</h2>
+              <p>No sword. No spells. Just you and your keyboard.</p>
+              <span class="board-prompt">Choose START GAME above to begin</span>
+            </div>
+            <div class="welcome-landscape" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+      <div class="frame-foot" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+    <section class="guide" aria-labelledby="guide-title">
+      <div class="guide-heading">
+        <h2 id="guide-title">Your keyboard. Your arsenal.</h2><span class="guide-tag">How to play</span>
+      </div>
+      <div class="controls">
+        <div class="control"><div class="keys"><kbd>&uarr;</kbd><kbd>&darr;</kbd></div><h3>Move lanes</h3><p>Meet the demons head-on.</p></div>
+        <div class="control"><div class="keys"><kbd>Enter</kbd></div><h3>Type &amp; attack</h3><p>Type a word, then fire.</p></div>
+        <div class="control"><div class="keys"><kbd>Backspace</kbd></div><h3>Fix a typo</h3><p>Erase and try again.</p></div>
+        <div class="control"><div class="keys"><kbd>Space</kbd></div><h3>Use an item</h3><p>A little help in battle.</p></div>
+        <div class="control"><div class="keys"><kbd>Esc</kbd></div><h3>Take a breath</h3><p>Pause your adventure.</p></div>
+      </div>
+      <p class="guide-note">Best with a desktop keyboard. Click inside the game for keyboard input and sound.
+        In fullscreen, the browser may use the first <kbd>Esc</kbd> to leave fullscreen.</p>
+    </section>
+    <footer class="credits">
+      <p>Made with pixels &amp; a little courage. <a href="https://github.com/Cellul4r/typing_vs_demon_game">View game source <span aria-hidden="true">&nearr;</span></a></p>
+      <p>Runs with <a href="https://cheerpj.com/">CheerpJ Core</a> by Leaning Technologies.</p>
+    </footer>
+    <noscript>This game needs JavaScript enabled to run Java in your browser.</noscript>
+  </main>
+  <div class="ground-decoration" aria-hidden="true"></div>
+</body>
+</html>

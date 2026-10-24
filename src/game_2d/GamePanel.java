@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static final int MAX_SCREEN_COL = 24;
     public static final int MAX_SCREEN_ROW = 14;
-    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 960
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 1152
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 672
 
     // default Settings for gameplay
@@ -83,9 +83,11 @@ public class GamePanel extends JPanel implements Runnable{
         }
         
         restartGame();
-        tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         g2D = (Graphics2D) tempScreen.getGraphics();
-        setFullScreen();
+        if (!Game_2D.BROWSER_MODE) {
+            setFullScreen();
+        }
     }
 
      private void drawToTempScreen() {
@@ -127,17 +129,40 @@ public class GamePanel extends JPanel implements Runnable{
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
+        boolean profile = Boolean.getBoolean("typingvsdemon.profile");
+        long sampleStart = lastTime;
+        int sampleFrames = 0;
         
         while(gameThread != null){
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval; //How much time pass divided by drawInterval
             lastTime = currentTime;
+            if (Game_2D.BROWSER_MODE) delta = Math.min(delta, 1);
             
             if(delta >= 1) { //update character's position every delta
                 update();
                 drawToTempScreen(); // draw everything to the buffered Image
                 drawToScreen(); // draw the buffered Image to screen
                 delta--;
+                if (profile) {
+                    sampleFrames++;
+                    long sampleEnd = System.nanoTime();
+                    if (sampleEnd - sampleStart >= 5000000000L) {
+                        System.out.println("typingvsdemon.fps=" + sampleFrames * 1000000000.0 / (sampleEnd - sampleStart)
+                                + " state=" + gameStateManager.getCurrentState().getClass().getSimpleName());
+                        sampleStart = sampleEnd;
+                        sampleFrames = 0;
+                    }
+                }
+            }
+            if (Game_2D.BROWSER_MODE) {
+                // Yield even when rendering is behind, so AWT can process keyboard events.
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
         }
     }

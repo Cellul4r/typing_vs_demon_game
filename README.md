@@ -39,6 +39,22 @@
   2. Import the project file in Apache NetBeans
   3. compile and run from IDE and Enjoy!
 
+## Website Deployment
+
+**Currently deployed website:** _Website URL to be added._
+
+The browser version runs the Java 17 Swing game using
+[CheerpJ Core](https://cheerpj.com/docs/overview), without requiring
+a local Java installation or browser extension.
+
+The deployment targets GitHub Pages through GitHub Actions.
+Pull requests targeting `master` run validation and build checks.
+Updates to `master` automatically build and publish the website;
+manual deployment is also supported.
+
+The published package includes the game JAR, web launcher, and game
+assets. The CheerpJ runtime loads from Leaning Technologies' hosted CDN.
+
 ## Team Contribution
    * [cellul4r](https://github.com/Cellul4r) - Coding and Documentation
    * [Not-Tan](https://github.com/Not-Tan) - Coding and Documentation
