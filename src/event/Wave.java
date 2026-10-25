@@ -18,7 +18,6 @@ public class Wave {
     private static final int WORD_OBEJCT_TIME_LIMIT = 53;
     private static final int WAVE_TIME_LIMIT = 120;
     private final GamePanel gp;
-    private final double enemyFactor;
     private final ArrayList<WordObject>[] wordObjectList;
     private int level;
     private int enemyAmount;
@@ -35,12 +34,6 @@ public class Wave {
             wordObjectList[i] = new ArrayList();
         }
         
-        enemyFactor = switch (gp.difficulty) {
-            case GamePanel.EASY -> 0.25;
-            case GamePanel.MEDIUM -> 0.50;
-            case GamePanel.HARD -> 0.65;
-            default -> 0.00;
-        };
     }
     
     public boolean checkPlayerWord(int playerRow, String word) {
@@ -61,6 +54,13 @@ public class Wave {
     }
         
     private void createWave() {
+        // Wave is constructed before the difficulty menu; read the selection when play begins.
+        double enemyFactor = switch (gp.difficulty) {
+            case GamePanel.EASY -> 0.25;
+            case GamePanel.MEDIUM -> 0.50;
+            case GamePanel.HARD -> 0.65;
+            default -> 0.00;
+        };
         enemyAmount = WORD_OBJECT_DEFAULT + (int)(WORD_OBJECT_DEFAULT*level*enemyFactor);
         enemySpawn = 0;
         level++;

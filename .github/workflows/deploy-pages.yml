@@ -30,8 +30,10 @@ jobs:
       - name: Test browser launcher
         run: node --test test/web-launcher.test.cjs
       - name: Build browser package
-        shell: pwsh
-        run: ./scripts/build-web.ps1
+        shell: bash
+        run: bash scripts/build-web.sh
+      - name: Test wave difficulty progression
+        run: java -Djava.awt.headless=true --class-path build/cheerpj/site/Game_2D.jar test/WaveDifficultyTest.java
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v4
